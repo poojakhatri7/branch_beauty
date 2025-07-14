@@ -1,0 +1,188 @@
+<?php
+require 'config.php';
+if(isset($_POST["submit"]))
+{
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $mobile =  $_POST["mobile_number"];
+    $email =  $_POST["email"]; 
+    $password =  $_POST["password"];
+    $confirmpassword =  $_POST["confirmpassword"];
+    $duplicate = mysqli_query($conn, "SELECT * FROM `client` WHERE email = '$email'");
+    if (mysqli_num_rows($duplicate)>0)
+    {
+    echo
+"<script> alert('username or email has already taken') </script>";
+}
+else 
+{
+if($password ==$confirmpassword){
+    $query = "INSERT INTO client values ('','$firstname','$lastname','$mobile','$email','$password')";
+    mysqli_query($conn,$query);
+ "<script> alert('registration successful') </script>";   
+}
+else {
+    echo
+    "<script> alert('password does not match') </script>";
+}
+}
+}
+?>
+if(isset($_POST["submit"]))
+{
+    $name = $_POST["name"];
+    $email =  $_POST["email"]; 
+    $date =  $_POST["date"]; 
+    $time =  $_POST["time"]; 
+    $appointment_for =  $_POST["appointment_for"]; 
+    $duplicate = mysqli_query($conn, "SELECT * FROM `tb_appointment` WHERE email = '$email'");
+    if (mysqli_num_rows($duplicate)==0)
+    {
+$query = "INSERT INTO tb_appointment values ('','$name','$email','$date','$preferd_time','$appointment_for')";
+    mysqli_query($conn,$query);
+ echo"<script> alert('booking successful') </script>"; 
+ echo "<script> window.location.href = '/beauty_parlour_management_system/login.php'; </script>";
+}
+}
+<tr>
+      <th scope="row">3</th>
+      <td >CHARCOAL FACIAL</td>
+      <td>3000</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td >DELUXE MANICURE</td>
+      <td>2000</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td >LAYARED HAIRCUT</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td >U SHAPED HAIR CUT</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td >HAIRWASH</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td >HAIR COLOR</td>
+      <td>900</td>
+    </tr>
+    // important 
+    <?php
+include 'config.php';
+if(isset($_POST["submit"]))
+{
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+  $result = mysqli_query($conn, "SELECT * FROM `client` WHERE email = '$email'");
+  $row = mysqli_fetch_assoc($result);
+  if (mysqli_num_rows($result)>0)
+  {
+if($password== $row["password"])
+{
+$_SESSION["login"] = true ;
+$_SESSION["id"] = $row["id"];
+echo "<script> window.location.href = 'admin/'; </script>";
+}
+else{
+  echo
+  "<script> alert('wrong password') </script>";
+}
+  }
+  else{
+    echo
+    "<script> alert('User not registered') </script>";
+  }
+}
+?>
+// important
+<?php
+include 'config.php';
+if(isset($_POST["submit"]))
+{
+    $service_name = $_POST["service_name"];
+    $service_price = $_POST["service_price"];
+    
+
+}
+?>
+// important
+<?php
+// 1
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "beauty";
+$port = 3307;
+$conn = mysqli_connect($servername, $username, $password, $dbname,$port);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+// Check if form is submitted
+if(isset($_POST["submit"])) {
+    // Get the form data
+    $service_name = $_POST["service_name"];
+    $service_price = $_POST["service_price"];
+
+    // SQL query to insert data
+   // $query = "INSERT INTO tb_services ('','$service_name','$service_price')";
+   $query = "INSERT INTO `tb_services` (service_name, service_price) VALUES ('$service_name', '$service_price')";
+    // Execute the query
+    mysqli_query($conn, $query); {
+        echo"<script> alert('new service add succesfully') </script>"; 
+    }
+}
+?>
+// important 
+<td>".$row['creation_date']."</td> 
+//important
+<?php
+require 'partials/navbar.php';
+include 'config.php';
+if(isset($_POST["submit"]))
+{
+    $name = $_POST["name"];
+    $email =  $_POST["email"]; 
+    $date =  $_POST["date"]; 
+    $preferd_time =  $_POST["preferd_time"]; 
+    $appointment_for =  $_POST["appointment_for"]; 
+    $duplicate = mysqli_query($conn, "SELECT * FROM `tb_appointment` WHERE email =?");
+    if (mysqli_num_rows($duplicate)>0)
+    {
+$query = "INSERT INTO tb_appointment values ('','$name','$email','$date','$preferd_time','$appointment_for')";
+    mysqli_query($conn,$query);
+ echo"<script> alert('booking successful') </script>"; 
+ echo "<script> window.location.href = '/beauty_parlour_management_system/thankyou.php'; </script>";
+}
+}
+?> 
+// important
+<script
+      src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
+      integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="../../dist/js/adminlte.js"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script>
