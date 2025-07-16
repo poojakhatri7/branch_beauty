@@ -23,7 +23,7 @@ if (isset($_GET['id'], $_GET['table']) && is_numeric($_GET['id'])) {
     $id = (int)$_GET['id'];
     $table = $_GET['table'];
 
-    if ($table == 'portfolio' || $table == 'enquiry_message' || $table == 'tb_appointment' || $table == 'all_services' || $table == 'banner_management' || $table == 'staff_designation'|| $table == 'staff_gallery' || $table == 'admin_login_details'|| $table == 'sub_category_service' || $table == 'category_service' || $table == 'reviews') {
+    if ($table == 'portfolio' || $table == 'enquiry_message' || $table == 'tb_appointment' || $table == 'all_services' || $table == 'banner_management' || $table == 'staff_designation'|| $table == 'staff_gallery' || $table == 'admin_login_details'|| $table == 'sub_category_service' || $table == 'category_service' || $table == 'reviews' || $table == 'branch_details') {
      
     //   if ($table == 'all_services') {
     //     $column = 'a_id';
@@ -79,6 +79,9 @@ if (isset($_GET['id'], $_GET['table']) && is_numeric($_GET['id'])) {
             }
              elseif ($table == 'reviews') {
                  header("Location: admin_review");
+            }
+             elseif ($table == 'branch_details') {
+                 header("Location: available_branches");
             }
             exit;
         } else {

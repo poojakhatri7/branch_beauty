@@ -1,9 +1,8 @@
-
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "beauty";
+$dbname = "branch_beauty";
 $port = 3307;
 $conn = mysqli_connect($servername, $username, $password, $dbname,$port);
 

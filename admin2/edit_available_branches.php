@@ -6,28 +6,25 @@ include('includes/sidebar.php');
 
 $id = $_GET ['id'];
 if (isset($_POST["submit"])) {
-   $photo = $_FILES["staff_image"]["name"];
-    $photo2 = $_FILES["staff_image"]["tmp_name"];
-    $uploadPath = "upload-images/" . $photo;
-  $mobile = $_POST["mobile"];
-  $name = $_POST["name"];
+
+  $branch_name = $_POST["branch_name"];
+  $city = $_POST["city"];
   $email = $_POST["email"];
   $address = $_POST["address"];
-  $password = $_POST["password"];
-   move_uploaded_file($photo2, $uploadPath);
-  $query1 = "UPDATE `admin_login_details` SET name='$name', email='$email', mobile='$mobile', password='$password', file='$uploadPath', address='$address' WHERE id=$id";
+  $branch_manager_name = $_POST["branch_manager_name"];
+  $mobile = $_POST["mobile"];
+  $query1 = "UPDATE `branch_details` SET branch_name ='$branch_name', city='$city', email='$email', address='$address', branch_manager_name='$branch_manager_name' WHERE id=$id";
 if( mysqli_query($conn, $query1))
 {
    echo"<script> alert('updated successfully')
-     window.location.href='staff_details';
+     window.location.href='available_branches';
       </script>";
 }
 else {
-   echo"<script> alert('error while updation') </script>";
+   echo"<script> alert('error while updation')</script>";
 }
 }
-
- $sql = "SELECT * FROM admin_login_details WHERE id={$id}";
+$sql = "SELECT * FROM branch_details WHERE id={$id}";
 // Step 3: Execute the query
 $result = mysqli_query($conn, $sql);
 // Step 4: Check if the query returned any results
@@ -43,10 +40,9 @@ if (mysqli_num_rows($result) > 0) {
     <title>BEAUTY PARLOUR MANAGEMENT SYSTEM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-  <title>AdminLTE 3 | General Form Elements</title>
   <style type="text/css">
-        .staff_details{
-         
+        .edit_available_branches
+        {
             background :rgb(33, 70, 77) !important;
         }
     </style>
@@ -79,69 +75,50 @@ if (mysqli_num_rows($result) > 0) {
                 <div class="container-fluid">
             <div class="card card-info">
             <div class="card-header"style="background-color: rgb(51, 139, 139);">
-                    <h3 class="card-title">Edit Staff Details</h3>
+                    <h3 class="card-title">Edit Branch Details</h3>
                 </div>
                 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                     <div class="form-group row">          
-                    <label for="mobile" class="col-sm-2 col-form-label">MOBILE NUMBER</label>
+                    <label for="mobile" class="col-sm-2 col-form-label">BRANCH NAME</label>
                     <div class="col-sm-6">
-                        <input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" value = "<?php echo $row['mobile'] ?>"  required>
+                        <input type="text" name="branch_name" class="form-control" id="branch_name" value = "<?php echo $row['branch_name'] ?>"  required>
                     </div>
                 </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">NAME</label>
+                            <label for="name" class="col-sm-2 col-form-label">CITY</label>
                             <div class="col-sm-6">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value = "<?php echo $row['name'] ?>" >
+                                <input type="text" name="city" class="form-control" id="name"  value = "<?php echo $row['city'] ?>">
                             </div>
                         </div>
-                        <!-- <div class="form-group row">          
-                    <label for="mobile" class="col-sm-2 col-form-label">MOBILE NUMBER</label>
-                    <div class="col-sm-6">
-                        <input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number"  required>
-                    </div>
-                </div> -->
                 <div class="form-group row">
-                            <label for="email" class="col-sm-2 col-form-label">EMAIL US</label>
+                            <label for="email" class="col-sm-2 col-form-label">EMAIL </label>
                             <div class="col-sm-6">
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" value = "<?php echo $row['email'] ?>">
+                                <input type="email" name="email" class="form-control" id="email"  value = "<?php echo $row['email'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="address" class="col-sm-2 col-form-label">ADDRESS</label>
                             <div class="col-sm-6">
-                                <input type="text" name="address" class="form-control" id="address" placeholder="Enter address" value = "<?php echo $row['address'] ?>" >
+                                <input type="text" name="address" class="form-control"   value = "<?php echo $row['address'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address" class="col-sm-2 col-form-label">PASSWORD</label>
+                            <label for="address" class="col-sm-2 col-form-label">BRANCH MANAGER NAME </label>
                             <div class="col-sm-6">
-                                <input type="text" name="password" class="form-control" id="address" placeholder="Enter Password" value = "<?php echo $row['password'] ?>">
+                                <input type="text" name="branch_manager_name" class="form-control"   value = "<?php echo $row['branch_manager_name'] ?>">
                             </div>
                         </div>
                           <div class="form-group row">
-                            <label for="address" class="col-sm-2 col-form-label">IMAGE</label>
+                            <label for="address" class="col-sm-2 col-form-label">MOBILE</label>
                             <div class="col-sm-6">
-                                <input type="file" name="staff_image" class="form-control" id="address" placeholder="Enter Password" value = "<?php echo $row['file'] ?>">
+                                <input type="tel" name="mobile" class="form-control" 
+                                  value = "<?php echo $row['mobile'] ?>">
                             </div>
-                        </div>
-    <div class="form-group row">
-                            <label for="role" class="col-sm-2 col-form-label"> ROLE/DESIGNATION </label>
-                            <div class="col-sm-4">
-                                <!-- <input type="text" name="appointment_for" class="form-control" id="appointment_for" > -->
-                                <select id="role" name="role" class="form-control">
-                                <option value="<?php echo $row['role']; ?>">
-    <?php echo ($row['role'] == 1) ? 'Admin' : (($row['role'] == 2) ? 'Staff' : 'Unknown'); ?>
-</option>
-
-
-   
-                                        </select>
-                            </div>
-                        </div>        
+                        </div>   
                         <div class="card-footer">
-                            <button type="submit" name="submit" class="btn" style="background-color:rgb(51, 139, 139);  color:  rgb(238, 230, 217); font-weight: 500; font-size: 16px; padding: 7px 20px;">Edit Staff Details</button>
-                            <button type="submit" class="btn btn-danger float-right">Cancel</button>
+                            <button type="submit" name="submit" class="btn" style="background-color:rgb(51, 139, 139);  color:  rgb(238, 230, 217); font-weight: 500; font-size: 16px; padding: 7px 20px;">Edit Branch Details</button>
+                          
                         </div>
                     </div>
                 </form>       
