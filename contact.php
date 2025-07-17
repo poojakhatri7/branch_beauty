@@ -34,7 +34,16 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $about = $_POST['subject'];
     $message = $_POST['message'];
-    $query = "INSERT INTO enquiry_message values ('','$name','$email','$about','$message',NOW())";
+	$branch_id = $_POST['branch'];
+
+// Fetch branch name using ID
+$query = "SELECT branch_name FROM branch_details WHERE id = '$branch_id'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$branch_name = $row['branch_name'];
+
+
+    $query = "INSERT INTO enquiry_message values ('','$branch_id','$branch_name','$name','$email','$about','$message',NOW())";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
@@ -227,12 +236,36 @@ $result1 = mysqli_query($conn, $sql);
 										placeholder="Mobile Number"required>
 								</div>
  <span id="mobileError" style="color: red;"></span>
+
+
+
+								</div>
 								<!-- Form Textarea -->
 								<div class="col-md-12">
 									<textarea name="message" class="form-control message" rows="6"
 										placeholder="Your Message ..."required></textarea>
 								</div>
+								<br>
+<?php
+$sql = "SELECT * FROM branch_details"; 
+$result = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            // echo '<li aria-haspopup="true"><a href="pprice.php?c_id=' . $row['c_id'] . '">' . htmlspecialchars($row['c_service']) . '</a></li>';
+        }
+      ?>  
 
+                                 <div class="col-md-12">
+		<select name="branch" class="form-select message" aria-label="Service Select" required>
+        <option  value="" selected disabled>Select Branch</option>
+        <?php
+        // Reset the result pointer and fetch again for the select box
+        mysqli_data_seek($result, 0);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['branch_name']) . '</option>';
+        }
+        ?>
+    </select>
+	<br>
 								<!-- Form Button -->
 								<div class="col-md-12 text-end">
 									<button type="submit" name="submit" class="btn btn--tra-black hover--black submit">Send

@@ -3,6 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
+$branch_details_id = $_SESSION['branch_details_id'];
 ?>
 
 <main class="app-main">
@@ -113,6 +114,7 @@ include('includes/sidebar.php');
                 <thead style="background-color: rgb(51, 139, 139) ">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
+                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
@@ -124,7 +126,7 @@ include('includes/sidebar.php');
                   </thead>
                   <tbody>
                   <?php
-$sql = "SELECT * FROM enquiry_message order BY id DESC";
+$sql = "SELECT * FROM enquiry_message WHERE branch_details_id = '$branch_details_id' order BY id DESC";
 $result = mysqli_query($conn, $sql);
 $count = 0;
 if (mysqli_num_rows($result) > 0) {
@@ -133,6 +135,7 @@ if (mysqli_num_rows($result) > 0) {
         ?>
         <tr>
             <th scope='row'><?php echo $count; ?></th>
+             <td><?php echo $row['branch_name']; ?></td>
             <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['mobile']; ?></td>

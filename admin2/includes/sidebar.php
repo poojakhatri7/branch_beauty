@@ -85,33 +85,7 @@
 // echo $role;
 //if ($role == 1)
 ?>
-    <li class="nav-item">
-            <a href="#" class="nav-link admin_available_branches add_new_branch edit_available_branches">
-              <!-- <i class="nav-icon fas fa-copy"></i> -->
-              <!-- <i class="fa fa-file-invoice"></i> -->
-              <i class="fa fa-building"></i> 
-              <p>
-              Branches Details
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-             <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;">
-              <li class="nav-item">
-                <a href="add_new_branch" class="nav-link add_new_branch">
-                  <!-- <i class="fa fa-info-circle"></i> -->
-                  <i class="fa fa-plus"></i>
-                  <p>Add New Branch</p>
-                </a>
-              </li>
-        
-              <li class="nav-item">
-                <a href="available_branches" class="nav-link staff">
-                <i class="fa fa-address-book"></i>
-                  <p>Available Branches</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+ 
              <li class="nav-item">
             <a href="admin_enquiry_message" class="nav-link admin_enquiry_message">
               <!-- <i class="nav-icon fas fa-copy"></i> -->

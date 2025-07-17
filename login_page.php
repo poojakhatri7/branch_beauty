@@ -9,13 +9,29 @@ include 'asset.php';
 //     header("Location: login_page.php");
 //     exit();
 // }
+// if (isset($_SESSION["name"])) {
+//     if (isset($_SESSION["user_role"])) {
+      
+//         header("Location: admin2");
+//     } else {
+//         // It's a user
+//         header("Location: user");
+//     }
+//     exit();
+// }
+
+
 if (isset($_SESSION["name"])) {
     if (isset($_SESSION["user_role"])) {
-      
-        header("Location: admin2");
+        // Super Admin or Admin
+        if ($_SESSION["user_role"] == 3) {
+            header("Location: super_admin/");
+        } else {
+            header("Location: admin2/");
+        }
     } else {
-        // It's a user
-        header("Location: user");
+        // Normal User
+        header("Location: user/");
     }
     exit();
 }
@@ -37,11 +53,16 @@ if (isset($_POST["submit"])) {
             $_SESSION["address"] = $admin["address"];
             $_SESSION["gst_number"] = $admin["gst_number"];
             $_SESSION["user_role"] = (int)$admin["role"];
-
-            echo "<script> window.location.href = 'admin2'; </script>";
+            $_SESSION["branch_details_id"] = $admin["branch_details_id"];
+      
+                     if ($_SESSION["user_role"] == 3) {
+                echo "<script> window.location.href = 'super_admin/'; </script>";
+            } else {
+                echo "<script> window.location.href = 'admin2/'; </script>";
+            }
             exit();
         } else {
-            echo "<script> alert('Wrong password ');  window.location.href = 'login_page'; </script>";
+            echo "<script> alert('Wrong password'); window.location.href = 'login_page'; </script>";
             exit();
         }
     }
@@ -167,11 +188,11 @@ background-size: cover;
             <form class ="" action="" method= "post" >
                 <!-- Email field -->
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Enter your email" >
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
                 </div>
                 <!-- Password field -->
                 <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="Enter your password">
+                    <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
                 </div>
                 <!-- Submit button -->
                 <!-- <button type="submit" name="submit" class="btn btn-primary">Login</button> -->                  
