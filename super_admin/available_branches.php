@@ -56,6 +56,7 @@ include('includes/sidebar.php');
                   </tr>
                   </thead>
                   <tbody>
+                    
                   <?php
 $sql = "SELECT * FROM branch_details ";
 $result = mysqli_query($conn, $sql);

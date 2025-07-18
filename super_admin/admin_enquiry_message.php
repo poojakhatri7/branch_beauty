@@ -4,7 +4,6 @@ include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
 ?>
-
 <main class="app-main">
 <!doctype html>
 <html lang="en">
@@ -102,9 +101,37 @@ include('includes/sidebar.php');
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
+   
     <div class="container-fluid">
+
+       <div class="col-sm-6">
+    <h4> All Enquiry Details </h4>
+     </div>
+       <div class="col-sm-6">
+<label> Search By Branch </label>
+
+<?php
+$sql = "SELECT * FROM branch_details"; 
+$result = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            // echo '<li aria-haspopup="true"><a href="pprice.php?c_id=' . $row['c_id'] . '">' . htmlspecialchars($row['c_service']) . '</a></li>';
+        }
+      ?>  
+<select class="form-control" id="cars">
+   <option  value="" selected disabled>Select Branch</option>
+     <?php
+        // Reset the result pointer and fetch again for the select box
+        mysqli_data_seek($result, 0);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['branch_name']) . '</option>';
+        }
+        ?>
+</select>
+         </div>
+         <br>
 <div class="card">
               <div class="card-header">
+                
                 <h5 class="m-0"> Enquiry Messages </h5>
               </div>
               <!-- /.card-header -->
