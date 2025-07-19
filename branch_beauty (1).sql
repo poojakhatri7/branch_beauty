@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 07, 2025 at 02:18 PM
+-- Generation Time: Jul 19, 2025 at 01:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `beauty`
+-- Database: `branch_beauty`
 --
 
 -- --------------------------------------------------------
@@ -29,6 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin_login_details` (
   `id` int(40) NOT NULL,
+  `branch_details_id` int(200) DEFAULT NULL,
+  `branch_name` varchar(200) DEFAULT NULL,
   `name` varchar(200) NOT NULL,
   `mobile` bigint(10) NOT NULL,
   `email` varchar(40) NOT NULL,
@@ -44,11 +46,14 @@ CREATE TABLE `admin_login_details` (
 -- Dumping data for table `admin_login_details`
 --
 
-INSERT INTO `admin_login_details` (`id`, `name`, `mobile`, `email`, `address`, `password`, `role`, `file`, `gst_number`, `last_invoice_no`) VALUES
-(9, 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000030),
-(12, 'navya khatri', 8707858427, 'navya@gmail.com', 'Hazratganj', '12345', 2, 'upload-images/beauty_02.jpg', NULL, NULL),
-(16, 'anvi', 8019858421, 'anvi@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/team-9.jpg', NULL, NULL),
-(25, 'Pari Kapoor', 89078431264234234, 'khatri424@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/blow dry.jpg', NULL, NULL);
+INSERT INTO `admin_login_details` (`id`, `branch_details_id`, `branch_name`, `name`, `mobile`, `email`, `address`, `password`, `role`, `file`, `gst_number`, `last_invoice_no`) VALUES
+(9, 5, 'Lucknow branch', 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000006),
+(12, 5, 'Lucknow branch', 'navya khatri', 8707858427, 'navya@gmail.com', 'Hazratganj', '12345', 2, 'upload-images/beauty_02.jpg', NULL, NULL),
+(16, 6, 'Kanpur branch', 'anvi', 8019858421, 'anvi@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/team-9.jpg', NULL, NULL),
+(26, 1, '', 'Maya khatri', 7907858477, 'maya@gmail.com', 'rajajipuram ', '7777', 3, 'upload-images/hair_08.jpg', NULL, NULL),
+(27, 1, 'Delhi branch', 'priyanka tondon', 6657858477, 'tondon@gmail.com', 'lucknow', '12345', 1, NULL, NULL, NULL),
+(29, 7, 'Mumbai Branch', 'fdfdsa', 8966843126, 'pooja1@gmail.com', 'Hazratganj', '32131', 1, NULL, NULL, NULL),
+(30, 7, 'Mumbai Branch', 'avika gaur', 8989743126, 'a@gmail.com', 'Hazratganj', '9999', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -186,7 +191,33 @@ INSERT INTO `bill` (`Sno`, `appointment_id`, `bill_amount`, `discount_percent`, 
 (1, 57, 690, 10, 621, 733, 733),
 (2, 58, 0, 10, 302, 356, 356),
 (5, 63, 770, 10, 693, 818, 818),
-(8, 66, 600, 10, 540, 637, 637);
+(8, 66, 600, 10, 540, 637, 637),
+(9, 98, 0, 10, 302, 356, 356);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `branch_details`
+--
+
+CREATE TABLE `branch_details` (
+  `id` int(200) NOT NULL,
+  `branch_name` varchar(200) NOT NULL,
+  `city` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `mobile` bigint(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `branch_details`
+--
+
+INSERT INTO `branch_details` (`id`, `branch_name`, `city`, `email`, `address`, `mobile`) VALUES
+(1, 'Delhi Branch', 'Delhi', 'delhi@gmail.com', 'mayur vihar', 2207858489),
+(5, 'Lucknow Branch', 'Lucknow ', 'xyza@gmail.com', ' RAJAJIPURAM', 7777843126),
+(6, 'Kanpur branch', 'Kanpur ', 'kanpur@gmail.com', 'Hazratganj', 5557843126),
+(7, 'Mumbai Branch', 'Mumbai', 'Mumbai@gmail.com', 'Alambhag', 8788858421);
 
 -- --------------------------------------------------------
 
@@ -244,6 +275,8 @@ INSERT INTO `category_service` (`c_id`, `c_service`, `description`, `file`) VALU
 
 CREATE TABLE `enquiry_message` (
   `id` int(35) NOT NULL,
+  `branch_details_id` varchar(200) NOT NULL,
+  `branch_name` varchar(200) NOT NULL,
   `name` varchar(35) NOT NULL,
   `email` varchar(200) NOT NULL,
   `mobile` bigint(35) NOT NULL,
@@ -255,8 +288,12 @@ CREATE TABLE `enquiry_message` (
 -- Dumping data for table `enquiry_message`
 --
 
-INSERT INTO `enquiry_message` (`id`, `name`, `email`, `mobile`, `message`, `created_at`) VALUES
-(22, 'pooja', 'pooja@gmail.com', 8899117706, 'hello', '2025-07-01 06:30:58');
+INSERT INTO `enquiry_message` (`id`, `branch_details_id`, `branch_name`, `name`, `email`, `mobile`, `message`, `created_at`) VALUES
+(22, '5', 'Lucknow Branch', 'pooja', 'pooja@gmail.com', 8899117706, 'hello', '2025-07-01 06:30:58'),
+(26, '1', 'Delhi Branch', 'Pari Kapoor', 'pari@gmail.com', 4543555345, 'dfghfhgfgh', '2025-07-17 06:51:11'),
+(27, '1', 'Delhi Branch', 'abcd', 'abcd@gmail.com', 3423434234, 'fgfdgdfgfd', '2025-07-17 07:11:37'),
+(28, '5', 'Lucknow Branch', 'diya sharma', 'diya@gmail.com', 6437846283, 'about timming', '2025-07-19 06:04:05'),
+(29, '7', 'Mumbai Branch', 'shikha', 'shikha@gmail.com', 5378823321, 'dsfcdsfsdf', '2025-07-19 09:10:55');
 
 -- --------------------------------------------------------
 
@@ -314,7 +351,28 @@ INSERT INTO `orders` (`id`, `appointment_id`, `totalPrice`, `discount`, `billing
 (34, 91, 400.00, 10.00, '98000027', '2025-07-07 11:28:29'),
 (35, 76, 335.00, 10.00, '98000028', '2025-07-07 11:40:44'),
 (36, 75, 600.00, 10.00, '98000029', '2025-07-07 11:44:36'),
-(37, 92, 1340.00, 10.00, '98000030', '2025-07-07 11:54:20');
+(37, 92, 1340.00, 10.00, '98000030', '2025-07-07 11:54:20'),
+(38, 96, 400.00, 10.00, '98000031', '2025-07-08 09:31:36'),
+(39, 96, 1540.00, 10.00, '98000032', '2025-07-08 09:36:08'),
+(40, 97, 660.00, 7.00, '98000033', '2025-07-08 09:38:52'),
+(41, 88, 0.00, 10.00, '92000009', '2025-07-08 09:48:20'),
+(42, 98, 0.00, 10.00, '92000010', '2025-07-08 09:51:58'),
+(43, 98, 0.00, 10.00, '92000011', '2025-07-08 10:05:12'),
+(44, 98, 200.00, 10.00, '98000034', '2025-07-08 10:05:51'),
+(45, 1, 1000.00, 10.00, '98000001', '2025-07-08 10:26:20'),
+(46, 1, 0.00, 10.00, '92000001', '2025-07-08 10:26:45'),
+(47, 2, 0.00, 10.00, '92000002', '2025-07-08 10:44:04'),
+(48, 3, 500.00, 10.00, '98000001', '2025-07-08 10:48:21'),
+(49, 3, 0.00, 10.00, '92000001', '2025-07-08 10:48:37'),
+(50, 3, 1135.00, 10.00, '98000002', '2025-07-08 10:49:17'),
+(51, 4, 0.00, 10.00, '92000002', '2025-07-11 04:15:15'),
+(52, 5, 0.00, 10.00, '92000003', '2025-07-11 04:45:59'),
+(53, 5, 0.00, 10.00, '92000004', '2025-07-11 04:46:21'),
+(54, 5, 400.00, 32.00, '98000003', '2025-07-11 04:47:18'),
+(55, 6, 1670.00, 10.00, '98000004', '2025-07-11 09:07:53'),
+(56, 6, 0.00, 40.00, '92000005', '2025-07-11 09:08:42'),
+(57, 7, 400.00, 10.00, '98000005', '2025-07-11 09:10:20'),
+(58, 7, 100.00, 10.00, '98000006', '2025-07-11 09:52:07');
 
 -- --------------------------------------------------------
 
@@ -364,14 +422,11 @@ CREATE TABLE `package_selected` (
 --
 
 INSERT INTO `package_selected` (`id`, `appointment_id`, `package_name`, `package1_id`, `package_number`, `billing_number`, `created_at`, `time`) VALUES
-(1, 59, 'Gold package', 10, NULL, 97000001, '2025-06-17 11:46:18.965669', '00:00:00'),
-(2, 59, 'silver package ', 11, NULL, 97000002, '2025-06-17 12:08:13.843512', '00:00:00'),
-(3, 58, 'hair package', 13, NULL, 97000003, '2025-06-18 04:34:13.611622', '00:00:00'),
-(4, 58, 'Gold package', 10, NULL, 97000004, '2025-06-18 05:00:53.990436', '00:00:00'),
-(5, 58, 'silver package ', 11, NULL, 97000005, '2025-06-19 04:07:54.620163', '00:00:00'),
-(6, 60, 'xyz', 15, NULL, 97000006, '2025-06-21 05:22:33.324352', '00:00:00'),
-(7, 63, 'Gold package', 10, NULL, 97000007, '2025-06-25 09:28:31.047158', '00:00:00'),
-(8, 68, 'platinum package ', 9, NULL, 92000008, '2025-06-26 09:54:54.881630', '00:00:00');
+(1, 3, 'Gold package', 10, NULL, 92000001, '2025-07-08 10:48:37.554446', '00:00:00'),
+(2, 4, 'platinum package ', 9, NULL, 92000002, '2025-07-11 04:15:15.959014', '00:00:00'),
+(3, 5, 'Gold package', 10, NULL, 92000003, '2025-07-11 04:45:59.458594', '00:00:00'),
+(4, 5, 'Gold package', 10, NULL, 92000004, '2025-07-11 04:46:21.535271', '00:00:00'),
+(5, 6, 'hair package', 13, NULL, 92000005, '2025-07-11 09:08:42.774117', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -567,6 +622,29 @@ INSERT INTO `sub_category_service` (`s_id`, `s_name`, `description`, `file`, `su
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `super_admin`
+--
+
+CREATE TABLE `super_admin` (
+  `id` int(40) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `mobile` bigint(10) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `file` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `super_admin`
+--
+
+INSERT INTO `super_admin` (`id`, `name`, `mobile`, `email`, `address`, `password`, `file`) VALUES
+(1, 'Maya tondon', 7907858477, 'maya@gmail.com', 'rajajipuram ', '7777', 'upload-images/hair_08.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_about`
 --
 
@@ -632,26 +710,11 @@ CREATE TABLE `tb_appointment` (
 --
 
 INSERT INTO `tb_appointment` (`id`, `name`, `email`, `mobile`, `address`, `date`, `prefered_time`, `appointment_for`, `staff`) VALUES
-(58, 'POOJA KHATRI', 'khatri@gmail.com', 8907843126, 'Hazratganj', '2025-06-23', '21:08', 'offline booking', ''),
-(59, 'Pari Kapoor', 'Priyanka@gmail.com', 8719858421, 'Alambhag', '2025-06-18', '17:40', 'offline booking', ''),
-(63, 'POOJA KHATRI', 'mansi@gmail.com', 9807657899, 'Hazratganj', '2025-06-16', '14:55', 'Hair Services', 'Veronica Aaron'),
-(65, 'Sneha', 'Malhotra@gmail.com', 8907843117, ' RAJAJIPURAM', '2025-06-04', '17:46', 'Mens haircut', 'any'),
-(66, 'Sneha', 'Malhotra@gmail.com', 8907843117, ' RAJAJIPURAM', '2025-06-18', '19:08', 'blow dry', 'any'),
-(68, 'POOJA KHATRI', 'khatri@gmail.com', 8907843126, 'Hazratganj', '2025-06-25', '03:09', 'offline booking', ''),
-(70, 'khanna', 'khanna@gmail.com', 8907843128, 'Alambhag', '2025-06-17', '19:58', 'Single Process', 'any'),
-(71, 'khanna', 'khanna@gmail.com', 8907843128, 'Alambhag', '2025-06-13', '20:04', 'Child Hair cut ', 'any'),
-(72, 'varsha kakkar', 'varsha@gmail.com', 8709858427, '', '2025-06-11', '00:40', 'offline booking', ''),
-(73, 'veronica', 'veronica@gmail.com', 8907843188, 'Hazratganj', '2025-06-16', '09:42', 'Hair Services', 'Olivia Grosh'),
-(74, 'rama', 'rama@gmail.com', 8907843155, 'Hazratganj', '2025-06-24', '06:45', 'Child Hair cut ', ''),
-(75, 'rama', 'rama@gmail.com', 8907843155, 'Hazratganj', '2025-06-16', '09:46', 'Hair Services', 'Kristin Cortes'),
-(76, 'ambika sahni', 'ambika@gmail.com', 8907843126, 'Hazratganj', '2025-06-09', '15:00', 'Hair Services', 'Veronica Aaron'),
-(82, 'pooja', 'khatrip197@gmail.com', 5435443453, 'hello', '2025-07-10', '19:48', 'offline booking', ''),
-(85, 'POOJA KHATRI', 'w@gmail.com', 89078, 'Hazratganj', '2025-07-14', '09:56', 'Hair Services', 'Veronica Aaron'),
-(86, 'pooja', 'khatri@gmail.com', 843126, 'Alambhag', '2025-07-23', '00:57', 'offline booking', ''),
-(87, 'POOJA KHATRI', 'd@gmail.com', 89078431, 'Hazratganj', '2025-07-07', '10:19', 'Hair Services', 'Veronica Aaron'),
-(88, 'Pari Kapoor', 'ktri@gmail.com', 89078431, 'Hazratganj', '2025-07-22', '10:19', 'Hair Services', 'Veronica Aaron'),
-(89, 'Pari Kapoor', 'pooja@gmail.com', 6456467657567654, 'Hazratganj', '2025-07-22', '02:53', 'offline booking', ''),
-(91, 'POOJA KHATRI', 'pooja@gmail.com', 8907843126, 'Hazratganj', '2025-03-04', '12:42', 'Hair Services', 'Olivia Grosh');
+(4, 'rama', 'rama@gmail.com', 8907843155, 'Hazratganj', '2025-07-30', '09:48', 'offline booking', ''),
+(5, 'veronica', 'veronica@gmail.com', 8907843188, 'Hazratganj', '2025-07-16', '10:19', 'offline booking', ''),
+(6, 'preetikhatri', 'preeti@gmail.com', 8997843126, 'Alambhag', '2025-07-29', '18:37', 'offline booking', ''),
+(7, 'preetikhatri', 'preeti@gmail.com', 8997843126, 'Alambhag', '2025-07-30', '19:39', 'offline booking', ''),
+(8, 'xyz', 'xyz@gmail.com', 7777843126, 'Alambhag', '2025-07-17', '17:05', 'Hair Services', 'Veronica Aaron');
 
 -- --------------------------------------------------------
 
@@ -686,6 +749,7 @@ CREATE TABLE `tb_invoice` (
   `appointment_id` int(200) NOT NULL,
   `name` varchar(200) NOT NULL,
   `mobile` bigint(35) NOT NULL,
+  `address` varchar(200) NOT NULL,
   `email` varchar(35) NOT NULL,
   `date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -694,13 +758,11 @@ CREATE TABLE `tb_invoice` (
 -- Dumping data for table `tb_invoice`
 --
 
-INSERT INTO `tb_invoice` (`id`, `appointment_id`, `name`, `mobile`, `email`, `date`) VALUES
-(1, 11, 'pooja', 8707858421, 'khatri@gmail.com', NULL),
-(2, 12, 'priya', 8707858821, 'khatri@gmail.com', '2012-10-24'),
-(3, 91, 'POOJA KHATRI', 8907843126, 'pooja@gmail.com', '0000-00-00'),
-(4, 76, 'ambika sahni', 8907843126, 'ambika@gmail.com', '2025-06-09'),
-(5, 75, 'rama', 8907843155, 'rama@gmail.com', '2025-06-16'),
-(6, 92, 'Tara', 8907643126, 't@gmail.com', '2025-07-23');
+INSERT INTO `tb_invoice` (`id`, `appointment_id`, `name`, `mobile`, `address`, `email`, `date`) VALUES
+(1, 3, 'Sneha tondon', 8619858421, 'Alambhag', 's@gmail.com', '2025-07-09'),
+(5, 5, 'veronica', 8907843188, 'Hazratganj', 'veronica@gmail.com', '2025-07-16'),
+(6, 6, 'preetikhatri', 8997843126, 'Alambhag', 'preeti@gmail.com', '2025-07-29'),
+(7, 7, 'preetikhatri', 8997843126, 'Alambhag', 'preeti@gmail.com', '2025-07-30');
 
 -- --------------------------------------------------------
 
@@ -728,99 +790,30 @@ CREATE TABLE `tb_selected_services` (
 --
 
 INSERT INTO `tb_selected_services` (`id`, `appointment_id`, `c_id`, `s_id`, `a_id`, `service_name`, `service_price`, `discount_percentage`, `price_after_discount`, `billing_number`, `created_at`, `time`) VALUES
-(1, 51, 1, 1, 5, 'Child Hair cut ', 100.00, NULL, NULL, '98000001', '2025-04-14 11:44:16', '17:14:16'),
-(2, 51, 1, 1, 3, 'blow dry', 44.00, NULL, NULL, '98000001', '2025-04-14 11:44:16', '17:14:16'),
-(3, 52, 1, 2, 13, 'Hair & Scalp Treatments\r\n\r\n', 240.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(4, 52, 1, 2, 12, 'Safe Color Treatment\r\n\r\n', 95.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(5, 52, 1, 2, 11, 'Hair Gloss', 55.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(6, 52, 1, 2, 10, 'Permanent Wave', 185.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(7, 52, 1, 2, 9, 'Keratin Complex Max', 350.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(8, 52, 2, 5, 35, 'Facial Add-ons', 85.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(9, 52, 2, 5, 34, 'Teen Facial', 45.00, NULL, NULL, '98000002', '2025-04-14 11:46:21', '17:16:21'),
-(10, 52, 1, 1, 5, 'Child Hair cut ', 100.00, NULL, NULL, '98000003', '2025-04-21 09:19:11', '14:49:11'),
-(11, 52, 1, 1, 2, 'Mens haircut', 50.00, NULL, NULL, '98000003', '2025-04-21 09:19:11', '14:49:11'),
-(12, 53, 1, 1, 5, 'Child Hair cut ', 100.00, NULL, NULL, '98000004', '2025-05-08 05:39:15', '11:09:15'),
-(13, 53, 1, 1, 3, 'blow dry', 44.00, NULL, NULL, '98000004', '2025-05-08 05:39:15', '11:09:15'),
-(14, 54, 1, 1, 5, 'Child Hair cut ', 100.00, NULL, NULL, '98000005', '2025-05-08 05:40:56', '11:10:56'),
-(15, 54, 1, 1, 3, 'blow dry', 44.00, NULL, NULL, '98000005', '2025-05-08 05:40:56', '11:10:56'),
-(16, 54, 1, 3, 19, 'Color Refresh', 130.00, NULL, NULL, '98000005', '2025-05-08 05:40:56', '11:10:56'),
-(17, 54, 1, 3, 18, 'Balayage', 220.00, NULL, NULL, '98000005', '2025-05-08 05:40:56', '11:10:56'),
-(18, 54, 1, 3, 17, 'Half Head Highlights', 290.00, NULL, NULL, '98000005', '2025-05-08 05:40:56', '11:10:56'),
-(19, 55, 1, 1, 5, 'Child Hair cut ', 100.00, NULL, NULL, '98000006', '2025-05-15 11:55:27', '17:25:27'),
-(20, 55, 1, 3, 19, 'Color Refresh', 130.00, NULL, NULL, '98000006', '2025-05-15 11:55:27', '17:25:27'),
-(21, 55, 2, 5, 35, 'Facial Add-ons', 85.00, NULL, NULL, '98000007', '2025-05-16 03:51:51', '09:21:51'),
-(22, 55, 2, 5, 32, 'Anti-Ageing Facial', 175.00, NULL, NULL, '98000007', '2025-05-16 03:51:51', '09:21:51'),
-(23, 55, 1, 4, 23, 'Hair Extension Removal', 275.00, NULL, NULL, '98000008', '2025-05-27 08:33:29', '14:03:29'),
-(24, 55, 1, 4, 22, 'Keratin Hair Extensions', 860.00, NULL, NULL, '98000008', '2025-05-27 08:33:29', '14:03:29'),
-(25, 56, 2, 5, 34, 'Teen Facial', 200.00, NULL, NULL, '98000009', '2025-06-06 10:00:14', '15:30:14'),
-(26, 56, 2, 5, 24, 'Herbal Facial', 80.00, NULL, NULL, '98000009', '2025-06-06 10:00:14', '15:30:14'),
-(27, 57, 2, 5, 34, 'Teen Facial', 200.00, NULL, NULL, '98000010', '2025-06-06 10:08:44', '15:38:44'),
-(28, 57, 2, 5, 25, 'Deep Cleaning Facial', 130.00, NULL, NULL, '98000010', '2025-06-06 10:08:44', '15:38:44'),
-(29, 57, 2, 5, 32, 'Anti-Ageing Facial', 175.00, NULL, NULL, '98000010', '2025-06-06 10:08:44', '15:38:44'),
-(30, 57, 2, 5, 26, 'Organic Facial', 185.00, NULL, NULL, '98000010', '2025-06-06 10:08:44', '15:38:44'),
-(31, 57, 1, 2, 13, 'Hair & Scalp Treatments', 240.00, NULL, NULL, '98000011', '2025-06-11 06:19:31', '11:49:31'),
-(32, 57, 1, 1, 3, 'blow dry', 100.00, NULL, NULL, '98000012', '2025-06-11 11:27:32', '16:57:32'),
-(33, 57, 1, 1, 5, 'Child Hair cut ', 200.00, NULL, NULL, '98000012', '2025-06-11 11:27:32', '16:57:32'),
-(34, 58, 1, 1, 98, 'Women s Haircut', 200.00, NULL, NULL, '98000013', '2025-06-11 11:48:08', '17:18:08'),
-(35, 58, 1, 1, 5, 'Child Hair cut ', 200.00, NULL, NULL, '98000013', '2025-06-11 11:48:08', '17:18:08'),
-(36, 59, 1, 1, 98, 'Women s Haircut', 200.00, NULL, NULL, '98000014', '2025-06-17 09:10:54', '14:40:54'),
-(37, 59, 1, 1, 5, 'Child Hair cut ', 200.00, NULL, NULL, '98000014', '2025-06-17 09:10:54', '14:40:54'),
-(38, 59, 1, 2, 13, 'Hair & Scalp Treatments', 240.00, NULL, NULL, '98000014', '2025-06-17 09:10:54', '14:40:54'),
-(39, 59, 1, 2, 12, 'Safe Color Treatment', 95.00, NULL, NULL, '98000014', '2025-06-17 09:10:55', '14:40:55'),
-(40, 59, 2, 5, 34, 'Teen Facial', 200.00, NULL, NULL, '98000015', '2025-06-18 04:46:26', '10:16:26'),
-(41, 59, 2, 5, 33, 'Gentleman’s Facial', 60.00, NULL, NULL, '98000015', '2025-06-18 04:46:26', '10:16:26'),
-(42, 59, 2, 5, 24, 'Herbal Facial', 80.00, NULL, NULL, '98000015', '2025-06-18 04:46:26', '10:16:26'),
-(43, 59, 2, 5, 25, 'Deep Cleaning Facial', 130.00, NULL, NULL, '98000015', '2025-06-18 04:46:26', '10:16:26'),
-(44, 59, 1, 1, 98, 'Women s Haircut', 200.00, NULL, NULL, '98000016', '2025-06-19 04:07:22', '09:37:22'),
-(45, 59, 1, 1, 5, 'Child Hair cut ', 200.00, NULL, NULL, '98000016', '2025-06-19 04:07:22', '09:37:22'),
-(46, 60, 1, 1, 98, 'Women s Haircut', 200.00, NULL, NULL, '98000017', '2025-06-21 05:21:14', '10:51:14'),
-(47, 60, 1, 1, 3, 'blow dry', 100.00, NULL, NULL, '98000017', '2025-06-21 05:21:14', '10:51:14'),
-(48, 60, 2, 5, 34, 'Teen Facial', 200.00, NULL, NULL, '98000018', '2025-06-21 05:21:52', '10:51:52'),
-(49, 60, 2, 5, 33, 'Gentleman’s Facial', 60.00, NULL, NULL, '98000018', '2025-06-21 05:21:52', '10:51:52'),
-(50, 60, 2, 5, 32, 'Anti-Ageing Facial', 175.00, NULL, NULL, '98000018', '2025-06-21 05:21:52', '10:51:52'),
-(51, 60, 2, 5, 28, 'Biolight Facial', 165.00, NULL, NULL, '98000018', '2025-06-21 05:21:52', '10:51:52'),
-(52, 63, 1, 3, 19, 'Color Refresh', 130.00, NULL, NULL, '98000019', '2025-06-25 09:27:34', '14:57:34'),
-(53, 63, 1, 3, 18, 'Balayage', 220.00, NULL, NULL, '98000019', '2025-06-25 09:27:34', '14:57:34'),
-(54, 63, 1, 3, 14, 'Single Process', 130.00, NULL, NULL, '98000019', '2025-06-25 09:27:34', '14:57:34'),
-(55, 63, 1, 3, 17, 'Half Head Highlights', 290.00, NULL, NULL, '98000019', '2025-06-25 09:27:34', '14:57:34'),
-(56, 66, 1, 1, 98, 'Women s Haircut', 200.00, NULL, NULL, '98000020', '2025-06-25 10:41:48', '16:11:48'),
-(57, 66, 1, 1, 2, 'Mens haircut', 100.00, NULL, NULL, '98000020', '2025-06-25 10:41:48', '16:11:48'),
-(58, 66, 1, 1, 5, 'Child Hair cut ', 200.00, NULL, NULL, '98000020', '2025-06-25 10:41:48', '16:11:48'),
-(59, 66, 1, 1, 3, 'blow dry', 100.00, NULL, NULL, '98000020', '2025-06-25 10:41:48', '16:11:48'),
-(60, 69, 3, 9, 61, 'Nail Art', 20.00, NULL, NULL, '98000021', '2025-06-26 10:37:30', '16:07:30'),
-(61, 69, 3, 9, 64, 'Collagen Mask', 25.00, NULL, NULL, '98000021', '2025-06-26 10:37:30', '16:07:30'),
-(62, 69, 3, 9, 63, 'French Polish', 32.00, NULL, NULL, '98000021', '2025-06-26 10:37:30', '16:07:30'),
-(63, 69, 2, 5, 34, 'Teen Facial', 200.00, NULL, NULL, '98000021', '2025-06-26 10:37:30', '16:07:30'),
-(64, 69, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000022', '2025-06-26 11:21:27', '16:51:27'),
-(65, 69, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000022', '2025-06-26 11:21:27', '16:51:27'),
-(66, 69, 1, 4, 23, 'Hair Extension Removal', 275.00, 70, 83, '98000022', '2025-06-26 11:21:27', '16:51:27'),
-(67, 69, 1, 4, 22, 'Keratin Hair Extensions', 860.00, 15, 731, '98000022', '2025-06-26 11:21:27', '16:51:27'),
-(68, 70, 1, 3, 14, 'Single Process', 130.00, 80, 26, '98000023', '2025-06-26 11:30:33', '17:00:33'),
-(69, 71, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000024', '2025-06-26 11:36:43', '17:06:43'),
-(70, 71, 1, 2, 12, 'Safe Color Treatment', 95.00, 50, 48, '98000024', '2025-06-26 11:36:43', '17:06:43'),
-(71, 71, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000024', '2025-06-26 11:36:43', '17:06:43'),
-(72, 71, 3, 9, 64, 'Collagen Mask', 25.00, 10, 23, '98000024', '2025-06-26 11:36:43', '17:06:43'),
-(73, 72, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000025', '2025-06-27 08:46:33', '14:16:33'),
-(74, 72, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000025', '2025-06-27 08:46:33', '14:16:33'),
-(75, 72, 2, 5, 34, 'Teen Facial', 200.00, 20, 160, '98000025', '2025-06-27 08:46:33', '14:16:33'),
-(76, 72, 2, 5, 24, 'Herbal Facial', 80.00, 5, 76, '98000025', '2025-06-27 08:46:33', '14:16:33'),
-(77, 72, 3, 8, 67, 'French Manicure', 100.00, 20, 80, '98000026', '2025-06-27 08:47:48', '14:17:48'),
-(78, 72, 3, 9, 64, 'Collagen Mask', 25.00, 10, 23, '98000026', '2025-06-27 08:47:48', '14:17:48'),
-(79, 72, 3, 9, 63, 'French Polish', 32.00, 65, 11, '98000026', '2025-06-27 08:47:48', '14:17:48'),
-(80, 72, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000026', '2025-06-27 08:47:48', '14:17:48'),
-(81, 72, 1, 2, 9, 'Keratin Complex Max', 350.00, 15, 298, '98000026', '2025-06-27 08:47:48', '14:17:48'),
-(82, 91, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000027', '2025-07-07 11:28:29', '16:58:29'),
-(83, 91, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000027', '2025-07-07 11:28:29', '16:58:29'),
-(84, 76, 1, 2, 13, 'Hair & Scalp Treatments', 240.00, 27, 175, '98000028', '2025-07-07 11:40:44', '17:10:44'),
-(85, 76, 1, 2, 12, 'Safe Color Treatment', 95.00, 50, 48, '98000028', '2025-07-07 11:40:44', '17:10:44'),
-(86, 75, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000029', '2025-07-07 11:44:36', '17:14:36'),
-(87, 75, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000029', '2025-07-07 11:44:36', '17:14:36'),
-(88, 75, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000029', '2025-07-07 11:44:36', '17:14:36'),
-(89, 75, 1, 1, 2, 'Mens haircut', 100.00, 10, 90, '98000029', '2025-07-07 11:44:36', '17:14:36'),
-(90, 92, 1, 4, 23, 'Hair Extension Removal', 275.00, 70, 83, '98000030', '2025-07-07 11:54:19', '17:24:19'),
-(91, 92, 1, 4, 22, 'Keratin Hair Extensions', 860.00, 15, 731, '98000030', '2025-07-07 11:54:20', '17:24:20'),
-(92, 92, 1, 4, 20, 'Blowdry with Extensions', 95.00, 5, 90, '98000030', '2025-07-07 11:54:20', '17:24:20'),
-(93, 92, 1, 4, 21, 'Extensions Service', 110.00, 25, 83, '98000030', '2025-07-07 11:54:20', '17:24:20');
+(1, 3, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000001', '2025-07-08 10:48:20', '16:18:20'),
+(2, 3, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000001', '2025-07-08 10:48:20', '16:18:20'),
+(3, 3, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000001', '2025-07-08 10:48:20', '16:18:20'),
+(4, 3, 2, 5, 34, 'Teen Facial', 200.00, 20, 160, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(5, 3, 2, 5, 33, 'Gentleman’s Facial', 60.00, 10, 54, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(6, 3, 2, 5, 32, 'Anti-Ageing Facial', 175.00, 50, 88, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(7, 3, 2, 5, 28, 'Biolight Facial', 165.00, 20, 132, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(8, 3, 2, 5, 27, 'Four Layer Facial', 140.00, 50, 70, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(9, 3, 2, 5, 26, 'Organic Facial', 185.00, 7, 172, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(10, 3, 2, 5, 25, 'Deep Cleaning Facial', 130.00, 25, 98, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(11, 3, 2, 5, 24, 'Herbal Facial', 80.00, 5, 76, '98000002', '2025-07-08 10:49:17', '16:19:17'),
+(12, 5, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000003', '2025-07-11 04:47:18', '10:17:18'),
+(13, 5, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000003', '2025-07-11 04:47:18', '10:17:18'),
+(14, 6, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(15, 6, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(16, 6, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(17, 6, 1, 1, 2, 'Mens haircut', 100.00, 10, 90, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(18, 6, 1, 2, 13, 'Hair & Scalp Treatments', 240.00, 27, 175, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(19, 6, 1, 2, 12, 'Safe Color Treatment', 95.00, 50, 48, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(20, 6, 1, 2, 11, 'Hair Gloss', 550.00, 21, 435, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(21, 6, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000004', '2025-07-11 09:07:53', '14:37:53'),
+(22, 7, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000005', '2025-07-11 09:10:20', '14:40:20'),
+(23, 7, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000005', '2025-07-11 09:10:20', '14:40:20'),
+(24, 7, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000006', '2025-07-11 09:52:07', '15:22:07');
 
 -- --------------------------------------------------------
 
@@ -876,7 +869,7 @@ INSERT INTO `users` (`id`, `name`, `mobile`, `email`, `address`, `password`, `fi
 (6, 'priyanka', 8907843117, 'Malhotra@gmail.com', ' RAJAJIPURAM', '123', 'upload-images/team-9.jpg'),
 (7, 'khanna', 8907843128, 'khanna@gmail.com', 'Alambhag', '1234', 'upload-images/user1-128x128.jpg'),
 (8, 'Angel ', 1234456789, 'john@gmail.com', 'Goa', '123', 'upload-images/avatar5.png'),
-(18, 'POOJA KHATRI', 8907843126, 'pooja@gmail.com', 'Hazratganj', '123', 'upload-images/hair_08.jpg'),
+(18, 'POOJA KHATRI', 8907843126, 'pooja@gmail.com', 'Alambhag', '123', 'upload-images/hair_08.jpg'),
 (19, 'pooja', 8907843123, 'khatri@gmail.com', 'Hazratganj', '123', ''),
 (20, 'Pari Kapoor', 8719858421, 'Priyanka@gmail.com', 'Alambhag', '123', ''),
 (21, 'Rohan', 8907843129, 'khatri@gmail.com', 'Hazratganj', '123', ''),
@@ -918,7 +911,13 @@ INSERT INTO `users` (`id`, `name`, `mobile`, `email`, `address`, `password`, `fi
 (58, 'Pari Kapoor', 6456467657567654, 'pooja@gmail.com', 'Hazratganj', '123', ''),
 (59, 'Pari Kapoor', 6565654387, 'Priyanka@gmail.com', 'Hazratganj', '678', ''),
 (60, 'POOJA KHATRI', 5678956789, 'kha@gmail.com', 'Alambhag', '4561', ''),
-(61, 'Tara', 8907643126, 't@gmail.com', 'Hazratganj', '123', '');
+(61, 'Tara', 8907643126, 't@gmail.com', 'Hazratganj', '123', ''),
+(62, 'xyz', 8807843126, 'xyz@gmail.com', 'Hazratganj', '123', ''),
+(63, 'abc', 8407843126, 'abc@gmail.com', 'Alambhag', '123', ''),
+(64, 'preetikhatri', 8997843126, 'preeti@gmail.com', 'Alambhag', '123', ''),
+(65, 'POOJA KHATRI', 8907743126, 'p@gmail.com', 'Hazratganj', '123', ''),
+(66, 'Sneha tondon', 8619858421, 's@gmail.com', 'Alambhag', '123', ''),
+(67, 'xyz', 7777843126, 'xyz@gmail.com', 'Alambhag', '123', '');
 
 --
 -- Indexes for dumped tables
@@ -948,6 +947,12 @@ ALTER TABLE `banner_management`
 ALTER TABLE `bill`
   ADD PRIMARY KEY (`Sno`),
   ADD UNIQUE KEY `appointment_id` (`appointment_id`);
+
+--
+-- Indexes for table `branch_details`
+--
+ALTER TABLE `branch_details`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `business_hours`
@@ -1022,6 +1027,12 @@ ALTER TABLE `sub_category_service`
   ADD PRIMARY KEY (`s_id`);
 
 --
+-- Indexes for table `super_admin`
+--
+ALTER TABLE `super_admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_about`
 --
 ALTER TABLE `tb_about`
@@ -1077,7 +1088,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_login_details`
 --
 ALTER TABLE `admin_login_details`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `all_services`
@@ -1095,7 +1106,13 @@ ALTER TABLE `banner_management`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `Sno` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Sno` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `branch_details`
+--
+ALTER TABLE `branch_details`
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `business_hours`
@@ -1113,13 +1130,13 @@ ALTER TABLE `category_service`
 -- AUTO_INCREMENT for table `enquiry_message`
 --
 ALTER TABLE `enquiry_message`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `package1`
@@ -1131,7 +1148,7 @@ ALTER TABLE `package1`
 -- AUTO_INCREMENT for table `package_selected`
 --
 ALTER TABLE `package_selected`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `package_services`
@@ -1170,6 +1187,12 @@ ALTER TABLE `sub_category_service`
   MODIFY `s_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
+-- AUTO_INCREMENT for table `super_admin`
+--
+ALTER TABLE `super_admin`
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tb_about`
 --
 ALTER TABLE `tb_about`
@@ -1185,19 +1208,19 @@ ALTER TABLE `tb_about_us`
 -- AUTO_INCREMENT for table `tb_appointment`
 --
 ALTER TABLE `tb_appointment`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_invoice`
 --
 ALTER TABLE `tb_invoice`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_selected_services`
 --
 ALTER TABLE `tb_selected_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tb_services`
@@ -1209,7 +1232,7 @@ ALTER TABLE `tb_services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
