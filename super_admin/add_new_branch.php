@@ -10,10 +10,11 @@ if(isset($_POST["submit"])) {
     $city = $_POST['city'];
     $email = $_POST['email'];
     $address = $_POST['address'];
-    $branch_manager_name = $_POST['branch_manager_name'];
+    // $branch_manager_name = $_POST['branch_manager_name'];
     $mobile = $_POST['mobile'];
-
-  $query1 = "INSERT INTO branch_details values ('','$branch_name','$city','$email','$address','$branch_manager_name','$mobile')";
+//  $query = "INSERT INTO admin_login_details values ('','$branch_name','$city','$email','$address','$branch_manager_name','$mobile')";
+// mysqli_query($conn, $query);
+  $query1 = "INSERT INTO branch_details values ('','$branch_name','$city','$email','$address','$mobile')";
      if(mysqli_query($conn, $query1))
      {
         echo "<script>
@@ -67,13 +68,19 @@ if(isset($_POST["submit"])) {
                     <div class="form-group row">          
                     <label for="branch_name" class="col-sm-2 col-form-label">BRANCH NAME </label>
                     <div class="col-sm-6">
-                        <input type="text" name="branch_name" class="form-control" id="mobile" placeholder="Enter branch name" required> 
+                        <input type="text" name="branch_name" class="form-control" id="mobile" placeholder="Enter Branch Name" required> 
                     </div>
                 </div>
+                   <!-- <div class="form-group row">
+                            <label for="address" class="col-sm-2 col-form-label">BRANCH MANAGER NAME (ADMIN)</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="branch_manager_name" class="form-control" id="address" placeholder="Enter Branch Manager Name " required>
+                            </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="name" class="col-sm-2 col-form-label">CITY</label>
                             <div class="col-sm-6">
-                                <input type="text" name="city" class="form-control" id="name" placeholder="Enter city of the branch" required>
+                                <input type="text" name="city" class="form-control" id="name" placeholder="Enter City of the Branch" required>
                             </div>
                         </div>
                         <!-- <div class="form-group row">          
@@ -85,21 +92,16 @@ if(isset($_POST["submit"])) {
                 <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">EMAIL </label>
                             <div class="col-sm-6">
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="address" class="col-sm-2 col-form-label">ADDRESS</label>
                             <div class="col-sm-6">
-                                <input type="text" name="address" class="form-control" id="address" placeholder="Enter address" required>
+                                <input type="text" name="address" class="form-control" id="address" placeholder="Enter Address" required>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="address" class="col-sm-2 col-form-label">BRANCH MANAGER NAME</label>
-                            <div class="col-sm-6">
-                                <input type="text" name="branch_manager_name" class="form-control" id="address" placeholder="Enter Branch Manager Name " required>
-                            </div>
-                        </div>   
+                        
                          <div class="form-group row">
                             <label for="address" class="col-sm-2 col-form-label">MOBILE</label>
                             <div class="col-sm-6">

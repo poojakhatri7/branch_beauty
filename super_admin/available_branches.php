@@ -50,7 +50,6 @@ include('includes/sidebar.php');
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">City </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                        <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
-                         <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Manager Name </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                   </tr>
@@ -73,7 +72,7 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $row['city']; ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['address']; ?></td>
-             <td><?php echo $row['branch_manager_name']; ?></td>
+            
                <td><?php echo $row['mobile']; ?></td>
             <td>
     <div style="display: inline-block; margin-right: 20px;">

@@ -86,7 +86,7 @@
 //if ($role == 1)
 ?>
     <li class="nav-item">
-            <a href="#" class="nav-link admin_available_branches add_new_branch edit_available_branches">
+            <a href="#" class="nav-link admin_available_branches add_new_branch edit_available_branches assign_branch_manager">
               <!-- <i class="nav-icon fas fa-copy"></i> -->
               <!-- <i class="fa fa-file-invoice"></i> -->
               <i class="fa fa-building"></i> 
@@ -103,6 +103,13 @@
                   <p>Add New Branch</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="assign_branch_manager" class="nav-link assign_branch_manager">
+                  <!-- <i class="fa fa-info-circle"></i> -->
+                  <i class="fa fa-user"></i>
+                  <p>Assign Branch Manager (Admin) </p>
+                </a>
+              </li>
         
               <li class="nav-item">
                 <a href="available_branches" class="nav-link staff">
@@ -113,7 +120,7 @@
             </ul>
           </li>
              <li class="nav-item">
-            <a href="admin_enquiry_message" class="nav-link admin_enquiry_message">
+            <a href="admin_enquiry_message1" class="nav-link admin_enquiry_message">
               <!-- <i class="nav-icon fas fa-copy"></i> -->
               <!-- <i class="fa fa-file-invoice"></i> -->
               <i class="fa fa-envelope"></i> 
@@ -155,16 +162,17 @@
             </a>
            
           </li>
-          <li class="nav-item">
+
+          <!-- <li class="nav-item">
             <a href="search_appointment" class="nav-link search_appointment">
               
               <i class="fa fa-search"></i>
               <p>
-              Search Appointment
+              Search Appointment -->
                 <!-- <i class="fas fa-angle-left right"></i> -->
-              </p>
+              <!-- </p>
             </a>
-</li>
+</li> -->
 <!--  -->
 <!-- <li class="nav-item">
             <a href="delete_old_records" class="nav-link delete_appointment">
@@ -180,7 +188,7 @@
 </ul>
 
          
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link admin_services nav-link manage_services add_category admin_services">
             <p><i class="fa fa-magic"></i>
               <p>
@@ -188,7 +196,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a> 
-            <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;">
+            <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;"> -->
           <!-- <li class="nav-item">
             <a href="/beauty_parlour_management_system/admin2/admin_services.php" class="nav-link admin_services"> -->
               <!-- <i class="nav-icon fas fa-th"></i> -->
@@ -199,39 +207,39 @@
               </p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="manage_service" class="nav-link manage_services">
-              <!-- <i class="nav-icon fas fa-th"></i> -->
+           
               <i class="fa fa-spa"></i>
               <p>
                 Available Services
               </p>
-            </a>
+            </a> -->
        
-            <li class="nav-item">
-            <a href="admin_services2" class="nav-link admin_services">
+            <!-- <li class="nav-item">
+            <a href="admin_services2" class="nav-link admin_services"> -->
               <!-- <i class="nav-icon fas fa-th"></i> -->
               <!-- <i class="fa fa-cogs"></i> -->
-                 <i class="fa fa-plus-circle"></i> 
+                 <!-- <i class="fa fa-plus-circle"></i> 
               <p>
               Add Services 
               </p>
             </a>
             <li class="nav-item">
-            <a href="add_category" class="nav-link add_category">
+            <a href="add_category" class="nav-link add_category"> -->
               <!-- <i class="nav-icon fas fa-th"></i> -->
               <!-- <i class="fa fa-cogs"></i> -->
                  <!-- <i class="fa fa-plus-circle"></i>  -->
-                 <i class="fa fa-plus-circle"></i>
+                 <!-- <i class="fa fa-plus-circle"></i>
                
               <p>
               Add Category and Sub Category
               </p>
-            </a>
+            </a> -->
            
-            </ul>
-          </li> 
-          <li class="nav-item">
+            <!-- </ul> -->
+          <!-- </li>  -->
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link package available_package">
             <p><i class="fa fa-toolbox"></i>
               <p>
@@ -239,17 +247,17 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a> 
-              <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;">
+              <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;"> -->
           
           
-              <li class="nav-item">
-                <a href="admin_add_packages1" class="nav-link package">
+              <!-- <li class="nav-item">
+                <a href="admin_add_packages1" class="nav-link package"> -->
                   <!-- <i class="fa fa-info-circle"></i> -->
-                  <i class="fa fa-plus"></i>
+                  <!-- <i class="fa fa-plus"></i>
                   <p>Add New Package</p>
                 </a>
               </li>
- 
+  -->
               <!-- <li class="nav-item">
                 <a href="/beauty_parlour_management_system/admin2/staff_gallery.php" class="nav-link update_staff"> -->
                   <!-- <i class="fa fa-info-circle"></i> -->
@@ -258,13 +266,13 @@
                   <p>Staff Gallery</p>
                 </a>
               </li> -->
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="admin_available_package" class="nav-link available_package">
                 <i class="fa fa-box"></i>
                   <p>Available Packages </p>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           <li class="nav-item">
             <a href="admin_invoice2" class="nav-link invoice1">
               <!-- <i class="nav-icon fas fa-copy"></i> -->

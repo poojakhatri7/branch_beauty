@@ -29,7 +29,8 @@ $time = $row['time'];
     // If no record is found, display a message
     echo "<p>No record found.</p>";
 }
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])) 
+	{
     $name = $_POST['name'];
     $email = $_POST['email'];
     $about = $_POST['subject'];

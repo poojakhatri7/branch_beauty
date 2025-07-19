@@ -1,4 +1,3 @@
-
 <?php
 include 'session.php';
 if (isset($_POST['package_number'])) {
