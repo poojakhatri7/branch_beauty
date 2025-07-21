@@ -283,6 +283,16 @@
               </p>
             </a>
           </li>
+            <li class="nav-item">
+            <a href="revenue" class="nav-link revenue">
+              <!-- <i class="nav-icon fas fa-copy"></i> -->
+              <i class="fa fa-chart-line"></i>
+              <p>
+               Revenue
+                <!-- <i class="fas fa-angle-left right"></i> -->
+              </p>
+            </a>
+          </li>
           
          
           <li class="nav-item">

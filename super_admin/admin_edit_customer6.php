@@ -15,6 +15,7 @@ if (isset($_POST["submit"])) {
     $mobile = $_POST["mobile"];
     $address = $_POST["address"];
      $date = $_POST["date"];
+      $branch_id = $_POST["branch_id"];
  // Convert string to array
     // echo "<pre>";
     // print_r($selected_services); // Debug: Check if multiple services are received correctly
@@ -64,7 +65,7 @@ if (mysqli_num_rows($check_result) > 0) {
 } else {
     // Insert new invoice
     $insert_sql = "INSERT INTO tb_invoice 
-                   VALUES ('', '$appointment_id', '$name', '$mobile', '$address', '$email', '$date')";
+                   VALUES ('','$branch_id', '$appointment_id', '$name', '$mobile', '$address', '$email', '$date')";
     mysqli_query($conn, $insert_sql);
 }
 
@@ -93,8 +94,8 @@ if (isset($_POST['services']) && !empty($_POST['services'])) {
 
             // Insert into tb_selected_services
             $insert_sql = "
-            INSERT INTO tb_selected_services (appointment_id, c_id,s_id, a_id, service_name, service_price, discount_percentage, price_after_discount, billing_number) 
-            VALUES ('$appointment_id','$c_id','$s_id','$a_id', '$service_name', '$service_price','$discount_percentage','$discount_price', '$billing_number')";
+            INSERT INTO tb_selected_services (branch_details_id,appointment_id, c_id,s_id, a_id, service_name, service_price, discount_percentage, price_after_discount, billing_number) 
+            VALUES ('$branch_id','$appointment_id','$c_id','$s_id','$a_id', '$service_name', '$service_price','$discount_percentage','$discount_price', '$billing_number')";
             
             if (!mysqli_query($conn, $insert_sql)) {
                 echo "Error inserting service: " . mysqli_error($conn);
@@ -108,8 +109,8 @@ if (isset($_POST['services']) && !empty($_POST['services'])) {
     // $billing_number = $_POST['billing_number'];
     $totalAfterDiscount = $totalPrice - ($totalPrice * ($discount / 100));
 
-    $sql_insert = "INSERT INTO orders (appointment_id, totalPrice, discount, billing_number, created_at) 
-                   VALUES ('$appointment_id', '$totalPrice', '$discount', '$billing_number', NOW())";
+    $sql_insert = "INSERT INTO orders (branch_details_id,appointment_id, totalPrice, discount, billing_number, created_at) 
+                   VALUES ('$branch_id','$appointment_id', '$totalPrice', '$discount', '$billing_number', NOW())";
 
     if (mysqli_query($conn, $sql_insert)) {
         echo "<script>
@@ -206,8 +207,20 @@ $billing_number = $prefix . str_pad($nextNumber, 6, "0", STR_PAD_LEFT);
     }
 }
 
-
-$sql = "SELECT * FROM tb_appointment WHERE id={$id}";
+$sql = "
+SELECT 
+    ta.*, 
+    bd.branch_name 
+FROM 
+    tb_appointment ta
+JOIN 
+    branch_details bd 
+ON 
+    ta.branch_details_id = bd.id
+WHERE 
+    ta.id = {$id}
+";
+// $sql = "SELECT * FROM tb_appointment WHERE id={$id}";
 // Step 3: Execute the query
 $result = mysqli_query($conn, $sql);
 // Step 4: Check if the query returned any results
@@ -245,7 +258,18 @@ if (mysqli_num_rows($result) > 0) {
               <!-- form start -->
               <form class="form-horizontal" action="" method= "post">
                 <div class="card-body">
-                  <div class="form-group row">
+              
+                     <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">BRANCH NAME </label>
+                    <div class="col-sm-10">
+                      <input type="text" name="name" class="form-control" id="inputEmail3"  value = "<?php echo $row['branch_name'] ?>"readonly>
+                    </div>
+                  </div>
+                  
+                      <input type="hidden" name="branch_id" class="form-control" id="inputEmail3"  value = "<?php echo $row['branch_details_id'] ?>">
+             
+              
+                      <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">NAME</label>
                     <div class="col-sm-10">
                       <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="ENTER NAME OF THE VISITING CUSTOMER" value = "<?php echo $row['name'] ?>">

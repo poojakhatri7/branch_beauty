@@ -77,6 +77,7 @@ include('includes/sidebar.php');
                 <thead style="background-color:rgb(51, 139, 139); color: white;">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
+                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Invoice number</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Customer name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile number</th>
@@ -108,6 +109,7 @@ $sql = "
         ta.appointment_id AS appointment_id, 
         ta.name AS name, 
         ta.date,
+         ta.branch_details_id,
         ta.mobile, 
         ts.billing_number,
         ts.created_at AS time,
@@ -125,6 +127,7 @@ $sql = "
         ta.appointment_id AS appointment_id, 
         ta.name AS name, 
         ta.date,
+         ta.branch_details_id,
         ta.mobile, 
         sp.billing_number,
         NULL AS time,
@@ -137,9 +140,25 @@ $sql = "
 
     ORDER BY created_at DESC
 ";
+ $result = mysqli_query($conn, $sql);
 
-// Execute the query
-$result = mysqli_query($conn, $sql);
+$sql1 = "
+SELECT 
+    bd.branch_name
+FROM 
+    tb_invoice ti
+JOIN 
+    branch_details bd 
+ON 
+    ti.branch_details_id = bd.id
+";
+
+$result1 = mysqli_query($conn, $sql1);
+
+if ($row = mysqli_fetch_assoc($result1))
+  {
+   $branch_name = $row['branch_name'];
+}
 
 // Display results
 if (mysqli_num_rows($result) > 0) {
@@ -147,6 +166,7 @@ if (mysqli_num_rows($result) > 0) {
         $count++;
         echo "<tr>
             <th scope='row'>$count</th> 
+             <td> $branch_name </td>
             <td>{$row['billing_number']}</td>
             <td>{$row['name']}</td>
             <td>{$row['mobile']}</td>
@@ -156,7 +176,7 @@ if (mysqli_num_rows($result) > 0) {
             <td>";
         
         if ($row['invoice_type'] === 'Service') {
-            echo "<a href='invoice_details2?appointment_id={$row["appointment_id"]}&billing_number={$row["billing_number"]}'>";
+            echo "<a href='invoice_details2?appointment_id={$row["appointment_id"]}&billing_number={$row["billing_number"]}&branch_id={$row["branch_details_id"]}'>";
         } else {
             echo "<a href='invoice_package?package1_id={$row["package1_id"]}&appointment_id={$row["appointment_id"]}&billing_number={$row["billing_number"]}'>";
         }
@@ -172,7 +192,6 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "No invoice found.";
 }
-
 
 ?>
                   </table>

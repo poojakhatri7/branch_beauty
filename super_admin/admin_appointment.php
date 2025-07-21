@@ -124,6 +124,8 @@ include('includes/sidebar.php');
                 <thead style="background-color: rgb(51, 139, 139) ">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
+                   
+                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
@@ -171,7 +173,20 @@ include('includes/sidebar.php');
 //   </a> 
 // </td>
 //     </tr>";
-$sql = "SELECT * FROM tb_appointment order BY id DESC";
+// $sql = "SELECT * FROM tb_appointment order BY id DESC";
+$sql = "
+SELECT 
+    ta.*, 
+    bd.branch_name 
+FROM 
+    tb_appointment ta
+JOIN 
+    branch_details bd 
+ON 
+    ta.branch_details_id = bd.id
+ORDER BY 
+    ta.id DESC
+";
 $result = mysqli_query($conn, $sql);
 $count = 0;
 if (mysqli_num_rows($result) > 0) {
@@ -180,6 +195,8 @@ if (mysqli_num_rows($result) > 0) {
         ?>
         <tr>
             <th scope='row'><?php echo $count; ?></th>
+          
+             <td><?php echo $row['branch_name']; ?></td>
             <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['email']; ?></td>
              <td><?php echo $row['mobile']; ?></td>

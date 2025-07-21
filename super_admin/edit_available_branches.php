@@ -103,12 +103,12 @@ if (mysqli_num_rows($result) > 0) {
                                 <input type="text" name="address" class="form-control"   value = "<?php echo $row['address'] ?>">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="address" class="col-sm-2 col-form-label">BRANCH MANAGER NAME </label>
                             <div class="col-sm-6">
                                 <input type="text" name="branch_manager_name" class="form-control"   value = "<?php echo $row['branch_manager_name'] ?>">
                             </div>
-                        </div>
+                        </div> -->
                           <div class="form-group row">
                             <label for="address" class="col-sm-2 col-form-label">MOBILE</label>
                             <div class="col-sm-6">

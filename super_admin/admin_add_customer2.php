@@ -6,6 +6,7 @@ include('includes/sidebar.php');
 
 if(isset($_POST["submit"])) {
   $name = mysqli_real_escape_string($conn, $_POST["name"]);
+   $branch_id = mysqli_real_escape_string($conn, $_POST["branch_id"]);
   $email = mysqli_real_escape_string($conn, $_POST["email"]);
   $mobile = mysqli_real_escape_string($conn, $_POST["mobile"]);
   $address = mysqli_real_escape_string($conn, $_POST["address"]);
@@ -13,7 +14,7 @@ if(isset($_POST["submit"])) {
   $preferd_time = mysqli_real_escape_string($conn, $_POST["time"]);
   $appointment_for = "offline booking";
 
-    $query1 = "INSERT INTO tb_appointment values ('','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
+    $query1 = "INSERT INTO tb_appointment values ('', '$branch_id','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
      if(mysqli_query($conn, $query1))
      {
         echo "<script>
@@ -99,6 +100,22 @@ if(isset($_POST["submit"])) {
                          <span id="mobileError" style="color: red;"></span>
                     </div>
                 </div>
+                
+                    <!-- Branch Dropdown -->
+        <div class="form-group row">
+            <?php 
+                $staff_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+            ?>
+            <label for="id" class="col-sm-4 col-form-label">SELECT BRANCH</label>
+            <div class="col-sm-8">
+                <select name="branch_id" id="id" class="form-control" required>
+                    <option value="" selected disabled>Select Branch</option>
+                    <?php while ($row = mysqli_fetch_assoc($staff_result)) { ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
                
 
                 <div class="form-group row">
@@ -112,7 +129,9 @@ if(isset($_POST["submit"])) {
                     <div class="col-sm-8">
                         <input type="date" name="date" class="form-control" id="date" required>
                     </div>
+                    
                 </div>
+                
             </div>
 
             <!-- Right Column -->

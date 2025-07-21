@@ -156,7 +156,7 @@ body.theme--dark .discount-text {
         <th>City</th>
         <th>Email</th>
          <th>Address</th>
-          <th>Manager Name</th>
+         
             <th>Mobile</th>
        
       </tr>
@@ -180,7 +180,7 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $row['city']; ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['address']; ?></td>
-             <td><?php echo $row['branch_manager_name']; ?></td>
+           
                <td><?php echo $row['mobile']; ?></td>
       </tr>
       <!-- Add more rows as needed -->

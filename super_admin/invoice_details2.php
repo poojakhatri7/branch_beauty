@@ -7,7 +7,7 @@ include('includes/sidebar.php');
 $appointment_id = isset($_GET['appointment_id']) ? $_GET['appointment_id'] : null;
 $package1_id = isset($_GET['package1_id']) ? $_GET['package1_id'] : null;
 $billing_number = isset($_GET['billing_number']) ? $_GET['billing_number'] : null;
-
+$branch_id = isset($_GET['branch_id']) ? $_GET['branch_id'] : null;
 //  $billing_number = $_GET ['billing_number'];
 //    $appointment_id = $_GET ['appointment_id'];
 //      $package1_id = $_GET ['package1_id'];
@@ -302,8 +302,8 @@ $roundedBill = round($gst_total, 0);
       <h4><strong> After  Roundoff Bill Amount is : Rs <?php echo  $roundedBill ?> </strong></h4>
     </div>
     <?php
-    if (isset($_POST["submit"])) {
-     $query = "INSERT INTO bill (Sno,appointment_id,bill_amount, discount_percent, bill_after_discount,adding_gst,round_off_bill) VALUES ('','$appointment_id','$total', '$formatted_discount','$total_discount','$gst_total','$roundedBill')
+   
+     $query = "INSERT INTO bill (Sno,branch_details_id,appointment_id,billing_number,bill_amount, discount_percent, bill_after_discount,adding_gst,round_off_bill) VALUES ('','$branch_id','$appointment_id','$billing_number','$total', '$formatted_discount','$total_discount','$gst_total','$roundedBill')
       ON DUPLICATE KEY UPDATE 
             bill_amount = '$total', 
             discount_percent = '$formatted_discount', 
@@ -312,7 +312,7 @@ $roundedBill = round($gst_total, 0);
             round_off_bill = '$roundedBill'";
      mysqli_query($conn, $query);
     
-}
+
 ?>
    <?php } ?>
 

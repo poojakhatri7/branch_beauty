@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 19, 2025 at 01:56 PM
+-- Generation Time: Jul 21, 2025 at 01:56 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,13 +47,11 @@ CREATE TABLE `admin_login_details` (
 --
 
 INSERT INTO `admin_login_details` (`id`, `branch_details_id`, `branch_name`, `name`, `mobile`, `email`, `address`, `password`, `role`, `file`, `gst_number`, `last_invoice_no`) VALUES
-(9, 5, 'Lucknow branch', 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000006),
+(9, 5, 'Lucknow branch', 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000001),
 (12, 5, 'Lucknow branch', 'navya khatri', 8707858427, 'navya@gmail.com', 'Hazratganj', '12345', 2, 'upload-images/beauty_02.jpg', NULL, NULL),
 (16, 6, 'Kanpur branch', 'anvi', 8019858421, 'anvi@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/team-9.jpg', NULL, NULL),
 (26, 1, '', 'Maya khatri', 7907858477, 'maya@gmail.com', 'rajajipuram ', '7777', 3, 'upload-images/hair_08.jpg', NULL, NULL),
-(27, 1, 'Delhi branch', 'priyanka tondon', 6657858477, 'tondon@gmail.com', 'lucknow', '12345', 1, NULL, NULL, NULL),
-(29, 7, 'Mumbai Branch', 'fdfdsa', 8966843126, 'pooja1@gmail.com', 'Hazratganj', '32131', 1, NULL, NULL, NULL),
-(30, 7, 'Mumbai Branch', 'avika gaur', 8989743126, 'a@gmail.com', 'Hazratganj', '9999', 1, NULL, NULL, NULL);
+(32, 9, 'Delhi Branch', 'avika gaur', 8907003126, 'avika@gmail.com', ' RAJAJIPURAM', '12345', 1, NULL, NULL, 98000001);
 
 -- --------------------------------------------------------
 
@@ -175,7 +173,9 @@ INSERT INTO `banner_management` (`id`, `file`, `content`, `buttonName`, `buttonL
 
 CREATE TABLE `bill` (
   `Sno` bigint(50) NOT NULL,
+  `branch_details_id` int(200) NOT NULL,
   `appointment_id` int(50) NOT NULL,
+  `billing_number` int(200) NOT NULL,
   `bill_amount` bigint(50) NOT NULL,
   `discount_percent` int(20) NOT NULL,
   `bill_after_discount` int(20) NOT NULL,
@@ -187,12 +187,8 @@ CREATE TABLE `bill` (
 -- Dumping data for table `bill`
 --
 
-INSERT INTO `bill` (`Sno`, `appointment_id`, `bill_amount`, `discount_percent`, `bill_after_discount`, `adding_gst`, `round_off_bill`) VALUES
-(1, 57, 690, 10, 621, 733, 733),
-(2, 58, 0, 10, 302, 356, 356),
-(5, 63, 770, 10, 693, 818, 818),
-(8, 66, 600, 10, 540, 637, 637),
-(9, 98, 0, 10, 302, 356, 356);
+INSERT INTO `bill` (`Sno`, `branch_details_id`, `appointment_id`, `billing_number`, `bill_amount`, `discount_percent`, `bill_after_discount`, `adding_gst`, `round_off_bill`) VALUES
+(1, 7, 4, 98000001, 100, 7, 93, 110, 110);
 
 -- --------------------------------------------------------
 
@@ -214,10 +210,10 @@ CREATE TABLE `branch_details` (
 --
 
 INSERT INTO `branch_details` (`id`, `branch_name`, `city`, `email`, `address`, `mobile`) VALUES
-(1, 'Delhi Branch', 'Delhi', 'delhi@gmail.com', 'mayur vihar', 2207858489),
 (5, 'Lucknow Branch', 'Lucknow ', 'xyza@gmail.com', ' RAJAJIPURAM', 7777843126),
 (6, 'Kanpur branch', 'Kanpur ', 'kanpur@gmail.com', 'Hazratganj', 5557843126),
-(7, 'Mumbai Branch', 'Mumbai', 'Mumbai@gmail.com', 'Alambhag', 8788858421);
+(7, 'Mumbai Branch', 'Mumbai', 'Mumbai@gmail.com', 'Alambhag', 8788858421),
+(9, 'Delhi Branch', 'Delhi', 'delhi@gmail.com', 'mayur vihar', 6546445646);
 
 -- --------------------------------------------------------
 
@@ -290,10 +286,9 @@ CREATE TABLE `enquiry_message` (
 
 INSERT INTO `enquiry_message` (`id`, `branch_details_id`, `branch_name`, `name`, `email`, `mobile`, `message`, `created_at`) VALUES
 (22, '5', 'Lucknow Branch', 'pooja', 'pooja@gmail.com', 8899117706, 'hello', '2025-07-01 06:30:58'),
-(26, '1', 'Delhi Branch', 'Pari Kapoor', 'pari@gmail.com', 4543555345, 'dfghfhgfgh', '2025-07-17 06:51:11'),
-(27, '1', 'Delhi Branch', 'abcd', 'abcd@gmail.com', 3423434234, 'fgfdgdfgfd', '2025-07-17 07:11:37'),
 (28, '5', 'Lucknow Branch', 'diya sharma', 'diya@gmail.com', 6437846283, 'about timming', '2025-07-19 06:04:05'),
-(29, '7', 'Mumbai Branch', 'shikha', 'shikha@gmail.com', 5378823321, 'dsfcdsfsdf', '2025-07-19 09:10:55');
+(29, '7', 'Mumbai Branch', 'shikha', 'shikha@gmail.com', 5378823321, 'dsfcdsfsdf', '2025-07-19 09:10:55'),
+(30, '9', 'Delhi Branch', 'xyz', 'xyz@gmail.com', 5656217257, 'hello i want to know about the timing', '2025-07-21 05:10:07');
 
 -- --------------------------------------------------------
 
@@ -303,6 +298,7 @@ INSERT INTO `enquiry_message` (`id`, `branch_details_id`, `branch_name`, `name`,
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
+  `branch_details_id` int(200) NOT NULL,
   `appointment_id` int(11) NOT NULL,
   `totalPrice` decimal(10,2) NOT NULL,
   `discount` decimal(5,2) NOT NULL,
@@ -314,65 +310,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `appointment_id`, `totalPrice`, `discount`, `billing_number`, `created_at`) VALUES
-(1, 57, 300.00, 32.00, '98000012', '2025-06-11 11:27:32'),
-(2, 58, 0.00, 10.00, '97000003', '2025-06-11 11:40:01'),
-(3, 58, 400.00, 10.00, '98000013', '2025-06-11 11:48:08'),
-(4, 58, 0.00, 10.00, '97000004', '2025-06-17 04:38:41'),
-(5, 59, 735.00, 32.00, '98000014', '2025-06-17 09:10:55'),
-(6, 59, 0.00, 10.00, '97000005', '2025-06-17 09:11:27'),
-(7, 58, 0.00, 32.00, '97000006', '2025-06-17 09:57:12'),
-(8, 59, 0.00, 40.00, '97000007', '2025-06-17 10:05:07'),
-(9, 59, 0.00, 10.00, '97000008', '2025-06-17 10:58:29'),
-(10, 59, 0.00, 10.00, '97000008', '2025-06-17 10:58:29'),
-(11, 59, 0.00, 32.00, '97000008', '2025-06-17 10:58:29'),
-(12, 59, 0.00, 40.00, '97000008', '2025-06-17 10:58:29'),
-(13, 59, 0.00, 10.00, '97000009', '2025-06-17 11:39:41'),
-(14, 59, 0.00, 10.00, '97000001', '2025-06-17 11:46:18'),
-(15, 59, 0.00, 32.00, '97000002', '2025-06-17 12:08:13'),
-(16, 58, 0.00, 40.00, '97000003', '2025-06-18 04:34:13'),
-(17, 59, 470.00, 35.00, '98000015', '2025-06-18 04:46:26'),
-(18, 58, 0.00, 10.00, '97000004', '2025-06-18 05:00:53'),
-(19, 59, 400.00, 75.00, '98000016', '2025-06-19 04:07:22'),
-(20, 58, 0.00, 32.00, '97000005', '2025-06-19 04:07:54'),
-(21, 60, 300.00, 10.00, '98000017', '2025-06-21 05:21:14'),
-(22, 60, 600.00, 32.00, '98000018', '2025-06-21 05:21:52'),
-(23, 60, 0.00, 32.00, '97000006', '2025-06-21 05:22:33'),
-(24, 63, 770.00, 10.00, '98000019', '2025-06-25 09:27:34'),
-(25, 63, 0.00, 10.00, '97000007', '2025-06-25 09:28:31'),
-(26, 66, 600.00, 10.00, '98000020', '2025-06-25 10:41:48'),
-(27, 68, 0.00, 10.00, '92000008', '2025-06-26 09:54:54'),
-(28, 69, 277.00, 15.00, '98000021', '2025-06-26 10:37:30'),
-(29, 69, 1535.00, 10.00, '98000022', '2025-06-26 11:21:27'),
-(30, 70, 130.00, 10.00, '98000023', '2025-06-26 11:30:33'),
-(31, 71, 505.00, 10.00, '98000024', '2025-06-26 11:36:43'),
-(32, 72, 680.00, 15.00, '98000025', '2025-06-27 08:46:33'),
-(33, 72, 692.00, 25.00, '98000026', '2025-06-27 08:47:48'),
-(34, 91, 400.00, 10.00, '98000027', '2025-07-07 11:28:29'),
-(35, 76, 335.00, 10.00, '98000028', '2025-07-07 11:40:44'),
-(36, 75, 600.00, 10.00, '98000029', '2025-07-07 11:44:36'),
-(37, 92, 1340.00, 10.00, '98000030', '2025-07-07 11:54:20'),
-(38, 96, 400.00, 10.00, '98000031', '2025-07-08 09:31:36'),
-(39, 96, 1540.00, 10.00, '98000032', '2025-07-08 09:36:08'),
-(40, 97, 660.00, 7.00, '98000033', '2025-07-08 09:38:52'),
-(41, 88, 0.00, 10.00, '92000009', '2025-07-08 09:48:20'),
-(42, 98, 0.00, 10.00, '92000010', '2025-07-08 09:51:58'),
-(43, 98, 0.00, 10.00, '92000011', '2025-07-08 10:05:12'),
-(44, 98, 200.00, 10.00, '98000034', '2025-07-08 10:05:51'),
-(45, 1, 1000.00, 10.00, '98000001', '2025-07-08 10:26:20'),
-(46, 1, 0.00, 10.00, '92000001', '2025-07-08 10:26:45'),
-(47, 2, 0.00, 10.00, '92000002', '2025-07-08 10:44:04'),
-(48, 3, 500.00, 10.00, '98000001', '2025-07-08 10:48:21'),
-(49, 3, 0.00, 10.00, '92000001', '2025-07-08 10:48:37'),
-(50, 3, 1135.00, 10.00, '98000002', '2025-07-08 10:49:17'),
-(51, 4, 0.00, 10.00, '92000002', '2025-07-11 04:15:15'),
-(52, 5, 0.00, 10.00, '92000003', '2025-07-11 04:45:59'),
-(53, 5, 0.00, 10.00, '92000004', '2025-07-11 04:46:21'),
-(54, 5, 400.00, 32.00, '98000003', '2025-07-11 04:47:18'),
-(55, 6, 1670.00, 10.00, '98000004', '2025-07-11 09:07:53'),
-(56, 6, 0.00, 40.00, '92000005', '2025-07-11 09:08:42'),
-(57, 7, 400.00, 10.00, '98000005', '2025-07-11 09:10:20'),
-(58, 7, 100.00, 10.00, '98000006', '2025-07-11 09:52:07');
+INSERT INTO `orders` (`id`, `branch_details_id`, `appointment_id`, `totalPrice`, `discount`, `billing_number`, `created_at`) VALUES
+(1, 7, 4, 100.00, 7.00, '98000001', '2025-07-21 11:45:07');
 
 -- --------------------------------------------------------
 
@@ -416,17 +355,6 @@ CREATE TABLE `package_selected` (
   `created_at` timestamp(6) NULL DEFAULT current_timestamp(6),
   `time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `package_selected`
---
-
-INSERT INTO `package_selected` (`id`, `appointment_id`, `package_name`, `package1_id`, `package_number`, `billing_number`, `created_at`, `time`) VALUES
-(1, 3, 'Gold package', 10, NULL, 92000001, '2025-07-08 10:48:37.554446', '00:00:00'),
-(2, 4, 'platinum package ', 9, NULL, 92000002, '2025-07-11 04:15:15.959014', '00:00:00'),
-(3, 5, 'Gold package', 10, NULL, 92000003, '2025-07-11 04:45:59.458594', '00:00:00'),
-(4, 5, 'Gold package', 10, NULL, 92000004, '2025-07-11 04:46:21.535271', '00:00:00'),
-(5, 6, 'hair package', 13, NULL, 92000005, '2025-07-11 09:08:42.774117', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -695,6 +623,7 @@ INSERT INTO `tb_about_us` (`id`, `page_title`, `heading`, `file1`, `file2`, `tex
 
 CREATE TABLE `tb_appointment` (
   `id` int(35) NOT NULL,
+  `branch_details_id` int(200) NOT NULL,
   `name` varchar(35) NOT NULL,
   `email` varchar(35) NOT NULL,
   `mobile` bigint(35) NOT NULL,
@@ -709,12 +638,11 @@ CREATE TABLE `tb_appointment` (
 -- Dumping data for table `tb_appointment`
 --
 
-INSERT INTO `tb_appointment` (`id`, `name`, `email`, `mobile`, `address`, `date`, `prefered_time`, `appointment_for`, `staff`) VALUES
-(4, 'rama', 'rama@gmail.com', 8907843155, 'Hazratganj', '2025-07-30', '09:48', 'offline booking', ''),
-(5, 'veronica', 'veronica@gmail.com', 8907843188, 'Hazratganj', '2025-07-16', '10:19', 'offline booking', ''),
-(6, 'preetikhatri', 'preeti@gmail.com', 8997843126, 'Alambhag', '2025-07-29', '18:37', 'offline booking', ''),
-(7, 'preetikhatri', 'preeti@gmail.com', 8997843126, 'Alambhag', '2025-07-30', '19:39', 'offline booking', ''),
-(8, 'xyz', 'xyz@gmail.com', 7777843126, 'Alambhag', '2025-07-17', '17:05', 'Hair Services', 'Veronica Aaron');
+INSERT INTO `tb_appointment` (`id`, `branch_details_id`, `name`, `email`, `mobile`, `address`, `date`, `prefered_time`, `appointment_for`, `staff`) VALUES
+(1, 5, 'Sneha tondon', 's@gmail.com', 8619858421, 'Alambhag', '2025-07-22', '01:09', 'offline booking', ''),
+(2, 6, 'POOJA KHATRI', 'pooja@gmail.com', 8907843126, 'Alambhag', '2025-07-23', '15:05', 'offline booking', ''),
+(3, 5, 'Sneha tondon', 'sneha@gmail.com', 9348459403, 'sneha@gmail.com', '2025-07-23', '18:22', 'offline booking', ''),
+(4, 7, 'xyz', 'xyz@gmail.com', 7777843126, 'Alambhag', '2025-07-22', '16:49', 'offline booking', '');
 
 -- --------------------------------------------------------
 
@@ -746,6 +674,7 @@ INSERT INTO `tb_contact_us` (`id`, `mobile_number`, `address`, `email_us`, `time
 
 CREATE TABLE `tb_invoice` (
   `id` int(200) NOT NULL,
+  `branch_details_id` int(200) NOT NULL,
   `appointment_id` int(200) NOT NULL,
   `name` varchar(200) NOT NULL,
   `mobile` bigint(35) NOT NULL,
@@ -758,11 +687,10 @@ CREATE TABLE `tb_invoice` (
 -- Dumping data for table `tb_invoice`
 --
 
-INSERT INTO `tb_invoice` (`id`, `appointment_id`, `name`, `mobile`, `address`, `email`, `date`) VALUES
-(1, 3, 'Sneha tondon', 8619858421, 'Alambhag', 's@gmail.com', '2025-07-09'),
-(5, 5, 'veronica', 8907843188, 'Hazratganj', 'veronica@gmail.com', '2025-07-16'),
-(6, 6, 'preetikhatri', 8997843126, 'Alambhag', 'preeti@gmail.com', '2025-07-29'),
-(7, 7, 'preetikhatri', 8997843126, 'Alambhag', 'preeti@gmail.com', '2025-07-30');
+INSERT INTO `tb_invoice` (`id`, `branch_details_id`, `appointment_id`, `name`, `mobile`, `address`, `email`, `date`) VALUES
+(1, 5, 3, 'Sneha tondon', 9348459403, 'sneha@gmail.com', 'sneha@gmail.com', '2025-07-23'),
+(2, 6, 2, 'POOJA KHATRI', 8907843126, 'Alambhag', 'pooja@gmail.com', '2025-07-23'),
+(3, 7, 4, 'xyz', 7777843126, 'Alambhag', 'xyz@gmail.com', '2025-07-22');
 
 -- --------------------------------------------------------
 
@@ -772,6 +700,7 @@ INSERT INTO `tb_invoice` (`id`, `appointment_id`, `name`, `mobile`, `address`, `
 
 CREATE TABLE `tb_selected_services` (
   `id` int(11) NOT NULL,
+  `branch_details_id` int(200) NOT NULL,
   `appointment_id` int(35) NOT NULL,
   `c_id` int(200) DEFAULT NULL,
   `s_id` int(200) DEFAULT NULL,
@@ -789,31 +718,8 @@ CREATE TABLE `tb_selected_services` (
 -- Dumping data for table `tb_selected_services`
 --
 
-INSERT INTO `tb_selected_services` (`id`, `appointment_id`, `c_id`, `s_id`, `a_id`, `service_name`, `service_price`, `discount_percentage`, `price_after_discount`, `billing_number`, `created_at`, `time`) VALUES
-(1, 3, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000001', '2025-07-08 10:48:20', '16:18:20'),
-(2, 3, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000001', '2025-07-08 10:48:20', '16:18:20'),
-(3, 3, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000001', '2025-07-08 10:48:20', '16:18:20'),
-(4, 3, 2, 5, 34, 'Teen Facial', 200.00, 20, 160, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(5, 3, 2, 5, 33, 'Gentleman’s Facial', 60.00, 10, 54, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(6, 3, 2, 5, 32, 'Anti-Ageing Facial', 175.00, 50, 88, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(7, 3, 2, 5, 28, 'Biolight Facial', 165.00, 20, 132, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(8, 3, 2, 5, 27, 'Four Layer Facial', 140.00, 50, 70, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(9, 3, 2, 5, 26, 'Organic Facial', 185.00, 7, 172, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(10, 3, 2, 5, 25, 'Deep Cleaning Facial', 130.00, 25, 98, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(11, 3, 2, 5, 24, 'Herbal Facial', 80.00, 5, 76, '98000002', '2025-07-08 10:49:17', '16:19:17'),
-(12, 5, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000003', '2025-07-11 04:47:18', '10:17:18'),
-(13, 5, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000003', '2025-07-11 04:47:18', '10:17:18'),
-(14, 6, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(15, 6, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(16, 6, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(17, 6, 1, 1, 2, 'Mens haircut', 100.00, 10, 90, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(18, 6, 1, 2, 13, 'Hair & Scalp Treatments', 240.00, 27, 175, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(19, 6, 1, 2, 12, 'Safe Color Treatment', 95.00, 50, 48, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(20, 6, 1, 2, 11, 'Hair Gloss', 550.00, 21, 435, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(21, 6, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000004', '2025-07-11 09:07:53', '14:37:53'),
-(22, 7, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000005', '2025-07-11 09:10:20', '14:40:20'),
-(23, 7, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000005', '2025-07-11 09:10:20', '14:40:20'),
-(24, 7, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000006', '2025-07-11 09:52:07', '15:22:07');
+INSERT INTO `tb_selected_services` (`id`, `branch_details_id`, `appointment_id`, `c_id`, `s_id`, `a_id`, `service_name`, `service_price`, `discount_percentage`, `price_after_discount`, `billing_number`, `created_at`, `time`) VALUES
+(1, 7, 4, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000001', '2025-07-21 11:45:07', '17:15:07');
 
 -- --------------------------------------------------------
 
@@ -1088,7 +994,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_login_details`
 --
 ALTER TABLE `admin_login_details`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `all_services`
@@ -1106,13 +1012,13 @@ ALTER TABLE `banner_management`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `Sno` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Sno` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `branch_details`
 --
 ALTER TABLE `branch_details`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `business_hours`
@@ -1130,13 +1036,13 @@ ALTER TABLE `category_service`
 -- AUTO_INCREMENT for table `enquiry_message`
 --
 ALTER TABLE `enquiry_message`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `package1`
@@ -1148,7 +1054,7 @@ ALTER TABLE `package1`
 -- AUTO_INCREMENT for table `package_selected`
 --
 ALTER TABLE `package_selected`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `package_services`
@@ -1208,19 +1114,19 @@ ALTER TABLE `tb_about_us`
 -- AUTO_INCREMENT for table `tb_appointment`
 --
 ALTER TABLE `tb_appointment`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_invoice`
 --
 ALTER TABLE `tb_invoice`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_selected_services`
 --
 ALTER TABLE `tb_selected_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_services`
