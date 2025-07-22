@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 21, 2025 at 01:56 PM
+-- Generation Time: Jul 22, 2025 at 01:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,11 +47,13 @@ CREATE TABLE `admin_login_details` (
 --
 
 INSERT INTO `admin_login_details` (`id`, `branch_details_id`, `branch_name`, `name`, `mobile`, `email`, `address`, `password`, `role`, `file`, `gst_number`, `last_invoice_no`) VALUES
-(9, 5, 'Lucknow branch', 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000001),
+(9, 5, 'Lucknow branch', 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000006),
 (12, 5, 'Lucknow branch', 'navya khatri', 8707858427, 'navya@gmail.com', 'Hazratganj', '12345', 2, 'upload-images/beauty_02.jpg', NULL, NULL),
 (16, 6, 'Kanpur branch', 'anvi', 8019858421, 'anvi@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/team-9.jpg', NULL, NULL),
 (26, 1, '', 'Maya khatri', 7907858477, 'maya@gmail.com', 'rajajipuram ', '7777', 3, 'upload-images/hair_08.jpg', NULL, NULL),
-(32, 9, 'Delhi Branch', 'avika gaur', 8907003126, 'avika@gmail.com', ' RAJAJIPURAM', '12345', 1, NULL, NULL, 98000001);
+(32, 9, 'Delhi Branch', 'avika gaur', 8907003126, 'avika@gmail.com', ' RAJAJIPURAM', '12345', 1, NULL, NULL, 98000006),
+(34, 5, 'Lucknow Branch', 'abcd', 7777843126, 'abcd@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/hair_03.jpg', NULL, NULL),
+(35, 6, 'Kanpur branch', 'fsghasf', 4567843126, 'gvjhgh@gmail.com', 'Hazratganj', '12345', 2, 'upload-images/hair_06.jpg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -188,7 +190,12 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`Sno`, `branch_details_id`, `appointment_id`, `billing_number`, `bill_amount`, `discount_percent`, `bill_after_discount`, `adding_gst`, `round_off_bill`) VALUES
-(1, 7, 4, 98000001, 100, 7, 93, 110, 110);
+(1, 5, 1, 98000001, 399, 10, 359, 424, 424),
+(4, 6, 3, 98000003, 57, 10, 51, 61, 61),
+(5, 7, 2, 98000002, 241, 10, 217, 256, 256),
+(25, 5, 1, 98000005, 535, 10, 482, 568, 568),
+(26, 5, 1, 98000004, 200, 10, 180, 212, 212),
+(27, 7, 2, 98000006, 1085, 32, 738, 871, 871);
 
 -- --------------------------------------------------------
 
@@ -311,7 +318,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `branch_details_id`, `appointment_id`, `totalPrice`, `discount`, `billing_number`, `created_at`) VALUES
-(1, 7, 4, 100.00, 7.00, '98000001', '2025-07-21 11:45:07');
+(1, 5, 1, 399.00, 10.00, '98000001', '2025-07-22 04:25:49'),
+(2, 7, 2, 241.00, 10.00, '98000002', '2025-07-22 04:37:31'),
+(3, 6, 3, 57.00, 10.00, '98000003', '2025-07-22 04:39:31'),
+(4, 5, 1, 200.00, 10.00, '98000004', '2025-07-22 06:32:26'),
+(5, 5, 1, 535.00, 10.00, '98000005', '2025-07-22 06:38:23'),
+(6, 7, 2, 1085.00, 32.00, '98000006', '2025-07-22 08:45:48');
 
 -- --------------------------------------------------------
 
@@ -639,10 +651,9 @@ CREATE TABLE `tb_appointment` (
 --
 
 INSERT INTO `tb_appointment` (`id`, `branch_details_id`, `name`, `email`, `mobile`, `address`, `date`, `prefered_time`, `appointment_for`, `staff`) VALUES
-(1, 5, 'Sneha tondon', 's@gmail.com', 8619858421, 'Alambhag', '2025-07-22', '01:09', 'offline booking', ''),
-(2, 6, 'POOJA KHATRI', 'pooja@gmail.com', 8907843126, 'Alambhag', '2025-07-23', '15:05', 'offline booking', ''),
-(3, 5, 'Sneha tondon', 'sneha@gmail.com', 9348459403, 'sneha@gmail.com', '2025-07-23', '18:22', 'offline booking', ''),
-(4, 7, 'xyz', 'xyz@gmail.com', 7777843126, 'Alambhag', '2025-07-22', '16:49', 'offline booking', '');
+(1, 5, 'Pari Kapoor', 'Priyanka@gmail.com', 8719858421, 'Alambhag', '2025-07-24', '00:54', 'offline booking', ''),
+(2, 7, 'Sneha tondon', 'sneha@gmail.com', 9348459403, 'sneha@gmail.com', '2025-07-23', '01:07', 'offline booking', ''),
+(3, 6, 'shikha', 'shikha@gmail.com', 8709858421, 'Hazratganj', '2025-07-23', '00:08', 'offline booking', '');
 
 -- --------------------------------------------------------
 
@@ -688,9 +699,9 @@ CREATE TABLE `tb_invoice` (
 --
 
 INSERT INTO `tb_invoice` (`id`, `branch_details_id`, `appointment_id`, `name`, `mobile`, `address`, `email`, `date`) VALUES
-(1, 5, 3, 'Sneha tondon', 9348459403, 'sneha@gmail.com', 'sneha@gmail.com', '2025-07-23'),
-(2, 6, 2, 'POOJA KHATRI', 8907843126, 'Alambhag', 'pooja@gmail.com', '2025-07-23'),
-(3, 7, 4, 'xyz', 7777843126, 'Alambhag', 'xyz@gmail.com', '2025-07-22');
+(1, 5, 1, 'Pari Kapoor', 8719858421, 'Alambhag', 'Priyanka@gmail.com', '2025-07-24'),
+(2, 7, 2, 'Sneha tondon', 9348459403, 'sneha@gmail.com', 'sneha@gmail.com', '2025-07-23'),
+(3, 6, 3, 'shikha', 8709858421, 'Hazratganj', 'shikha@gmail.com', '2025-07-23');
 
 -- --------------------------------------------------------
 
@@ -719,7 +730,27 @@ CREATE TABLE `tb_selected_services` (
 --
 
 INSERT INTO `tb_selected_services` (`id`, `branch_details_id`, `appointment_id`, `c_id`, `s_id`, `a_id`, `service_name`, `service_price`, `discount_percentage`, `price_after_discount`, `billing_number`, `created_at`, `time`) VALUES
-(1, 7, 4, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000001', '2025-07-21 11:45:07', '17:15:07');
+(1, 5, 1, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000001', '2025-07-22 04:25:49', '09:55:49'),
+(2, 5, 1, 3, 8, 67, 'French Manicure', 100.00, 20, 80, '98000001', '2025-07-22 04:25:49', '09:55:49'),
+(3, 5, 1, 3, 8, 57, 'Classic Manicure', 19.00, 25, 14, '98000001', '2025-07-22 04:25:49', '09:55:49'),
+(4, 5, 1, 3, 8, 58, 'Spa Manicure', 30.00, 60, 12, '98000001', '2025-07-22 04:25:49', '09:55:49'),
+(5, 5, 1, 3, 8, 59, 'Signature Gel Manicure', 50.00, 70, 15, '98000001', '2025-07-22 04:25:49', '09:55:49'),
+(6, 7, 2, 3, 8, 59, 'Signature Gel Manicure', 50.00, 70, 15, '98000002', '2025-07-22 04:37:31', '10:07:31'),
+(7, 7, 2, 3, 8, 58, 'Spa Manicure', 30.00, 60, 12, '98000002', '2025-07-22 04:37:31', '10:07:31'),
+(8, 7, 2, 3, 8, 65, 'Organic Express Pedi', 76.00, 20, 61, '98000002', '2025-07-22 04:37:31', '10:07:31'),
+(9, 7, 2, 3, 8, 60, 'Hard Gel Full Set', 85.00, 40, 51, '98000002', '2025-07-22 04:37:31', '10:07:31'),
+(10, 6, 3, 3, 9, 64, 'Collagen Mask', 25.00, 10, 23, '98000003', '2025-07-22 04:39:31', '10:09:31'),
+(11, 6, 3, 3, 9, 63, 'French Polish', 32.00, 65, 11, '98000003', '2025-07-22 04:39:31', '10:09:31'),
+(12, 5, 1, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000004', '2025-07-22 06:32:26', '12:02:26'),
+(13, 5, 1, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000005', '2025-07-22 06:38:23', '12:08:23'),
+(14, 5, 1, 1, 2, 9, 'Keratin Complex Max', 350.00, 15, 298, '98000005', '2025-07-22 06:38:23', '12:08:23'),
+(15, 7, 2, 2, 5, 34, 'Teen Facial', 200.00, 20, 160, '98000006', '2025-07-22 08:45:48', '14:15:48'),
+(16, 7, 2, 2, 5, 33, 'Gentleman’s Facial', 60.00, 10, 54, '98000006', '2025-07-22 08:45:48', '14:15:48'),
+(17, 7, 2, 2, 5, 26, 'Organic Facial', 185.00, 7, 172, '98000006', '2025-07-22 08:45:48', '14:15:48'),
+(18, 7, 2, 2, 5, 27, 'Four Layer Facial', 140.00, 50, 70, '98000006', '2025-07-22 08:45:48', '14:15:48'),
+(19, 7, 2, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000006', '2025-07-22 08:45:48', '14:15:48'),
+(20, 7, 2, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000006', '2025-07-22 08:45:48', '14:15:48'),
+(21, 7, 2, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000006', '2025-07-22 08:45:48', '14:15:48');
 
 -- --------------------------------------------------------
 
@@ -759,6 +790,7 @@ INSERT INTO `tb_services` (`id`, `service_name`, `service_price`, `creation_date
 
 CREATE TABLE `users` (
   `id` int(35) NOT NULL,
+  `branch_details_id` int(200) NOT NULL,
   `name` varchar(35) NOT NULL,
   `mobile` bigint(10) NOT NULL,
   `email` varchar(35) NOT NULL,
@@ -771,59 +803,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `mobile`, `email`, `address`, `password`, `file`) VALUES
-(6, 'priyanka', 8907843117, 'Malhotra@gmail.com', ' RAJAJIPURAM', '123', 'upload-images/team-9.jpg'),
-(7, 'khanna', 8907843128, 'khanna@gmail.com', 'Alambhag', '1234', 'upload-images/user1-128x128.jpg'),
-(8, 'Angel ', 1234456789, 'john@gmail.com', 'Goa', '123', 'upload-images/avatar5.png'),
-(18, 'POOJA KHATRI', 8907843126, 'pooja@gmail.com', 'Alambhag', '123', 'upload-images/hair_08.jpg'),
-(19, 'pooja', 8907843123, 'khatri@gmail.com', 'Hazratganj', '123', ''),
-(20, 'Pari Kapoor', 8719858421, 'Priyanka@gmail.com', 'Alambhag', '123', ''),
-(21, 'Rohan', 8907843129, 'khatri@gmail.com', 'Hazratganj', '123', ''),
-(22, 'shikha', 8709858421, 'shikha@gmail.com', 'Hazratganj', '123', 'upload-images/team-2.jpg'),
-(23, 'Sneha tondon', 9348459403, 'sneha@gmail.com', 'sneha@gmail.com', '123', ''),
-(24, 'archit ', 8907843127, 'archit@gmail.com', 'Hazratganj', '123', 'upload-images/barber_01.jpg'),
-(25, 'shahid ', 8900843126, 'shahid@gmail.com', ' RAJAJIPURAM', '123', 'upload-images/barber_05.jpg'),
-(26, 'archit ', 8719858429, 'archit@gmail.com', 'Hazratganj', '123', ''),
-(27, 'POOJA KHATRI', 8117843126, 'Priyanka@gmail.com', 'Hazratganj', '1234', ''),
-(28, 'preeti', 5507843126, 'khatri@gmail.com', 'Alambhag', '1234', ''),
-(29, 'nitish khatri', 9305476387, 'nitish@gmail.com', 'Alambhag', '12345', 'upload-images/barber_03.jpg'),
-(30, 'Pari Kapoor', 8207843126, 'pari@gmail.com', 'Hazratganj', '12345', ''),
-(31, 'divya kapoor', 8908843126, 'Kapoor@gmail.com', 'Alambhag', '123', 'upload-images/hair_06.jpg'),
-(32, 'chhaya khatri ', 8717758421, 'chhaya@gmail.com', 'alambhag', '123', ''),
-(33, 'Maya Batra', 3407843126, 'maya@gmail.com', 'Hazratganj', '123', ''),
-(34, 'Maya Batra', 8887843126, 'MayaBatra@gmail.com', ' RAJAJIPURAM', '123', ''),
-(36, 'bhawna khatri', 8707858420, 'bhawna@gmail.com', 'Hazratganj', '123', ''),
-(37, 'POOJA KHATRI', 8907843124, 'khatri@gmail.com', 'Hazratganj', '12345', ''),
-(38, 'Pari Kapoor', 9347459403, 'khatri@gmail.com', 'Hazratganj', '12345', ''),
-(39, 'pooja khatri', 8707858421, 'poojakhatri@gmail.com', '29AALC6789996', '123', ''),
-(40, 'shikha srivastava ', 8904843126, 'shikha@gmail.com', 'Hazratganj', '123', ''),
-(41, 'anuj ', 8907843177, 'anuj@gmail.com', 'alambhag', '123456', ''),
-(42, 'divya tondon', 9807654325, 'divya@gmail.com', 'Alambhag', '12345', ''),
-(43, 'priyanka', 8907843667, 'Priyanka@gmail.com', ' RAJAJIPURAM', '321', ''),
-(44, 'POOJA KHATRI', 9807657899, 'mansi@gmail.com', 'Hazratganj', '123', ''),
-(45, 'riya singh', 8907843726, 'khatri@gmail.com', 'Hazratganj', '12345', ''),
-(46, 'varsha kakkar', 8709858427, 'varsha@gmail.com', '', '123', ''),
-(47, 'veronica', 8907843188, 'veronica@gmail.com', 'Hazratganj', '123', ''),
-(48, 'rama', 8907843155, 'rama@gmail.com', 'Hazratganj', '123', ''),
-(49, '', 0, '', '', '123', ''),
-(50, '', 4324234234, '', '', '123', ''),
-(51, '', 4342342342, '', '', '123', ''),
-(52, 'pooja', 5435443453, 'khatrip197@gmail.com', 'hello', '123', ''),
-(53, '', 42342324, '', '', '123', ''),
-(54, '', 43242342, '', '', '123', ''),
-(55, 'POOJA KHATRI', 89078, 'w@gmail.com', 'Hazratganj', '123', ''),
-(56, 'pooja', 843126, 'khatri@gmail.com', 'Alambhag', '123', ''),
-(57, 'Pari Kapoor', 89078431, 'ktri@gmail.com', 'Hazratganj', '123', ''),
-(58, 'Pari Kapoor', 6456467657567654, 'pooja@gmail.com', 'Hazratganj', '123', ''),
-(59, 'Pari Kapoor', 6565654387, 'Priyanka@gmail.com', 'Hazratganj', '678', ''),
-(60, 'POOJA KHATRI', 5678956789, 'kha@gmail.com', 'Alambhag', '4561', ''),
-(61, 'Tara', 8907643126, 't@gmail.com', 'Hazratganj', '123', ''),
-(62, 'xyz', 8807843126, 'xyz@gmail.com', 'Hazratganj', '123', ''),
-(63, 'abc', 8407843126, 'abc@gmail.com', 'Alambhag', '123', ''),
-(64, 'preetikhatri', 8997843126, 'preeti@gmail.com', 'Alambhag', '123', ''),
-(65, 'POOJA KHATRI', 8907743126, 'p@gmail.com', 'Hazratganj', '123', ''),
-(66, 'Sneha tondon', 8619858421, 's@gmail.com', 'Alambhag', '123', ''),
-(67, 'xyz', 7777843126, 'xyz@gmail.com', 'Alambhag', '123', '');
+INSERT INTO `users` (`id`, `branch_details_id`, `name`, `mobile`, `email`, `address`, `password`, `file`) VALUES
+(1, 5, 'preeti kapoor', 7707843126, 'k@gmail.com', 'Hazratganj', '12345', ''),
+(2, 7, 'Pari Kapoor', 8907843126, 'pooja@gmail.com', ' RAJAJIPURAM', '123456', '');
 
 --
 -- Indexes for dumped tables
@@ -851,8 +833,7 @@ ALTER TABLE `banner_management`
 -- Indexes for table `bill`
 --
 ALTER TABLE `bill`
-  ADD PRIMARY KEY (`Sno`),
-  ADD UNIQUE KEY `appointment_id` (`appointment_id`);
+  ADD PRIMARY KEY (`Sno`);
 
 --
 -- Indexes for table `branch_details`
@@ -994,7 +975,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_login_details`
 --
 ALTER TABLE `admin_login_details`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `all_services`
@@ -1012,7 +993,7 @@ ALTER TABLE `banner_management`
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `Sno` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Sno` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `branch_details`
@@ -1042,7 +1023,7 @@ ALTER TABLE `enquiry_message`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `package1`
@@ -1114,7 +1095,7 @@ ALTER TABLE `tb_about_us`
 -- AUTO_INCREMENT for table `tb_appointment`
 --
 ALTER TABLE `tb_appointment`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_invoice`
@@ -1126,7 +1107,7 @@ ALTER TABLE `tb_invoice`
 -- AUTO_INCREMENT for table `tb_selected_services`
 --
 ALTER TABLE `tb_selected_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tb_services`
@@ -1138,7 +1119,7 @@ ALTER TABLE `tb_services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
