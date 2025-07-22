@@ -99,15 +99,30 @@ include('includes/sidebar.php');
                 <thead style="background-color:rgb(51, 139, 139); color: white;">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S.no</th>
-                    <th style="color: rgb(238, 230, 217); font-weight: 500;">name</th>
+                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch name </th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile no</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
                   </tr>
                   </thead>
                   <tbody>
+                  
+
                   <?php
-$sql = "SELECT * FROM users order BY id DESC";
+// $sql = "SELECT * FROM users order BY id DESC";
+ $sql = "SELECT 
+    ua.*, 
+    bd.branch_name 
+FROM 
+    users ua
+JOIN 
+    branch_details bd 
+ON 
+    ua.branch_details_id = bd.id
+ORDER BY 
+    ua.id DESC
+";
 $result = mysqli_query($conn, $sql);
 $count = 0;
 if (mysqli_num_rows($result) > 0) {
@@ -117,10 +132,11 @@ if (mysqli_num_rows($result) > 0) {
     $count = $count+1 ;
     echo"<tr>
     <th scope='row'>".$count."</th> 
-   <td>".$row['name']."</td>
+   <td>".$row['branch_name']."</td>
+     <td>".$row['name']."</td>
      <td>".$row['mobile']."</td>
-     <td>".$row['email']."</td>
-      <td>".$row['address']."</td>
+      <td>".$row['email']."</td>
+       <td>".$row['address']."</td>
   </tr>";
   }
 } else {

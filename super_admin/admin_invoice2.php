@@ -110,6 +110,7 @@ $sql = "
         ta.name AS name, 
         ta.date,
          ta.branch_details_id,
+          bd.branch_name,
         ta.mobile, 
         ts.billing_number,
         ts.created_at AS time,
@@ -118,6 +119,7 @@ $sql = "
         NULL AS package1_id
     FROM tb_invoice ta
     JOIN tb_selected_services ts ON ta.appointment_id = ts.appointment_id
+     JOIN branch_details bd ON ta.branch_details_id = bd.id
     GROUP BY ts.billing_number)
 
     UNION ALL
@@ -128,6 +130,7 @@ $sql = "
         ta.name AS name, 
         ta.date,
          ta.branch_details_id,
+          bd.branch_name,
         ta.mobile, 
         sp.billing_number,
         NULL AS time,
@@ -136,29 +139,14 @@ $sql = "
         sp.package1_id
     FROM tb_invoice ta
     JOIN package_selected sp ON ta.appointment_id = sp.appointment_id
+     JOIN branch_details bd ON ta.branch_details_id = bd.id
     GROUP BY sp.billing_number)
 
     ORDER BY created_at DESC
 ";
  $result = mysqli_query($conn, $sql);
 
-$sql1 = "
-SELECT 
-    bd.branch_name
-FROM 
-    tb_invoice ti
-JOIN 
-    branch_details bd 
-ON 
-    ti.branch_details_id = bd.id
-";
 
-$result1 = mysqli_query($conn, $sql1);
-
-if ($row = mysqli_fetch_assoc($result1))
-  {
-   $branch_name = $row['branch_name'];
-}
 
 // Display results
 if (mysqli_num_rows($result) > 0) {
@@ -166,7 +154,7 @@ if (mysqli_num_rows($result) > 0) {
         $count++;
         echo "<tr>
             <th scope='row'>$count</th> 
-             <td> $branch_name </td>
+            <td>{$row['branch_name']}</td>
             <td>{$row['billing_number']}</td>
             <td>{$row['name']}</td>
             <td>{$row['mobile']}</td>

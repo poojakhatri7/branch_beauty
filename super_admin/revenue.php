@@ -49,52 +49,78 @@ include('includes/sidebar.php');
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">City </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;"> Email</th>
-                      <th style="color: rgb(238, 230, 217); font-weight: 500;"> Total Invoice </th>
+                      <th style="color: rgb(238, 230, 217); font-weight: 500;"> Location </th>
+                        <th style="color: rgb(238, 230, 217); font-weight: 500;"> Invoice </th>
                        <th style="color: rgb(238, 230, 217); font-weight: 500;">Revenue (Rs)</th>
-                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
+                  
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                     
                   <?php
-$sql = "SELECT * FROM branch_details ";
-$result = mysqli_query($conn, $sql);
-$count = 0;
+// $sql = "
+// SELECT 
+//     bd.id,
+//     bd.branch_name,
+//     bd.email,
+//     bd.city,
+//     bd.address,
+//     bd.mobile,
+//     COALESCE(SUM(b.round_off_bill), 0) AS total_revenue,
+//     COUNT(DISTINCT ti.id) AS total_invoices
+// FROM 
+//     branch_details bd
+// LEFT JOIN 
+//     bill b ON b.branch_details_id = bd.id
+// LEFT JOIN 
+//     tb_invoice ti ON ti.branch_details_id = bd.id
+// GROUP BY 
+//     bd.id, bd.branch_name, bd.email, bd.city, bd.address, bd.mobile
+// ORDER BY 
+//     total_revenue DESC;
+// ";
+$sql = "
+SELECT 
+    bd.id,
+    bd.branch_name,
+    bd.email,
+    bd.city,
+    bd.address,
+    bd.mobile,
+    COALESCE(SUM(b.round_off_bill), 0) AS total_revenue,
+    COUNT(DISTINCT b.Sno) AS total_invoices
+FROM 
+    branch_details bd
+LEFT JOIN 
+    bill b ON b.branch_details_id = bd.id
+GROUP BY 
+    bd.id, bd.branch_name, bd.email, bd.city, bd.address, bd.mobile
+ORDER BY 
+    total_revenue DESC;
+";
 
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $count++;
-         
-        ?>
-        <tr>
-            <th scope='row'><?php echo $count; ?></th>
-            <td><?php echo $row['branch_name']; ?></td>
-            <td><?php echo $row['city']; ?></td>
-            <td><?php echo $row['email']; ?></td>
-             <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            
-               <td><?php echo $row['mobile']; ?></td>
-            <td>
-    <div style="display: inline-block; margin-right: 20px;">
-        <a href='edit_available_branches?id=<?php echo $row["id"]; ?>'>
-            <i class='fas fa-pencil-alt' style='color:rgb(10, 90, 34);'></i> <!-- Edit icon -->
-        </a> 
-    </div>
-    <div style="display: inline-block;">
-        <a href='delete_data?id=<?php echo $row["id"]; ?>&table=branch_details'>
-            <i class='fa fa-trash' style='color: red;'></i> <!-- Trash icon -->
-        </a>
-    </div>
+$count = 0;
+$result = mysqli_query($conn, $sql);
+while ($row = mysqli_fetch_assoc($result)) {
+   $count++;
+    echo "<tr>
+     <th scope='row'> $count</th>
+            <td>{$row['branch_name']}</td>
+              <td>{$row['city']}</td>
+               <td>{$row['email']}</td>
+                 <td>{$row['address']}</td>
+                  <td>{$row['total_invoices']}</td>
+                  <td>Rs " . number_format($row['total_revenue'], 2) . "</td>     
+                  
+ <td>
+    <a href='delete_data?id={$row["id"]}&table=branch_details'>
+        <i class='fa fa-trash' style='color: red;'></i>
+    </a>
 </td>
-        </tr>
-        <?php
-    }
-} 
- else {
-    echo "No Details found.";
+          </tr>";
 }
+
 ?>
    </table>
               </div>

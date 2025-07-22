@@ -47,6 +47,7 @@ include('includes/sidebar.php');
                 <thead style="background-color:rgb(51, 139, 139);">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
@@ -57,8 +58,21 @@ include('includes/sidebar.php');
                   </tr>
                   </thead>
                   <tbody>
+
+              
                   <?php
-$sql = "SELECT * FROM admin_login_details ";
+// $sql = "SELECT * FROM admin_login_details ";
+$sql = "SELECT 
+    ad.*, 
+    bd.branch_name 
+FROM 
+    admin_login_details ad
+JOIN 
+    branch_details bd 
+ON 
+    ad.branch_details_id = bd.id where role = 2 
+ORDER BY 
+    ad.id DESC ";
 $result = mysqli_query($conn, $sql);
 $count = 0;
 $staff_role = "";
@@ -69,6 +83,7 @@ if (mysqli_num_rows($result) > 0) {
         ?>
         <tr>
             <th scope='row'><?php echo $count; ?></th>
+             <td><?php echo $row['branch_name']; ?></td>
             <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['mobile']; ?></td>
             <td><?php echo $row['email']; ?></td>

@@ -2,6 +2,7 @@
 include 'db_connection.php';
 if(isset($_POST["submit"]))
 {
+    $branch_id = $_POST["branch_id"];
     $name = $_POST["name"];
     $mobile =  $_POST["mobile"];
     $email =  $_POST["email"]; 
@@ -33,7 +34,7 @@ if (mysqli_num_rows($duplicate) > 0) {
         echo "<script>alert('Already registered with this Email ID'); window.location.href = 'user_registration';</script>";
     }
 } else {
-   $query = "INSERT INTO users values ('','$name','$mobile','$email','$address', '$password','')";
+   $query = "INSERT INTO users values ('','$branch_id','$name','$mobile','$email','$address', '$password','')";
 
     if (mysqli_query($conn, $query)) {
         echo "<script>alert('Registration successful! You can login now.'); window.location.href = 'login_page.php';</script>";
@@ -147,6 +148,18 @@ if (mysqli_num_rows($duplicate) > 0) {
     <div class="form-container">
         <h2>Register Now</h2>
          <form class ="" action="" method= "post" onsubmit="return validateMobile();">
+             <div class="form-group">
+                 <label for="branch_id">Select Branch:</label>
+                 <?php 
+                $branch_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+            ?>
+                <select name="branch_id" id="id" class="form-control" required>
+                    <option value="" selected disabled>Select Branch</option>
+                    <?php while ($row = mysqli_fetch_assoc($branch_result)) { ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="name">Full Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -164,6 +177,7 @@ if (mysqli_num_rows($duplicate) > 0) {
                 <label for="address">Address:</label>
                 <input type="text" id="address" name="address" required>
             </div>
+            
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>

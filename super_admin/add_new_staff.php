@@ -11,11 +11,17 @@ if(isset($_POST["submit"])) {
     $photo2 = $_FILES["image"]["tmp_name"];
     $uploadPath = "upload-images/" . $photo;
     $mobile = $_POST['mobile'];
+    $branch_id =$_POST["branch_id"];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $address = $_POST['address'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
+    $role = 2;
+
+ $query = "SELECT branch_name FROM branch_details WHERE id = '$branch_id'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $branch_name = $row['branch_name'];
 
     move_uploaded_file($photo2, $uploadPath);
        // Check if email already exists for another user (not same mobile)
@@ -49,13 +55,15 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
         echo"<script> alert('updated successfully') </script>";
        }
     } else {
-        $query2 = "INSERT INTO admin_login_details (name , mobile , email, address , password , role , file )  values ('$name','$mobile','$email','$address','$password','$role','$uploadPath')";
+        $query2 = "INSERT INTO admin_login_details (branch_details_id,branch_name, name , mobile , email, address , password , role , file )  values ( '$branch_id','$branch_name','$name','$mobile','$email','$address','$password','$role','$uploadPath')";
         if ( mysqli_query($conn, $query2))
         {
-            echo"<script> alert('New Staff added Successfully') </script>";
+            echo"<script> alert('New Staff added Successfully') 
+             window.location.href='staff_details';
+            </script>";
            }
     }
-    echo "<script>window.location.href='".$_SERVER['PHP_SELF']."';</script>";
+    // echo "<script>window.location.href='".$_SERVER['PHP_SELF']."';</script>";
 }
 // if(mysqli_query($conn, $query1))
 // {
@@ -100,6 +108,19 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
                 </div>
                 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                     <div class="card-body">
+          <div class="form-group row">
+                <?php 
+                  $staff_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+                ?>
+                <label for="id" class="col-sm-2 col-form-label">SELECT BRANCH NAME</label>
+                <div class="col-sm-6">
+                  <select name="branch_id" id="id" class="form-control" required>
+                    <option  value="" selected disabled>Select Branch</option>
+                    <?php while ($row = mysqli_fetch_assoc($staff_result)) { ?>
+                      <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
                     <div class="form-group row">          
                     <label for="mobile" class="col-sm-2 col-form-label">MOBILE NUMBER</label>
                     <div class="col-sm-6">
@@ -138,18 +159,7 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
                                 <input type="text" name="password" class="form-control" id="address" placeholder="Enter Password" required>
                             </div>
                         </div>
-    <div class="form-group row">
-                            <label for="role" class="col-sm-2 col-form-label"> ROLE/DESIGNATION </label>
-                            <div class="col-sm-4">
-                                <!-- <input type="text" name="appointment_for" class="form-control" id="appointment_for" > -->
-                                <select id="role" name="role" class="form-control" required>
-                                <option value="" selected disabled>Select Role</option>
-                                <option value="1">Admin </option>
-    <option value="2">Staff </option>
-   
-                                        </select>
-                            </div>
-                        </div> 
+                   
                         <div class="form-group row">
                             <label for="image" class="col-sm-2 col-form-label">IMAGE</label>
                             <div class="col-sm-6">
