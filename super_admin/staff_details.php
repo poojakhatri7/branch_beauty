@@ -4,8 +4,6 @@ include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
 ?>
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -143,11 +141,6 @@ if (mysqli_num_rows($result) > 0) {
 </main>
 
                 
-
-
-
-
-
 <?php
 include('includes/footer.php');
 ?>

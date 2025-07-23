@@ -33,19 +33,19 @@ include('includes/sidebar.php');
             <!-- small box -->
             <div class="small-box " style= "background-color:rgb(68, 151, 184)" >
               <div class="inner">
-              <?php $query1=mysqli_query($conn,"Select * from  all_services");
+              <?php $query1=mysqli_query($conn,"Select * from  branch_details");
 $total_services=mysqli_num_rows($query1);
 ?>
                 <h3 style="color: black;"><?php echo $total_services;?></h3>
                 <!-- <p>TOTAL SERVICES</p> -->
-                <p style="color: black;">TOTAL SERVICES</p>
+                <p style="color: black;">TOTAL BRANCHES</p>
                 
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-home"></i>
               </div>
                 <div class="small-box-footer d-flex justify-content-center">
-    <a href="manage_service" class="text-white mx-3">
+    <a href="available_branches" class="text-white mx-3">
         More Info <i class="fas fa-arrow-circle-right"></i>
     </a>
     <!-- <a href="#" class="text-white mx-3">

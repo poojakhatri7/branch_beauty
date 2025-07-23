@@ -35,68 +35,8 @@ include('includes/sidebar.php');
           </div><!-- /.col -->
           <div class="col-sm-6">
            
-           <ol>
-            <ol class="breadcrumb float-sm-right">
-  <button class="btn" style="background-color: rgb(51, 139, 139);;border: none; cursor: pointer;  padding: 7px 7px;">
-    <i class="fa fa-user-plus fa-lg" style="margin-right: 2px; color: black; font-size: 14px;"></i>
-    <!-- <a href="/beauty_parlour_management_system/admin2/admin_add_customer2.php"  -->
-    <a href="#" class="text-white mx-1" data-toggle="modal" data-target="#modal-default" 
-       style="text-decoration: none; color:  rgb(238, 230, 217) !important; font-size: 14px; font-weight: 700;  margin: 4px 2px;">
-      Add Appointment
-    </a>
-  </button>
-  <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add New Appointment </h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-          <!-- <h4 style="color:rgb(1, 12, 6);" >Add New Services </h4> -->
-            <form id="appointment_form">
-            <div class="form-group">
-            <div id="message"></div>
-                        <label for="mobile" style="color:rgb(51, 139, 139);" >Mobile</label>
-                        <input type="number" name="mobile" class="form-control" id="mobile" placeholder="Enter Mobile number">
-                    </div>
-                    <span id="error-message" style="color: red; display: block; font-weight:600; margin-bottom: 15px; text-align:  justify; padding-left: 50px; "></span>
-                    <div class="form-group">
-                        <label for="name" style="color:rgb(51, 139, 139);">Name</label>
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email" style="color:rgb(51, 139, 139);">Email</label>
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="address" style="color:rgb(51, 139, 139);">Address</label>
-                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter Address">
-                    </div>
-                    <div class="form-group">
-                        <label for="date" style="color:rgb(51, 139, 139);">Date</label>
-                        <input type="date" name="date" class="form-control" id="date" placeholder="Enter Date">
-                    </div>
-                 
-                    <div class="form-group">
-                        <label for="time" style="color:rgb(51, 139, 139);">Time</label>
-                        <input type="time" name="time" class="form-control" id="time" placeholder="Enter Time">
-                    </div>
-                    <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" name="submit" id="submitBtn1" class="btn btn-secondary">Add</button>
-            </div>
-                </form>
-                <div id="message"></div>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-</ol>
+         
+           
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->

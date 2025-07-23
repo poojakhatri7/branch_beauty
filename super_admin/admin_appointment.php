@@ -223,11 +223,7 @@ if (mysqli_num_rows($result) > 0) {
             <i class='fa fa-trash' style='color: red;'></i>
         </a>
     </div> -->
-    <?php
-    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 1)
-// if (session_name() == "admin_session") 
-{
-?>
+
   <div style="display: inline-block;">
         <a href='delete_data?id=<?php echo $row["id"]; ?>&table=tb_appointment'
          onclick="return confirm('Are you sure you want to delete this?')">
@@ -235,7 +231,7 @@ if (mysqli_num_rows($result) > 0) {
         </a>
     </div>
 </td>
-<?php } ?>
+
         </tr>
         <?php
     }

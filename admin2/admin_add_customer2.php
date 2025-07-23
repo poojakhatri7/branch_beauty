@@ -3,7 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
-
+$branch_details_id = $_SESSION['branch_details_id'];
 if(isset($_POST["submit"])) {
   $name = mysqli_real_escape_string($conn, $_POST["name"]);
   $email = mysqli_real_escape_string($conn, $_POST["email"]);
@@ -13,7 +13,7 @@ if(isset($_POST["submit"])) {
   $preferd_time = mysqli_real_escape_string($conn, $_POST["time"]);
   $appointment_for = "offline booking";
 
-    $query1 = "INSERT INTO tb_appointment values ('','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
+    $query1 = "INSERT INTO tb_appointment values ('','$branch_details_id','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
      if(mysqli_query($conn, $query1))
      {
         echo "<script>
@@ -37,7 +37,7 @@ if(isset($_POST["submit"])) {
       mysqli_query($conn, $query2);
   } else {
     $pass = 123;
-      $query2 = "INSERT INTO users values ('','$name','$mobile','$email','$address','$pass','')";
+      $query2 = "INSERT INTO users values ('','$branch_details_id','$name','$mobile','$email','$address','$pass','')";
       mysqli_query($conn, $query2);
   }
 }

@@ -3,6 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
+$branch_details_id = $_SESSION['branch_details_id'];
 ?>
 
 <main class="app-main">
@@ -77,9 +78,10 @@ include('includes/sidebar.php');
                 <thead style="background-color:rgb(51, 139, 139); color: white;">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
-                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Invoice number</th>
-                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Customer name</th>
-                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile number</th>
+                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Invoice Number</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Customer Name</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile Number</th>
                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Type</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Date</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Time</th>
@@ -102,6 +104,12 @@ include('includes/sidebar.php');
 // INNER JOIN tb_selected_services c
 // ON p.id = c.appointment_id";
 
+$query = "SELECT branch_name FROM branch_details WHERE id = '$branch_details_id'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$branch_name = $row['branch_name']; 
+
+
 $count = 0;
 $sql = "
     (SELECT 
@@ -116,6 +124,7 @@ $sql = "
         NULL AS package1_id
     FROM tb_invoice ta
     JOIN tb_selected_services ts ON ta.appointment_id = ts.appointment_id
+     WHERE ta.branch_details_id = '$branch_details_id'
     GROUP BY ts.billing_number)
 
     UNION ALL
@@ -133,6 +142,7 @@ $sql = "
         sp.package1_id
     FROM tb_invoice ta
     JOIN package_selected sp ON ta.appointment_id = sp.appointment_id
+      WHERE ta.branch_details_id = '$branch_details_id'
     GROUP BY sp.billing_number)
 
     ORDER BY created_at DESC
@@ -147,8 +157,9 @@ if (mysqli_num_rows($result) > 0) {
         $count++;
         echo "<tr>
             <th scope='row'>$count</th> 
+             <td>$branch_name</td>
             <td>{$row['billing_number']}</td>
-            <td>{$row['name']}</td>
+              <td>{$row['name']}</td>
             <td>{$row['mobile']}</td>
             <td>{$row['invoice_type']}</td>
             <td>{$row['date']}</td>

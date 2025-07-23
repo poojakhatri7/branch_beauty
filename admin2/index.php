@@ -3,6 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
+$branch_details_id = $_SESSION['branch_details_id'];
 ?>
   <div class="content-wrapper">
   <style type="text/css">
@@ -104,7 +105,7 @@ $total_services=mysqli_num_rows($query1);
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <?php $query2=mysqli_query($conn,"Select * from tb_appointment");
+            <?php $query2=mysqli_query($conn,"Select * from tb_appointment WHERE branch_details_id = '$branch_details_id'");
 $totalappointment=mysqli_num_rows($query2);?>
             <div class="small-box " style="background-color:rgb(211, 122, 93)">
               <div class="inner">
@@ -177,7 +178,7 @@ $totalappointment=mysqli_num_rows($query2);?>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <?php $query3=mysqli_query($conn,"Select * from users");
+            <?php $query3=mysqli_query($conn,"Select * from users WHERE branch_details_id = '$branch_details_id'");
 $user_registration=mysqli_num_rows($query3);?>
             <div class="small-box bg-secondary">
               <div class="inner">
@@ -215,7 +216,9 @@ $query5 = mysqli_query($conn, "
         ta.date, 
         ts.billing_number
     FROM tb_invoice ta
-    JOIN tb_selected_services ts ON ta.appointment_id = ts.appointment_id GROUP BY ts.billing_number
+    JOIN tb_selected_services ts ON ta.appointment_id = ts.appointment_id
+      WHERE ta.branch_details_id = '$branch_details_id'
+    GROUP BY ts.billing_number
 
     UNION 
     
@@ -225,7 +228,10 @@ $query5 = mysqli_query($conn, "
         ta.date, 
         ps.billing_number
     FROM tb_invoice ta
-    JOIN package_selected ps ON ta.appointment_id = ps.appointment_id GROUP BY ps.billing_number
+    JOIN package_selected ps ON ta.appointment_id = ps.appointment_id
+      WHERE ta.branch_details_id = '$branch_details_id'
+    GROUP BY ps.billing_number
+       
 ");
 
 

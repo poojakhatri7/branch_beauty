@@ -6,6 +6,7 @@ include('includes/sidebar.php');
 $branch_details_id = $_SESSION['branch_details_id'];
 ?>
 
+
 <main class="app-main">
 <!doctype html>
 <html lang="en">

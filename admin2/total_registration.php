@@ -3,6 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
+$branch_details_id = $_SESSION['branch_details_id'];
 ?>
 <main class="app-main">
 <!doctype html>
@@ -99,6 +100,7 @@ include('includes/sidebar.php');
                 <thead style="background-color:rgb(51, 139, 139); color: white;">
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S.no</th>
+                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile no</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
@@ -107,7 +109,15 @@ include('includes/sidebar.php');
                   </thead>
                   <tbody>
                   <?php
-$sql = "SELECT * FROM users order BY id DESC";
+
+$query = "SELECT branch_name FROM branch_details WHERE id = '$branch_details_id'";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$branch_name = $row['branch_name']; 
+
+
+
+$sql = "SELECT * FROM users WHERE branch_details_id = '$branch_details_id' order BY id DESC";
 $result = mysqli_query($conn, $sql);
 $count = 0;
 if (mysqli_num_rows($result) > 0) {
@@ -117,6 +127,7 @@ if (mysqli_num_rows($result) > 0) {
     $count = $count+1 ;
     echo"<tr>
     <th scope='row'>".$count."</th> 
+     <td> $branch_name  </td>
    <td>".$row['name']."</td>
      <td>".$row['mobile']."</td>
      <td>".$row['email']."</td>

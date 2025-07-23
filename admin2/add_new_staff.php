@@ -3,7 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
-
+$branch_details_id = $_SESSION['branch_details_id'];
 // $defaultImage = "/beauty_parlour_management_system/user/assets/dist/img/dp.webp"; 
 $uploadPath = ""; 
 if(isset($_POST["submit"])) {
@@ -15,9 +15,17 @@ if(isset($_POST["submit"])) {
     $email = $_POST['email'];
     $address = $_POST['address'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
+     $role = 2;
 
     move_uploaded_file($photo2, $uploadPath);
+
+ $query = "SELECT branch_name FROM branch_details WHERE id = '$branch_details_id'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $branch_name = $row['branch_name'];
+
+
+
        // Check if email already exists for another user (not same mobile)
     // $duplicate = mysqli_query($conn, "SELECT * FROM `admin_login_details` WHERE email = '$email' ");
     // if (mysqli_num_rows($duplicate) > 0) {
@@ -49,13 +57,15 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
         echo"<script> alert('updated successfully') </script>";
        }
     } else {
-        $query2 = "INSERT INTO admin_login_details (name , mobile , email, address , password , role , file )  values ('$name','$mobile','$email','$address','$password','$role','$uploadPath')";
+        $query2 = "INSERT INTO admin_login_details (branch_details_id, branch_name , name , mobile , email, address , password , role , file )  values ('$branch_details_id','$branch_name','$name','$mobile','$email','$address','$password','$role','$uploadPath')";
         if ( mysqli_query($conn, $query2))
         {
-            echo"<script> alert('New Staff added Successfully') </script>";
+             echo"<script> alert('New Staff added Successfully') 
+             window.location.href='staff_details';
+            </script>";
            }
     }
-    echo "<script>window.location.href='".$_SERVER['PHP_SELF']."';</script>";
+    // echo "<script>window.location.href='".$_SERVER['PHP_SELF']."';</script>";
 }
 // if(mysqli_query($conn, $query1))
 // {
@@ -138,18 +148,6 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
                                 <input type="text" name="password" class="form-control" id="address" placeholder="Enter Password" required>
                             </div>
                         </div>
-    <div class="form-group row">
-                            <label for="role" class="col-sm-2 col-form-label"> ROLE/DESIGNATION </label>
-                            <div class="col-sm-4">
-                                <!-- <input type="text" name="appointment_for" class="form-control" id="appointment_for" > -->
-                                <select id="role" name="role" class="form-control" required>
-                                <option value="" selected disabled>Select Role</option>
-                                <option value="1">Admin </option>
-    <option value="2">Staff </option>
-   
-                                        </select>
-                            </div>
-                        </div> 
                         <div class="form-group row">
                             <label for="image" class="col-sm-2 col-form-label">IMAGE</label>
                             <div class="col-sm-6">
