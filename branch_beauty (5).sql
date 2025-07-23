@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 22, 2025 at 01:59 PM
+-- Generation Time: Jul 23, 2025 at 01:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,6 @@ CREATE TABLE `admin_login_details` (
 
 INSERT INTO `admin_login_details` (`id`, `branch_details_id`, `branch_name`, `name`, `mobile`, `email`, `address`, `password`, `role`, `file`, `gst_number`, `last_invoice_no`) VALUES
 (9, 5, 'Lucknow branch', 'pooja khatri', 8707858421, 'pooja@gmail.com', 'alambhag', '123', 1, 'upload-images/hair_06.jpg', '29AALC6789996', 98000006),
-(12, 5, 'Lucknow branch', 'navya khatri', 8707858427, 'navya@gmail.com', 'Hazratganj', '12345', 2, 'upload-images/beauty_02.jpg', NULL, NULL),
 (16, 6, 'Kanpur branch', 'anvi', 8019858421, 'anvi@gmail.com', 'Hazratganj', '1234', 2, 'upload-images/team-9.jpg', NULL, NULL),
 (26, 1, '', 'Maya khatri', 7907858477, 'maya@gmail.com', 'rajajipuram ', '7777', 3, 'upload-images/hair_08.jpg', NULL, NULL),
 (32, 9, 'Delhi Branch', 'avika gaur', 8907003126, 'avika@gmail.com', ' RAJAJIPURAM', '12345', 1, NULL, NULL, 98000006),
@@ -653,7 +652,8 @@ CREATE TABLE `tb_appointment` (
 INSERT INTO `tb_appointment` (`id`, `branch_details_id`, `name`, `email`, `mobile`, `address`, `date`, `prefered_time`, `appointment_for`, `staff`) VALUES
 (1, 5, 'Pari Kapoor', 'Priyanka@gmail.com', 8719858421, 'Alambhag', '2025-07-24', '00:54', 'offline booking', ''),
 (2, 7, 'Sneha tondon', 'sneha@gmail.com', 9348459403, 'sneha@gmail.com', '2025-07-23', '01:07', 'offline booking', ''),
-(3, 6, 'shikha', 'shikha@gmail.com', 8709858421, 'Hazratganj', '2025-07-23', '00:08', 'offline booking', '');
+(3, 6, 'shikha', 'shikha@gmail.com', 8709858421, 'Hazratganj', '2025-07-23', '00:08', 'offline booking', ''),
+(4, 5, 'xyz', 'xyz@gmail.com', 8719858421, 'Alambhag', '2025-07-24', '15:52', 'offline booking', '');
 
 -- --------------------------------------------------------
 
@@ -721,36 +721,35 @@ CREATE TABLE `tb_selected_services` (
   `discount_percentage` int(200) DEFAULT NULL,
   `price_after_discount` int(200) DEFAULT NULL,
   `billing_number` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `time` time DEFAULT curtime()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_selected_services`
 --
 
-INSERT INTO `tb_selected_services` (`id`, `branch_details_id`, `appointment_id`, `c_id`, `s_id`, `a_id`, `service_name`, `service_price`, `discount_percentage`, `price_after_discount`, `billing_number`, `created_at`, `time`) VALUES
-(1, 5, 1, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000001', '2025-07-22 04:25:49', '09:55:49'),
-(2, 5, 1, 3, 8, 67, 'French Manicure', 100.00, 20, 80, '98000001', '2025-07-22 04:25:49', '09:55:49'),
-(3, 5, 1, 3, 8, 57, 'Classic Manicure', 19.00, 25, 14, '98000001', '2025-07-22 04:25:49', '09:55:49'),
-(4, 5, 1, 3, 8, 58, 'Spa Manicure', 30.00, 60, 12, '98000001', '2025-07-22 04:25:49', '09:55:49'),
-(5, 5, 1, 3, 8, 59, 'Signature Gel Manicure', 50.00, 70, 15, '98000001', '2025-07-22 04:25:49', '09:55:49'),
-(6, 7, 2, 3, 8, 59, 'Signature Gel Manicure', 50.00, 70, 15, '98000002', '2025-07-22 04:37:31', '10:07:31'),
-(7, 7, 2, 3, 8, 58, 'Spa Manicure', 30.00, 60, 12, '98000002', '2025-07-22 04:37:31', '10:07:31'),
-(8, 7, 2, 3, 8, 65, 'Organic Express Pedi', 76.00, 20, 61, '98000002', '2025-07-22 04:37:31', '10:07:31'),
-(9, 7, 2, 3, 8, 60, 'Hard Gel Full Set', 85.00, 40, 51, '98000002', '2025-07-22 04:37:31', '10:07:31'),
-(10, 6, 3, 3, 9, 64, 'Collagen Mask', 25.00, 10, 23, '98000003', '2025-07-22 04:39:31', '10:09:31'),
-(11, 6, 3, 3, 9, 63, 'French Polish', 32.00, 65, 11, '98000003', '2025-07-22 04:39:31', '10:09:31'),
-(12, 5, 1, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000004', '2025-07-22 06:32:26', '12:02:26'),
-(13, 5, 1, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000005', '2025-07-22 06:38:23', '12:08:23'),
-(14, 5, 1, 1, 2, 9, 'Keratin Complex Max', 350.00, 15, 298, '98000005', '2025-07-22 06:38:23', '12:08:23'),
-(15, 7, 2, 2, 5, 34, 'Teen Facial', 200.00, 20, 160, '98000006', '2025-07-22 08:45:48', '14:15:48'),
-(16, 7, 2, 2, 5, 33, 'Gentleman’s Facial', 60.00, 10, 54, '98000006', '2025-07-22 08:45:48', '14:15:48'),
-(17, 7, 2, 2, 5, 26, 'Organic Facial', 185.00, 7, 172, '98000006', '2025-07-22 08:45:48', '14:15:48'),
-(18, 7, 2, 2, 5, 27, 'Four Layer Facial', 140.00, 50, 70, '98000006', '2025-07-22 08:45:48', '14:15:48'),
-(19, 7, 2, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000006', '2025-07-22 08:45:48', '14:15:48'),
-(20, 7, 2, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000006', '2025-07-22 08:45:48', '14:15:48'),
-(21, 7, 2, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000006', '2025-07-22 08:45:48', '14:15:48');
+INSERT INTO `tb_selected_services` (`id`, `branch_details_id`, `appointment_id`, `c_id`, `s_id`, `a_id`, `service_name`, `service_price`, `discount_percentage`, `price_after_discount`, `billing_number`, `created_at`) VALUES
+(1, 5, 1, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000001', '2025-07-22 04:25:49'),
+(2, 5, 1, 3, 8, 67, 'French Manicure', 100.00, 20, 80, '98000001', '2025-07-22 04:25:49'),
+(3, 5, 1, 3, 8, 57, 'Classic Manicure', 19.00, 25, 14, '98000001', '2025-07-22 04:25:49'),
+(4, 5, 1, 3, 8, 58, 'Spa Manicure', 30.00, 60, 12, '98000001', '2025-07-22 04:25:49'),
+(5, 5, 1, 3, 8, 59, 'Signature Gel Manicure', 50.00, 70, 15, '98000001', '2025-07-22 04:25:49'),
+(6, 7, 2, 3, 8, 59, 'Signature Gel Manicure', 50.00, 70, 15, '98000002', '2025-07-22 04:37:31'),
+(7, 7, 2, 3, 8, 58, 'Spa Manicure', 30.00, 60, 12, '98000002', '2025-07-22 04:37:31'),
+(8, 7, 2, 3, 8, 65, 'Organic Express Pedi', 76.00, 20, 61, '98000002', '2025-07-22 04:37:31'),
+(9, 7, 2, 3, 8, 60, 'Hard Gel Full Set', 85.00, 40, 51, '98000002', '2025-07-22 04:37:31'),
+(10, 6, 3, 3, 9, 64, 'Collagen Mask', 25.00, 10, 23, '98000003', '2025-07-22 04:39:31'),
+(11, 6, 3, 3, 9, 63, 'French Polish', 32.00, 65, 11, '98000003', '2025-07-22 04:39:31'),
+(12, 5, 1, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000004', '2025-07-22 06:32:26'),
+(13, 5, 1, 1, 2, 10, 'Permanent Wave', 185.00, 25, 139, '98000005', '2025-07-22 06:38:23'),
+(14, 5, 1, 1, 2, 9, 'Keratin Complex Max', 350.00, 15, 298, '98000005', '2025-07-22 06:38:23'),
+(15, 7, 2, 2, 5, 34, 'Teen Facial', 200.00, 20, 160, '98000006', '2025-07-22 08:45:48'),
+(16, 7, 2, 2, 5, 33, 'Gentleman’s Facial', 60.00, 10, 54, '98000006', '2025-07-22 08:45:48'),
+(17, 7, 2, 2, 5, 26, 'Organic Facial', 185.00, 7, 172, '98000006', '2025-07-22 08:45:48'),
+(18, 7, 2, 2, 5, 27, 'Four Layer Facial', 140.00, 50, 70, '98000006', '2025-07-22 08:45:48'),
+(19, 7, 2, 1, 1, 98, 'Women s Haircut', 200.00, 50, 100, '98000006', '2025-07-22 08:45:48'),
+(20, 7, 2, 1, 1, 5, 'Child Hair cut ', 200.00, 10, 180, '98000006', '2025-07-22 08:45:48'),
+(21, 7, 2, 1, 1, 3, 'blow dry', 100.00, 10, 90, '98000006', '2025-07-22 08:45:48');
 
 -- --------------------------------------------------------
 
@@ -805,7 +804,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `branch_details_id`, `name`, `mobile`, `email`, `address`, `password`, `file`) VALUES
 (1, 5, 'preeti kapoor', 7707843126, 'k@gmail.com', 'Hazratganj', '12345', ''),
-(2, 7, 'Pari Kapoor', 8907843126, 'pooja@gmail.com', ' RAJAJIPURAM', '123456', '');
+(2, 7, 'Pari Kapoor', 8907843126, 'pooja@gmail.com', ' RAJAJIPURAM', '123456', ''),
+(3, 5, 'xyz', 8719858421, 'xyz@gmail.com', 'Alambhag', '123', '');
 
 --
 -- Indexes for dumped tables
@@ -975,7 +975,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_login_details`
 --
 ALTER TABLE `admin_login_details`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `all_services`
@@ -1095,7 +1095,7 @@ ALTER TABLE `tb_about_us`
 -- AUTO_INCREMENT for table `tb_appointment`
 --
 ALTER TABLE `tb_appointment`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_invoice`
@@ -1119,7 +1119,7 @@ ALTER TABLE `tb_services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(35) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
