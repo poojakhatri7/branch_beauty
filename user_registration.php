@@ -105,7 +105,8 @@ if (mysqli_num_rows($duplicate) > 0) {
             margin-bottom: 5px;
         }
 
-        .form-group input {
+      .form-group input,
+.form-group select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -153,7 +154,7 @@ if (mysqli_num_rows($duplicate) > 0) {
                  <?php 
                 $branch_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
             ?>
-                <select name="branch_id" id="id" class="form-control" required>
+                <select name="branch_id"  class="form-control" required>
                     <option value="" selected disabled>Select Branch</option>
                     <?php while ($row = mysqli_fetch_assoc($branch_result)) { ?>
                         <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>

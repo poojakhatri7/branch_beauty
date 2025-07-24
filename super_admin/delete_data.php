@@ -53,7 +53,7 @@ if (isset($_GET['id'], $_GET['table']) && is_numeric($_GET['id'])) {
             if ($table == 'portfolio') {
                 header("Location: portfolio");
             } elseif ($table == 'enquiry_message') {
-                header("Location: admin_enquiry_message");
+                header("Location: admin_enquiry_message1");
             } elseif ($table == 'tb_appointment') {
                 header("Location: admin_appointment");
             } elseif ($table == 'all_services') {

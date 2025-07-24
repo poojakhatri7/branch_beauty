@@ -16,15 +16,17 @@ include('includes/sidebar.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
-    <style type="text/css">
+    <style >
 .admin_enquiry_message{
   /* background : #157daf !important; */
   background :rgb(33, 70, 77) !important;
 }
+
+
 </style>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -68,11 +70,9 @@ $result = mysqli_query($conn, $sql);
         ?>
 </select>
          </div>
-         <br>
+    <div class="container-fluid">    
 <div id="branch-data" class="mt-3"></div>
-      <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+      </div>
   </div>
 
   <script>
@@ -143,7 +143,7 @@ $result = mysqli_query($conn, $sql);
         });
     </script>
 
-    <script>
+    <!-- <script>
   document.getElementById("branchSelect").addEventListener("change", function () {
     const branchId = this.value;
 
@@ -164,7 +164,53 @@ $result = mysqli_query($conn, $sql);
         console.error("There was a problem with the fetch operation:", error);
       });
   });
+</script> -->
+<script>
+document.getElementById("branchSelect").addEventListener("change", function () {
+  const branchId = this.value;
+
+  fetch(`get_enquiry_message.php?branch_details_id=${branchId}`)
+    .then(response => {
+      if (!response.ok) throw new Error("Network error");
+      return response.text();
+    })
+    .then(data => {
+      const container = document.getElementById("branch-data");
+      container.innerHTML = data;
+
+      setTimeout(() => {
+        // Destroy existing DataTable if it exists
+        if ($.fn.DataTable.isDataTable('#branchTable')) {
+          $('#branchTable').DataTable().destroy();
+        }
+
+        // ✅ Correct: Assign to a variable
+        const table = $('#branchTable').DataTable({
+          responsive: true,
+          lengthChange: false,
+          autoWidth: false,
+        dom: '<"row align-items-center mb-2"<"col-sm-6"B><"col-sm-6"f>>' + 
+         'rt' +
+         '<"row mt-2"<"col-sm-6"i><"col-sm-6"p>>',
+          buttons: [
+            "copy", "csv", "excel", "pdf", "print", "colvis"
+          ],
+        });
+
+        // ✅ Adjust placement for Bootstrap 5 layout
+        table.buttons().container().appendTo('#branchTable_wrapper .row:eq(0) .col-sm-6:eq(0)');
+
+      }, 100);
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+    });
+});
 </script>
+
+ 
+
+
 </body>
 </html>
 </main>

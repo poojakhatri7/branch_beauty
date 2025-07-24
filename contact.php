@@ -256,7 +256,7 @@ $result = mysqli_query($conn, $sql);
       ?>  
 	  
 
-                                 <div class="col-md-12">
+     <div class="col-md-12">
 		<select name="branch" class="form-select message" aria-label="Service Select" required>
         <option  value="" selected disabled>Select Branch</option>
         <?php

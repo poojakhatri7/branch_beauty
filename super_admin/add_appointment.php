@@ -8,6 +8,8 @@ include 'session.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ 
+    $branch_id = $_POST['branch_id'];
     $mobile = $_POST['mobile'];
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -15,8 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $preferd_time = $_POST['time'];
     $appointment_for = "offline booking";
-    $query = "INSERT INTO tb_appointment values ('','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
-    $result = mysqli_query($conn, $query);
+    $staff = "xyz";
+    // $query = "INSERT INTO tb_appointment values ('$branch_id','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
+    // $result = mysqli_query($conn, $query);
+
+$sql = "INSERT INTO tb_appointment (branch_details_id, name, email, mobile, address, date, prefered_time,appointment_for,staff )
+        VALUES ('$branch_id', '$name', '$email', '$mobile', '$address', '$date', '$preferd_time','$appointment_for','$staff')";
+
+ $result = mysqli_query($conn, $sql);
 
     if ($result) {
         echo "<span style='color: black; font-weight:650;'>Appointment booked successfully!</span>";

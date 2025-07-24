@@ -65,8 +65,21 @@ include('includes/sidebar.php');
           <!-- <h4 style="color:rgb(1, 12, 6);" >Add New Services </h4> -->
         
             <form id="appointment_form" >
+                <div id="message"></div>
+               <div class="form-group">
+                 <label for="branch_id" style="color:rgb(51, 139, 139);">Select Branch:</label>
+                 <?php 
+                $branch_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+            ?>
+                <select name="branch_id" id="branch_id"  class="form-control" required>
+                    <option value="" selected disabled>Select Branch</option>
+                    <?php while ($row = mysqli_fetch_assoc($branch_result)) { ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
             <div class="form-group">
-            <div id="message"></div>
+          
          
                         <label for="mobile" style="color:rgb(51, 139, 139);" >Mobile</label>
                         <input type="tel" name="mobile" class="form-control" id="mobile" placeholder="Enter Mobile number" pattern="[0-9]{10}"
@@ -97,7 +110,7 @@ include('includes/sidebar.php');
                         <input type="time" name="time" class="form-control" id="time" placeholder="Enter Time" required>
                     </div>
                     <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               <button type="submit" name="submit" id="submitBtn1" class="btn btn-secondary">Add</button>
             </div>
                 </form>
@@ -302,6 +315,8 @@ if (mysqli_num_rows($result) > 0) {
             form.reportValidity(); // Show built-in HTML5 error messages
             return; // Stop if invalid
         }
+        
+                var branch_id = $("#branch_id").val();
                 var mobile = $("#mobile").val();
                 var name = $("#name").val();
                 var email = $("#email").val();
@@ -313,6 +328,7 @@ if (mysqli_num_rows($result) > 0) {
                     type: "POST",
                     url: "add_appointment.php", // PHP file that will handle the request
                     data: {
+                       branch_id :branch_id,
                        mobile: mobile,
                       name: name,
                       email: email,

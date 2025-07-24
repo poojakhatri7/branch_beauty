@@ -2,6 +2,8 @@
 include 'db_connection.php';
 include 'asset.php';
 if(isset($_POST["submit"])) {
+
+	$branch_id = $_POST['branch'];
 	$name = $_POST['name'];
     $email = $_POST['email'];
     $mobile = $_POST['mobile'];
@@ -11,11 +13,20 @@ if(isset($_POST["submit"])) {
 	$date = date("Y-m-d", strtotime($datetime));  // Converts to "2025-03-04"
     $time = date("H:i", strtotime($datetime)); 
 	$staff = $_POST['staff']; // Converts to "14:30:00"
-    $query1 = "INSERT INTO tb_appointment values ('','$name','$email','$mobile','$address','$date','$time','$appointment_for','$staff')";
-     if(mysqli_query($conn, $query1))
+    // $query1 = "INSERT INTO tb_appointment values ('$branch_id','$name','$email','$mobile','$address','$date','$time','$appointment_for','$staff')";
+
+$sql = "INSERT INTO tb_appointment (branch_details_id, name, email, mobile, address, date, prefered_time,appointment_for,staff)
+        VALUES ('$branch_id', '$name', '$email', '$mobile', '$address', '$date', '$time','$appointment_for','$staff')";
+
+//  $result = mysqli_query($conn, $sql);
+
+
+
+     if(mysqli_query($conn, $sql))
      {
         echo "<script>
         alert('Appointment successful');
+		window.location.href='".$_SERVER['PHP_SELF']."';
     </script>";
     } else {
         echo "Error inserting record: " . mysqli_error($conn);
@@ -153,7 +164,13 @@ echo "<script>window.location.href='".$_SERVER['PHP_SELF']."';</script>";
 				</div>	   <!-- End container --> 
 			</section>	<!-- END INNER PAGE HERO -->
 
-
+<?php
+$sql = "SELECT * FROM branch_details"; 
+$result = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            // echo '<li aria-haspopup="true"><a href="pprice.php?c_id=' . $row['c_id'] . '">' . htmlspecialchars($row['c_service']) . '</a></li>';
+        }
+      ?>  
 
 
 			<!-- BOOKING-1
@@ -166,7 +183,18 @@ echo "<script>window.location.href='".$_SERVER['PHP_SELF']."';</script>";
 					<div class="row justify-content-center">	
 						<div class="col-lg-10 col-xl-9">
 							<form name="bookinkform" class="row booking-form" action="" method="post" onsubmit="return validateMobile();">
-
+                               <div class="col-md-12">
+				                			<select name="branch" class="form-select message" aria-label="Service Select" required>
+        <option  value="" selected disabled>Select Branch</option>
+        <?php
+        // Reset the result pointer and fetch again for the select box
+        mysqli_data_seek($result, 0);
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['branch_name']) . '</option>';
+        }
+        ?>
+    </select>
+				                </div>
 								<!-- Form Input -->
 				                <div class="col-lg-6">
 				                	<input type="text" name="name" pattern="[A-Za-z\s]+" class="form-control firstname" placeholder=" Name*" required>
