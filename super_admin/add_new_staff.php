@@ -124,9 +124,7 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
                     <div class="form-group row">          
                     <label for="mobile" class="col-sm-2 col-form-label">MOBILE NUMBER</label>
                     <div class="col-sm-6">
-                        <input type="tel" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" pattern="[0-9]{10}"
-       maxlength="10"
-       minlength="10" required> 
+                        <input type="tel" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" pattern="[0-9]{10}" maxlength="10" minlength="10" required> 
                     </div>
                 </div>
                         <div class="form-group row">

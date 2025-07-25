@@ -47,9 +47,10 @@ include('includes/sidebar.php');
                   <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Name</th>
+                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Manager (Admin)</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">City </th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
-                       <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                   </tr>
@@ -57,7 +58,19 @@ include('includes/sidebar.php');
                   <tbody>
                     
                   <?php
-$sql = "SELECT * FROM branch_details ";
+// $sql = "SELECT * FROM branch_details ";
+$sql ="SELECT 
+    bd.id AS branch_id,
+    bd.branch_name,
+    bd.city,
+    bd.email,
+     bd.address,
+       bd.mobile,
+    ald.name AS admin_name
+FROM branch_details bd
+LEFT JOIN admin_login_details ald
+    ON bd.id = ald.branch_details_id AND ald.role = 1; ";
+
 $result = mysqli_query($conn, $sql);
 $count = 0;
 
@@ -69,19 +82,23 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
             <th scope='row'><?php echo $count; ?></th>
             <td><?php echo $row['branch_name']; ?></td>
+             <td>  <?php 
+    echo !empty($row['admin_name']) ? $row['admin_name'] : "<span style='color:Black;'>No admin is assigned</span>"; 
+    ?></td>
             <td><?php echo $row['city']; ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['address']; ?></td>
             
                <td><?php echo $row['mobile']; ?></td>
             <td>
-    <div style="display: inline-block; margin-right: 20px;">
-        <a href='edit_available_branches?id=<?php echo $row["id"]; ?>'>
-            <i class='fas fa-pencil-alt' style='color:rgb(10, 90, 34);'></i> <!-- Edit icon -->
-        </a> 
+    <!-- <div style="display: inline-block; margin-right: 20px;">
+        <a href='edit_available_branches?id=<?php echo $row["branch_id"]; ?>'>
+            <i class='fas fa-pencil-alt' style='color:rgb(10, 90, 34);'></i> 
+        </a>  -->
     </div>
     <div style="display: inline-block;">
-        <a href='delete_data?id=<?php echo $row["id"]; ?>&table=branch_details'>
+        <a href='delete_data?id=<?php echo $row["branch_id"]; ?>&table=branch_details'
+         onclick="return confirm('Are you sure you want to delete this?')">
             <i class='fa fa-trash' style='color: red;'></i> <!-- Trash icon -->
         </a>
     </div>

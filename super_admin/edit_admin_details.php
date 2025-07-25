@@ -9,23 +9,23 @@ $id = $_GET ['id'];
 if (isset($_POST["submit"])) {
 
   $branch_name = $_POST["branch_name"];
-  $city = $_POST["city"];
   $email = $_POST["email"];
   $address = $_POST["address"];
-  // $branch_manager_name = $_POST["branch_manager_name"];
+  $branch_manager_name = $_POST["branch_manager_name"];
   $mobile = $_POST["mobile"];
-  $query1 = "UPDATE `branch_details` SET branch_name ='$branch_name', city='$city', email='$email', address='$address' WHERE id=$id";
+   $password = $_POST["password"];
+  $query1 = "UPDATE `admin_login_details` SET name  ='$branch_manager_name', email='$email', address='$address', mobile='$mobile', password='$password' WHERE id=$id";
 if( mysqli_query($conn, $query1))
 {
    echo"<script> alert('updated successfully')
-     window.location.href='available_branches';
+     window.location.href='assign_branch_manager';
       </script>";
 }
 else {
    echo"<script> alert('error while updation')</script>";
 }
 }
-$sql = "SELECT * FROM branch_details WHERE id={$id}";
+$sql = "SELECT * FROM admin_login_details WHERE id={$id}";
 
 
 $result = mysqli_query($conn, $sql);
@@ -54,9 +54,10 @@ if (mysqli_num_rows($result) > 0) {
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -77,23 +78,23 @@ if (mysqli_num_rows($result) > 0) {
                 <div class="container-fluid">
             <div class="card card-info">
             <div class="card-header"style="background-color: rgb(51, 139, 139);">
-                    <h3 class="card-title">Edit Branch Details</h3>
+                    <h3 class="card-title">Edit Admin Details</h3>
                 </div>
                 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                     <div class="form-group row">          
                     <label for="mobile" class="col-sm-2 col-form-label">BRANCH NAME</label>
                     <div class="col-sm-6">
-                        <input type="text" name="branch_name" class="form-control" id="branch_name" value = "<?php echo $row['branch_name'] ?>"  required>
+                        <input type="text" name="branch_name" class="form-control" id="branch_name" value = "<?php echo $row['branch_name'] ?>"  required readonly>
                     </div>
                 </div>
-                
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">CITY</label>
-                            <div class="col-sm-6">
-                                <input type="text" name="city" class="form-control" id="name"  value = "<?php echo $row['city'] ?>">
-                            </div>
-                        </div>
+                   <div class="form-group row">          
+                    <label for="mobile" class="col-sm-2 col-form-label">BRANCH MANAGER (ADMIN)</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="branch_manager_name" class="form-control" id="branch_name" value = "<?php echo $row['name'] ?>"  required>
+                    </div>
+                </div>
+                  
                 <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">EMAIL </label>
                             <div class="col-sm-6">
@@ -118,7 +119,13 @@ if (mysqli_num_rows($result) > 0) {
                                 <input type="tel" name="mobile" class="form-control" 
                                   value = "<?php echo $row['mobile'] ?>">
                             </div>
-                        </div>   
+                        </div>  
+                            <div class="form-group row">
+                            <label for="address" class="col-sm-2 col-form-label">PASSWORD</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="password" class="form-control"   value = "<?php echo $row['password'] ?>">
+                            </div>
+                        </div> 
                         <div class="card-footer">
                             <button type="submit" name="submit" class="btn" style="background-color:rgb(51, 139, 139);  color:  rgb(238, 230, 217); font-weight: 500; font-size: 16px; padding: 7px 20px;">Edit Branch Details</button>
                           

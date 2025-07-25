@@ -3,7 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
-
+$branch_details_id = $_SESSION['branch_details_id'];
 $id = $_GET ['id'];
 $appointment_for = $_GET['appointment_for'];
 
@@ -64,7 +64,7 @@ if (mysqli_num_rows($check_result) > 0) {
 } else {
     // Insert new invoice
     $insert_sql = "INSERT INTO tb_invoice 
-                   VALUES ('', '$appointment_id', '$name', '$mobile', '$address', '$email', '$date')";
+                   VALUES ('', '$branch_details_id', '$appointment_id', '$name', '$mobile', '$address', '$email', '$date')";
     mysqli_query($conn, $insert_sql);
 }
 
@@ -93,8 +93,8 @@ if (isset($_POST['services']) && !empty($_POST['services'])) {
 
             // Insert into tb_selected_services
             $insert_sql = "
-            INSERT INTO tb_selected_services (appointment_id, c_id,s_id, a_id, service_name, service_price, discount_percentage, price_after_discount, billing_number) 
-            VALUES ('$appointment_id','$c_id','$s_id','$a_id', '$service_name', '$service_price','$discount_percentage','$discount_price', '$billing_number')";
+            INSERT INTO tb_selected_services (branch_details_id,appointment_id, c_id,s_id, a_id, service_name, service_price, discount_percentage, price_after_discount, billing_number) 
+            VALUES ('$branch_details_id','$appointment_id','$c_id','$s_id','$a_id', '$service_name', '$service_price','$discount_percentage','$discount_price', '$billing_number')";
             
             if (!mysqli_query($conn, $insert_sql)) {
                 echo "Error inserting service: " . mysqli_error($conn);
@@ -108,8 +108,8 @@ if (isset($_POST['services']) && !empty($_POST['services'])) {
     // $billing_number = $_POST['billing_number'];
     $totalAfterDiscount = $totalPrice - ($totalPrice * ($discount / 100));
 
-    $sql_insert = "INSERT INTO orders (appointment_id, totalPrice, discount, billing_number, created_at) 
-                   VALUES ('$appointment_id', '$totalPrice', '$discount', '$billing_number', NOW())";
+    $sql_insert = "INSERT INTO orders (branch_details_id,appointment_id, totalPrice, discount, billing_number, created_at) 
+                   VALUES ('$branch_details_id','$appointment_id', '$totalPrice', '$discount', '$billing_number', NOW())";
 
     if (mysqli_query($conn, $sql_insert)) {
         echo "<script>
@@ -153,7 +153,7 @@ if (mysqli_num_rows($check_result) > 0) {
 } else {
     // Insert new invoice
     $insert_sql = "INSERT INTO tb_invoice 
-                   VALUES ('', '$appointment_id', '$name', '$mobile', '$address', '$email', '$date')";
+                   VALUES ('','$branch_details_id','$appointment_id', '$name', '$mobile', '$address', '$email', '$date')";
     mysqli_query($conn, $insert_sql);
 }
 
@@ -187,8 +187,8 @@ $billing_number = $prefix . str_pad($nextNumber, 6, "0", STR_PAD_LEFT);
                 $packageNumber = $row['package_number'];
                 $discount = $row['discount'];
 
- $sql_insert = "INSERT INTO orders (appointment_id,  discount, billing_number, created_at) 
-                   VALUES ('$appointment_id',  '$discount', '$billing_number', NOW())";
+ $sql_insert = "INSERT INTO orders (branch_details_id, appointment_id,  discount, billing_number, created_at) 
+                   VALUES ('$branch_details_id','$appointment_id',  '$discount', '$billing_number', NOW())";
 
   mysqli_query($conn, $sql_insert);
 

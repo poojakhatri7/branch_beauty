@@ -14,18 +14,24 @@ if(isset($_POST["submit"])) {
     $mobile = $_POST['mobile'];
 //  $query = "INSERT INTO admin_login_details values ('','$branch_name','$city','$email','$address','$branch_manager_name','$mobile')";
 // mysqli_query($conn, $query);
-  $query1 = "INSERT INTO branch_details values ('','$branch_name','$city','$email','$address','$mobile')";
-     if(mysqli_query($conn, $query1))
-     {
+
+
+$duplicate = mysqli_query($conn, "SELECT * FROM `branch_details` WHERE branch_name = '$branch_name'");
+
+if (mysqli_num_rows($duplicate) > 0) {
+    echo "<script>alert('This branch already exists');</script>";
+} else {
+    $query1 = "INSERT INTO branch_details VALUES ('','$branch_name', '$city', '$email', '$address', '$mobile')";
+    
+    if (mysqli_query($conn, $query1)) {
         echo "<script>
-        alert('Branch added successful');
-   
-          window.location.href='available_branches';
-    </script>";
-  
+            alert('Branch added successfully');
+            window.location.href = 'available_branches';
+        </script>";
     } else {
-        echo "Error inserting record: " . mysqli_error($conn);
+        echo "<script>alert('Failed to add branch');</script>";
     }
+}
 
 }
 ?>
@@ -105,7 +111,7 @@ if(isset($_POST["submit"])) {
                          <div class="form-group row">
                             <label for="address" class="col-sm-2 col-form-label">MOBILE</label>
                             <div class="col-sm-6">
-                                <input type="tel" name="mobile" class="form-control" id="address" placeholder="Enter Mobile Number" required>
+                                <input type="tel" name="mobile" class="form-control" id="address" placeholder="Enter Mobile Number" pattern="[0-9]{10}" maxlength="10" minlength="10" required >
                             </div>
                         </div>  
                         <div class="card-footer">
