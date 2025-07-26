@@ -1,10 +1,15 @@
 <?php include 'data.php'; 
+$defaultImage = "../user/assets/dist/img/dp.webp"; 
+$imagePath = $defaultImage;
  $mobile = $_SESSION["mobile"];
         $sql = "SELECT file FROM admin_login_details WHERE mobile = '$mobile'";
         $result = mysqli_query($conn, $sql);
-        if ($result && mysqli_num_rows($result) > 0) {
+             if ($result && mysqli_num_rows($result) > 0) {
           $row = mysqli_fetch_assoc($result);
-          $imagePath = $row['file'] ;
+                // Check if image file is not empty and exists
+    if (!empty($row['file']) && file_exists($row['file'])) {
+        $imagePath = $row['file'];
+    }
         }
         ?>
 <div class="preloader flex-column justify-content-center align-items-center">

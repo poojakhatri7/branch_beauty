@@ -134,6 +134,7 @@ $result = mysqli_query($conn, $sql);
 								<li class="nl-simple" aria-haspopup="true"><a href="contact" class="h-link">Contact</a></li>
 
 <li class="nl-simple" aria-haspopup="true"><a href="branches" class="h-link">Branches</a></li>
+
 								<!-- SIMPLE NAVIGATION LINK -->
 								<!-- <li class="nl-simple" aria-haspopup="true"><a href="blog-listing" class="h-link">Blog</a></li> -->
 

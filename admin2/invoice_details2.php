@@ -3,7 +3,7 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
-
+   $branch_id = $_SESSION['branch_details_id'];
 $appointment_id = isset($_GET['appointment_id']) ? $_GET['appointment_id'] : null;
 $package1_id = isset($_GET['package1_id']) ? $_GET['package1_id'] : null;
 $billing_number = isset($_GET['billing_number']) ? $_GET['billing_number'] : null;
@@ -302,19 +302,27 @@ $roundedBill = round($gst_total, 0);
       <h4><strong> After  Roundoff Bill Amount is : Rs <?php echo  $roundedBill ?> </strong></h4>
     </div>
     <?php
-    if (isset($_POST["submit"])) {
-     $query = "INSERT INTO bill (Sno,appointment_id,bill_amount, discount_percent, bill_after_discount,adding_gst,round_off_bill) VALUES ('','$appointment_id','$total', '$formatted_discount','$total_discount','$gst_total','$roundedBill')
-      ON DUPLICATE KEY UPDATE 
-            bill_amount = '$total', 
-            discount_percent = '$formatted_discount', 
-            bill_after_discount = '$total_discount', 
-            adding_gst = '$gst_total', 
-            round_off_bill = '$roundedBill'";
+   
+$checkQuery = "SELECT 1 FROM bill WHERE billing_number = '$billing_number'";
+$checkResult = mysqli_query($conn, $checkQuery);
+
+if (mysqli_num_rows($checkResult) == 0) {
+    // If not exists, then insert
+    $query = "INSERT INTO bill (
+        Sno, branch_details_id, appointment_id, billing_number, 
+        bill_amount, discount_percent, bill_after_discount, 
+        adding_gst, round_off_bill
+    ) VALUES (
+        '', '$branch_id', '$appointment_id', '$billing_number',
+        '$total', '$formatted_discount', '$total_discount',
+        '$gst_total', '$roundedBill'
+    )";
+
      mysqli_query($conn, $query);
     
-}
+
 ?>
-   <?php } ?>
+   <?php }  }?>
 
     <!-- Footer Section -->
     <div class="footer">

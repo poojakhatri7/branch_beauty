@@ -40,7 +40,7 @@ if(isset($_POST["submit1"])) {
   $mobile = mysqli_real_escape_string($conn, $_POST["mobile"]);
   $updated_address = mysqli_real_escape_string($conn, $_POST["address"]);
   $gst_number = mysqli_real_escape_string($conn, $_POST["gst_number"]);
-  $check_user = "SELECT * FROM users WHERE mobile = '$mobile'";
+  $check_user = "SELECT * FROM admin_login_details WHERE mobile = '$mobile'";
   $result_user = mysqli_query($conn, $check_user);
 
   if(mysqli_num_rows($result_user) > 0) {

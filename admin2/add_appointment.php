@@ -15,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $preferd_time = $_POST['time'];
     $appointment_for = "offline booking";
-    $query = "INSERT INTO tb_appointment values ('','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
+    $branch_details_id = $_SESSION['branch_details_id'];
+    $query = "INSERT INTO tb_appointment values ('','$branch_details_id','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insert a new user (no success/error message)
         // $query2 = "INSERT INTO users (name, username, password, email, date, address, other_info) 
         //            VALUES ('$name', '$mobile', '$mobile', '$email', '$date', '$address', '')";
-        $query2 = "INSERT INTO users values ('','$name','$mobile','$email','$address','$pass','')";
+        $query2 = "INSERT INTO users values ('','$branch_details_id','$name','$mobile','$email','$address','$pass','')";
         mysqli_query($conn, $query2);
     }
   }

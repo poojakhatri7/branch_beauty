@@ -31,11 +31,16 @@
         <div class="image">
         <?php
  $mobile = $_SESSION["mobile"];
+ $defaultImage = "../user/assets/dist/img/dp.webp"; 
+$imagePath = $defaultImage;
         $sql = "SELECT file FROM admin_login_details WHERE mobile = '$mobile'";
         $result = mysqli_query($conn, $sql);
-        if ($result && mysqli_num_rows($result) > 0) {
+          if ($result && mysqli_num_rows($result) > 0) {
           $row = mysqli_fetch_assoc($result);
-          $imagePath = "../admin2/".$row['file'] ;
+           // Check if image file is not empty and exists
+    if (!empty($row['file']) && file_exists($row['file'])) {
+        $imagePath = $row['file'];
+    }
         }
         ?>
           <img src="<?php echo $imagePath; ?>" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px; object-fit: cover;" alt="gallery-image">

@@ -38,7 +38,7 @@ if(isset($_POST["submit"])) {
       mysqli_query($conn, $query2);
   } else {
     $pass = 123;
-      $query2 = "INSERT INTO users values ('','$name','$mobile','$email','$address','$pass','')";
+      $query2 = "INSERT INTO users values ('','$branch_id','$name','$mobile','$email','$address','$pass','')";
       mysqli_query($conn, $query2);
   }
 }
