@@ -26,7 +26,7 @@ if (isset($_GET['branch_details_id'])) {
                       <th>Mobile</th>
                       <th>Message</th>
                       <th>Date and Time</th>
-                       <th>Action</th>
+                       <th>Select Enquiry Status </th>
                     </tr>
                   </thead>
                   <tbody>';
@@ -39,13 +39,15 @@ if (isset($_GET['branch_details_id'])) {
                     <td>' . htmlspecialchars($row['mobile']) . '</td>
                     <td>' . htmlspecialchars($row['message']) . '</td>
                     <td>' . htmlspecialchars($row['created_at']) . '</td>
-        <td>' . 
-    '<a href="delete_data.php?id=' . $row["id"] . '&table=enquiry_message" 
-        onclick="return confirm(\'Are you sure you want to delete this?\')" 
-        style="color: red; display: inline-block;">
-        <i class="fa fa-trash"></i> 
-    </a>' . 
-'</td>
+        <td>
+<select name="enquiry_status" id="enquiry_status" class="form-control" required>
+  <option value="" selected disabled>Select Status</option>
+  <option value="complete">Complete</option>
+  <option value="pending">Pending</option>
+  <option value="cancelled">Cancelled</option>
+</select>
+
+</td>
                   </tr>';
         }
 
@@ -56,7 +58,7 @@ if (isset($_GET['branch_details_id'])) {
           </div>
         </div>';
     } else {
-        echo '<p style="color: red; font-weight: bold;">No enquiries found for this branch.</p>';
+        echo '<p style="color: red; text-align: center; font-weight: bold;">No Enquiry found for this Branch.</p>';
     }
 } else {
     echo '<p style="color: red;">Invalid request.</p>';

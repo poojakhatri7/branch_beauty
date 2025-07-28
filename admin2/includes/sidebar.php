@@ -432,6 +432,5 @@ if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 1)
       </nav>
       <!-- /.sidebar-menu -->
     </div>
-  
   </aside>
   

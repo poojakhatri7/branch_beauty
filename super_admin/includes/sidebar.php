@@ -119,17 +119,45 @@
               </li>
             </ul>
           </li>
-             <li class="nav-item">
-            <a href="admin_enquiry_message1" class="nav-link admin_enquiry_message">
+      <li class="nav-item">
+            <a href="#" class="nav-link">
               <!-- <i class="nav-icon fas fa-copy"></i> -->
               <!-- <i class="fa fa-file-invoice"></i> -->
               <i class="fa fa-envelope"></i> 
-
               <p>
                Enquiry message 
-                <!-- <i class="fas fa-angle-left right"></i> -->
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+ <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;">
+              <li class="nav-item">
+                <a href="admin_enquiry_message1" class="nav-link">
+                  <!-- <i class="fa fa-info-circle"></i> -->
+                  <i class="fa fa-list-alt"></i>
+                  <p>All Enquires</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="#" class="nav-link ">
+                  <!-- <i class="fa fa-info-circle"></i> -->
+                  <i class="fa fa-check"></i>
+                  <p>Complete Enquires </p>
+                </a>
+              </li>
+        
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                <i class="fa fa-spinner"></i>
+                  <p> Pending Enquires</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="#" class="nav-link">
+                <i class="fa fa-ban"></i>
+                  <p> Canceled Enquires</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
 
