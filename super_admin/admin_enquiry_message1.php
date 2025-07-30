@@ -3,7 +3,17 @@ include 'session.php';
 include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
-?>
+
+
+// if (isset($_GET['id']) && isset($_GET['status'])) {
+//     $id = intval($_GET['id']);
+//     $status = mysqli_real_escape_string($conn, $_GET['status']);
+
+//     $update = "UPDATE enquiry_message SET status = '$status' WHERE id = $id";
+//     mysqli_query($conn, $update);
+// }
+// ?>
+
 <main class="app-main">
 <!doctype html>
 <html lang="en">
@@ -17,12 +27,10 @@ include('includes/sidebar.php');
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
     <style >
-.admin_enquiry_message{
+.admin_enquiry_message {
   /* background : #157daf !important; */
   background :rgb(33, 70, 77) !important;
 }
-
-
 </style>
   </head>
   <body>
@@ -206,9 +214,42 @@ document.getElementById("branchSelect").addEventListener("change", function () {
       console.error("Fetch error:", error);
     });
 });
+
+
+// ✅ Event delegation for dropdown status update
+document.getElementById("branch-data").addEventListener("change", function (e) {
+  if (e.target.classList.contains("status-dropdown")) {
+    const status = e.target.value;
+    const id = e.target.getAttribute("data-id");
+
+    fetch("update_status.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `id=${id}&status=${status}`,
+    })
+    .then(res => res.text())
+    .then(response => {
+      console.log("Status updated:", response);
+      // Optionally show a toast or success message here
+      const row = this.closest("tr");
+if (row) {
+    const statusCell = row.querySelector(".status-cell");
+    if (statusCell) {
+        statusCell.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    }
+} else {
+    console.warn("Row not found for dropdown with id:", id);
+}
+    })
+    .catch(err => {
+      console.error("Update error:", err);
+    });
+  }
+});
 </script>
 
- 
 
 
 </body>

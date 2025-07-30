@@ -26,11 +26,11 @@ if (isset($_GET['branch_details_id'])) {
                       <th>Mobile</th>
                       <th>Message</th>
                       <th>Date and Time</th>
+                     
                        <th>Select Enquiry Status </th>
                     </tr>
                   </thead>
                   <tbody>';
-        
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<tr>
                     <td>' . htmlspecialchars($row['branch_name']) . '</td>
@@ -39,15 +39,14 @@ if (isset($_GET['branch_details_id'])) {
                     <td>' . htmlspecialchars($row['mobile']) . '</td>
                     <td>' . htmlspecialchars($row['message']) . '</td>
                     <td>' . htmlspecialchars($row['created_at']) . '</td>
-        <td>
-<select name="enquiry_status" id="enquiry_status" class="form-control" required>
-  <option value="" selected disabled>Select Status</option>
-  <option value="complete">Complete</option>
-  <option value="pending">Pending</option>
-  <option value="cancelled">Cancelled</option>
-</select>
-
-</td>
+                   
+   <td>
+    <select data-id="' . $row['id'] . '"  class="form-control status-dropdown" >
+      <option value="Pending"  ' . ($row['status'] == 'Pending' ? 'selected' : '') . '>Pending</option>
+      <option value="Completed" ' . ($row['status'] == 'Completed' ? 'selected' : '') . '>Completed</option>
+      <option value="Rejected" ' . ($row['status'] == 'Rejected' ? 'selected' : '') . '>Rejected</option>
+    </select>
+  </td>
                   </tr>';
         }
 
@@ -64,6 +63,7 @@ if (isset($_GET['branch_details_id'])) {
     echo '<p style="color: red;">Invalid request.</p>';
 }
 ?>
+
 
 
 

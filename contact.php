@@ -36,7 +36,7 @@ if (isset($_POST['submit']))
     $about = $_POST['subject'];
     $message = $_POST['message'];
 	$branch_id = $_POST['branch'];
-
+$status = 'pending';
 // Fetch branch name using ID
 $query = "SELECT branch_name FROM branch_details WHERE id = '$branch_id'";
 $result = mysqli_query($conn, $query);
@@ -44,7 +44,7 @@ $row = mysqli_fetch_assoc($result);
 $branch_name = $row['branch_name'];
 
 
-    $query = "INSERT INTO enquiry_message values ('','$branch_id','$branch_name','$name','$email','$about','$message',NOW())";
+    $query = "INSERT INTO enquiry_message values ('','$branch_id','$branch_name','$name','$email','$about','$message','$status', NOW())";
     $result = mysqli_query($conn, $query);
 
     if ($result) {

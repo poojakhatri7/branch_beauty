@@ -52,7 +52,7 @@ include('includes/sidebar.php');
                       <th style="color: rgb(238, 230, 217); font-weight: 500;"> Location </th>
                         <th style="color: rgb(238, 230, 217); font-weight: 500;"> Invoice </th>
                        <th style="color: rgb(238, 230, 217); font-weight: 500;">Revenue (Rs)</th>
-                  
+                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                     <!-- <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th> -->
                   </tr>
                   </thead>
@@ -112,7 +112,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                  <td>{$row['address']}</td>
                   <td>{$row['total_invoices']}</td>
                   <td>Rs " . number_format($row['total_revenue'], 2) . "</td>     
-                  
+                   <td> <button class='btn' style='background-color: rgb(51, 139, 139); color: white; border: none; cursor: pointer; padding: 7px 12px;'>
+               
+                Details
+              </button></td>
 
           </tr>";
 }

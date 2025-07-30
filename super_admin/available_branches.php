@@ -16,7 +16,33 @@ include('includes/sidebar.php');
 .admin_available_branches{
   background :rgb(33, 70, 77) !important;
 }
+
+
+/* Increase toggle size */
+.form-check-input {
+  width: 4rem;      /* wider */
+  height: 1rem;     /* taller */
+  cursor: pointer;
+  transform: scale(1.5); /* optional: scales the whole switch */
+}
+
+/* Adjust the knob inside */
+.form-check-input:checked {
+  background-color: #28a745; /* green */
+  border-color: #28a745;
+}
+
+.form-check-input:not(:checked) {
+  background-color: #dc3545; /* red */
+  border-color: #dc3545;
+}
+
+/* Optional: smoother transition */
+.form-check-input {
+  transition: all 0.3s ease;
+}
 </style>
+
 
   </head>
   <body>
@@ -52,6 +78,7 @@ include('includes/sidebar.php');
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
+                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Active</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                   </tr>
                   </thead>
@@ -90,6 +117,12 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $row['address']; ?></td>
             
                <td><?php echo $row['mobile']; ?></td>
+                <td>
+                <div class="form-check form-switch d-flex justify-content-center align-items-center gap-2">
+  <input class="form-check-input" type="checkbox" id="branchToggle" onchange="toggleStatus(this)" checked>
+  <label class="form-check-label mb-0" for="branchToggle" id="statusLabel"></label>
+</div>
+</td>
             <td>
     <!-- <div style="display: inline-block; margin-right: 20px;">
         <a href='edit_available_branches?id=<?php echo $row["branch_id"]; ?>'>

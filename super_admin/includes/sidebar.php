@@ -138,7 +138,7 @@
                 </a>
               </li>
                <li class="nav-item">
-                <a href="#" class="nav-link ">
+                <a href="complete_enquiry" class="nav-link ">
                   <!-- <i class="fa fa-info-circle"></i> -->
                   <i class="fa fa-check"></i>
                   <p>Complete Enquires </p>
@@ -146,15 +146,15 @@
               </li>
         
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="pending_enquiry" class="nav-link">
                 <i class="fa fa-spinner"></i>
                   <p> Pending Enquires</p>
                 </a>
               </li>
                <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="cancelled_enquiry" class="nav-link">
                 <i class="fa fa-ban"></i>
-                  <p> Canceled Enquires</p>
+                  <p> Rejected Enquires</p>
                 </a>
               </li>
             </ul>
