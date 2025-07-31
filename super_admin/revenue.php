@@ -33,6 +33,41 @@ include('includes/sidebar.php');
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div> 
+
+
+
+<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Manager Details</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form id="manager_details">
+            <div class="form-group">
+               <p><strong>Branch Name : </strong> <span id="modalPackageName"></span></p>
+              <p><strong> Branch Manager Name (Admin) :</strong> <span id="modalPackageName"></span></p>
+        <p><strong>Mobile : </strong> <span id="modalDescription"></span></p>
+        <p><strong> Email :</strong> <span id="modalServices"></span></p>
+        <!-- <p><strong>Price Rs:</strong> <span id="modalPrice"></span></p> -->
+        <p><strong> Address : </strong> <span id="modalTotalPrice"></span></p>
+
+
+                </form>
+         </div>
+         <div class="modal-footer justify-content-between">                
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+
+ 
+
      <div class="container-fluid">
     <!-- <h2 style="text-align: center;">Apointment History</h2> -->
   <div class="card">
@@ -106,16 +141,23 @@ while ($row = mysqli_fetch_assoc($result)) {
    $count++;
     echo "<tr>
      <th scope='row'> $count</th>
+     
             <td>{$row['branch_name']}</td>
               <td>{$row['city']}</td>
                <td>{$row['email']}</td>
                  <td>{$row['address']}</td>
                   <td>{$row['total_invoices']}</td>
                   <td>Rs " . number_format($row['total_revenue'], 2) . "</td>     
-                   <td> <button class='btn' style='background-color: rgb(51, 139, 139); color: white; border: none; cursor: pointer; padding: 7px 12px;'>
-               
-                Details
-              </button></td>
+                 <td>
+    <a href='#' 
+       class='btn' 
+       data-toggle='modal' 
+       data-target='#modal-default' 
+       data-branch-id='{$row['id']}' 
+       style='background-color: rgb(51, 139, 139); color: white; border: none; cursor: pointer; padding: 7px 12px; text-decoration: none;'>
+      Details
+    </a>
+  </td>
 
           </tr>";
 }

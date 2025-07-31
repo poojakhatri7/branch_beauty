@@ -18,21 +18,29 @@ if (isset($_POST["submit"])) {
 if( mysqli_query($conn, $query1))
 {
    echo"<script> alert('updated successfully')
-     window.location.href='assign_branch_manager';
+     window.location.href='add_new_branch2';
       </script>";
 }
 else {
    echo"<script> alert('error while updation')</script>";
 }
 }
-$sql = "SELECT * FROM admin_login_details WHERE id={$id}";
+// $sql = "SELECT * FROM admin_login_details WHERE id={$id}";
 
+$sql = "
+SELECT a.*, b.branch_name 
+FROM admin_login_details a 
+LEFT JOIN branch_details b ON a.branch_details_id = b.id 
+WHERE a.id = {$id}
+";
 
 $result = mysqli_query($conn, $sql);
 // Step 4: Check if the query returned any results
 if (mysqli_num_rows($result) > 0) {
+
   // Step 5: Use a while loop to fetch each row of data
   while ($row = mysqli_fetch_assoc($result)) {
+    
 ?>
 <!doctype html>
 <html lang="en">

@@ -97,19 +97,19 @@
             </a>
              <ul class="nav nav-treeview" style="background-color:rgb(47, 131, 131); display:none;">
               <li class="nav-item">
-                <a href="add_new_branch" class="nav-link add_new_branch">
+                <a href="add_new_branch2" class="nav-link add_new_branch">
                   <!-- <i class="fa fa-info-circle"></i> -->
                   <i class="fa fa-plus"></i>
                   <p>Add New Branch</p>
                 </a>
               </li>
-               <li class="nav-item">
-                <a href="assign_branch_manager" class="nav-link assign_branch_manager">
+               <!-- <li class="nav-item">
+                <a href="assign_branch_manager" class="nav-link assign_branch_manager"> -->
                   <!-- <i class="fa fa-info-circle"></i> -->
-                  <i class="fa fa-user"></i>
+                  <!-- <i class="fa fa-user"></i>
                   <p>Assign Branch Manager (Admin) </p>
                 </a>
-              </li>
+              </li> -->
         
               <li class="nav-item">
                 <a href="available_branches" class="nav-link staff">

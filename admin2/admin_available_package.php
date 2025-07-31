@@ -134,6 +134,7 @@ if (mysqli_num_rows($result) > 0) {
       </a>
     </div>
     
+    
          <div style="display: inline-block;">
       <a href="delete_data?package_number=' . $row['package_number'] . '" onclick="return confirm(\'Are you sure you want to delete this?\')">
         <i class="fa fa-trash" style="color: red;"></i>

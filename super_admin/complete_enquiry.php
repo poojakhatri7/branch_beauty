@@ -141,7 +141,7 @@ JOIN
     branch_details bd 
 ON 
     ta.branch_details_id = bd.id
-    where status ='complete'
+    where status ='completed'
 ORDER BY 
     ta.id DESC
 ";

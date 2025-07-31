@@ -17,30 +17,9 @@ include('includes/sidebar.php');
   background :rgb(33, 70, 77) !important;
 }
 
-
-/* Increase toggle size */
-.form-check-input {
-  width: 4rem;      /* wider */
-  height: 1rem;     /* taller */
-  cursor: pointer;
-  transform: scale(1.5); /* optional: scales the whole switch */
-}
-
-/* Adjust the knob inside */
-.form-check-input:checked {
-  background-color: #28a745; /* green */
-  border-color: #28a745;
-}
-
-.form-check-input:not(:checked) {
-  background-color: #dc3545; /* red */
-  border-color: #dc3545;
-}
-
-/* Optional: smoother transition */
-.form-check-input {
-  transition: all 0.3s ease;
-}
+   .btn.active {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+  }
 </style>
 
 
@@ -118,9 +97,8 @@ if (mysqli_num_rows($result) > 0) {
             
                <td><?php echo $row['mobile']; ?></td>
                 <td>
-                <div class="form-check form-switch d-flex justify-content-center align-items-center gap-2">
-  <input class="form-check-input" type="checkbox" id="branchToggle" onchange="toggleStatus(this)" checked>
-  <label class="form-check-label mb-0" for="branchToggle" id="statusLabel"></label>
+ <div class=" d-flex justify-content-center">
+  <button class="btn btn-success" id="statusBtn" onclick="toggleStatus()">Active</button>
 </div>
 </td>
             <td>
@@ -159,6 +137,25 @@ if (mysqli_num_rows($result) > 0) {
     <!-- /.content -->
   </div>
 
+<script>
+let currentStatus = 'active';
+
+function toggleStatus() {
+  const btn = document.getElementById('statusBtn');
+  if (currentStatus === 'active') {
+    currentStatus = 'deactive';
+    btn.textContent = 'Deactive';
+    btn.classList.remove('btn-success');
+    btn.classList.add('btn-danger');
+  } else {
+    currentStatus = 'active';
+    btn.textContent = 'Active';
+    btn.classList.remove('btn-danger');
+    btn.classList.add('btn-success');
+  }
+
+}
+</script>
 
 </body>
 

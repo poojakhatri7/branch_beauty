@@ -5,43 +5,48 @@ include('includes/top_navbar.php');
 include('includes/sidebar.php');
 
 if(isset($_POST["submit"])) {
-  $name = mysqli_real_escape_string($conn, $_POST["name"]);
-   $branch_id = mysqli_real_escape_string($conn, $_POST["branch_id"]);
-  $email = mysqli_real_escape_string($conn, $_POST["email"]);
-  $mobile = mysqli_real_escape_string($conn, $_POST["mobile"]);
-  $address = mysqli_real_escape_string($conn, $_POST["address"]);
-  $date = mysqli_real_escape_string($conn, $_POST["date"]);
-  $preferd_time = mysqli_real_escape_string($conn, $_POST["time"]);
-  $appointment_for = "offline booking";
+  $branch_name = mysqli_real_escape_string($conn, $_POST["branch_name"]);
+  $branch_city = mysqli_real_escape_string($conn, $_POST["branch_city"]);
+  $branch_email = mysqli_real_escape_string($conn, $_POST["branch_email"]);
+  $branch_mobile = mysqli_real_escape_string($conn, $_POST["branch_mobile"]);
+  $branch_address = mysqli_real_escape_string($conn, $_POST["branch_address"]);
+  $manager_name = mysqli_real_escape_string($conn, $_POST["manager_name"]);
+  $owner_mobile = mysqli_real_escape_string($conn, $_POST["owner_mobile"]);
+$owner_email = mysqli_real_escape_string($conn, $_POST["owner_email"]);
+$owner_address = mysqli_real_escape_string($conn, $_POST["owner_address"]);
+$role = 1;
+$password =1234;
+// Step 1: Insert manager into admin_login_details
+$sql1 = "INSERT INTO admin_login_details (name, branch_details_id, mobile, email, address, password , role) 
+         VALUES ('$manager_name', 1 ,'$owner_mobile ','$owner_email','$owner_address','$password', $role )";
+mysqli_query($conn, $sql1);
 
-    $query1 = "INSERT INTO tb_appointment values ('', '$branch_id','$name','$email','$mobile','$address','$date','$preferd_time','$appointment_for','')";
-     if(mysqli_query($conn, $query1))
+// Get the last inserted manager ID
+$manager_id = mysqli_insert_id($conn);
+
+    $query1 = "INSERT INTO branch_details values ('','$manager_id', '$branch_name','$branch_city','$branch_email','$branch_address','$branch_mobile')";
+     mysqli_query($conn, $query1);
+
+// Step 3: Get new branch ID
+$branch_id = mysqli_insert_id($conn);
+
+// ✅ Step 4: Update the manager’s branch_id
+$sql3 = "UPDATE admin_login_details SET branch_details_id = $branch_id WHERE id = $manager_id";
+ if(mysqli_query($conn, $sql3))
+
      {
         echo "<script>
-        alert('Appointment successful');
+        alert('Branch successfully created and manager is assigned');
        
-            window.location.href='admin_appointment';
+            window.location.href='add_new_branch2';
     </script>";
   
     } else {
         echo "Error inserting record: " . mysqli_error($conn);
     }
 
-  $check_user = "SELECT * FROM users WHERE mobile = '$mobile'";
-  $result_user = mysqli_query($conn, $check_user);
-
-  if(mysqli_num_rows($result_user) > 0) {
-      // Update the user record (no success/error message)
-      $query2 = "UPDATE users 
-                 SET name='$name', email='$email', address='$address',password='123' 
-                 WHERE mobile='$mobile'";
-      mysqli_query($conn, $query2);
-  } else {
-    $pass = 123;
-      $query2 = "INSERT INTO users values ('','$branch_id','$name','$mobile','$email','$address','$pass','')";
-      mysqli_query($conn, $query2);
-  }
 }
+
 ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -97,9 +102,9 @@ if(isset($_POST["submit"])) {
       <h4 class="m-0">BRANCH DETAILS</h4>
     </div>
         <div class="form-group row">
-                    <label for="name" class="col-sm-4 col-form-label">BRANCH NAME </label>
+                    <label for="name" class="col-sm-4 col-form-label">BRANCH NAME</label>
                     <div class="col-sm-8">
-                        <input type="text" name="name"  pattern="[A-Za-z\s]+" class="form-control" id="name" placeholder="Enter name" required>
+                        <input type="text" name="branch_name"  pattern="[A-Za-z\s]+" class="form-control" id="name" placeholder="Enter branch name" required>
                     </div>
                 </div>
              
@@ -107,22 +112,20 @@ if(isset($_POST["submit"])) {
                       <div class="form-group row">
                     <label for="name" class="col-sm-4 col-form-label">CITY</label>
                     <div class="col-sm-8">
-                        <input type="text" name="name"  pattern="[A-Za-z\s]+" class="form-control" id="name" placeholder="Enter city" required>
+                        <input type="text" name="branch_city"  pattern="[A-Za-z\s]+" class="form-control" id="name" placeholder="Enter city of the branch" required>
                     </div>
                 </div>
       
-               
-
                 <div class="form-group row">
                     <label for="email" class="col-sm-4 col-form-label">EMAIL </label>
                     <div class="col-sm-8">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email"required>
+                        <input type="email" name="branch_email" class="form-control" id="email" placeholder="Enter email"required>
                     </div>
                 </div>
                  <div class="form-group row">
-                    <label for="email" class="col-sm-4 col-form-label">ADDRESS</label>
+                    <label for="text" class="col-sm-4 col-form-label">ADDRESS</label>
                     <div class="col-sm-8">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter address"required>
+                        <input type="text" name="branch_address" class="form-control" id="email" placeholder="Enter address"required>
                     </div>
                 </div>
                
@@ -130,7 +133,7 @@ if(isset($_POST["submit"])) {
              
                     <label for="mobile" class="col-sm-4 col-form-label">MOBILE NUMBER</label>
                     <div class="col-sm-8">
-                        <input type="tel" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number"  required >
+                        <input type="tel" name="branch_mobile" class="form-control" id="mobile" placeholder="Enter mobile number"  required >
                          <span id="mobileError" style="color: red;"></span>
                     </div>
                 </div>
@@ -141,41 +144,38 @@ if(isset($_POST["submit"])) {
             <div class="col-md-6">
 
                     <div class="text-center mt-2 mb-4">
-      <h4 class="m-0">OWNER DETAILS</h4>
+      <h4 class="m-0">MANAGER DETAILS</h4>
     </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-4 col-form-label"> BRANCH MANAGER NAME (ADMIN)</label>
+                    <label for="name" class="col-sm-4 col-form-label"> BRANCH MANAGER NAME (ADMIN) </label>
                     <div class="col-sm-8">
-                        <input type="text" name="name"  pattern="[A-Za-z\s]+" class="form-control" id="name" placeholder="Enter name" required>
+                        <input type="text" name="manager_name"  pattern="[A-Za-z\s]+" class="form-control" id="name" placeholder="Enter name" required>
                     </div>
                 </div>
                      <div class="form-group row">
              
                     <label for="mobile" class="col-sm-4 col-form-label">MOBILE NUMBER</label>
                     <div class="col-sm-8">
-                        <input type="tel" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number"  required >
+                        <input type="tel" name="owner_mobile" class="form-control" id="mobile" placeholder="Enter mobile number"  required >
                          <span id="mobileError" style="color: red;"></span>
                     </div>
 </div>
                        <div class="form-group row">
                     <label for="email" class="col-sm-4 col-form-label">EMAIL </label>
                     <div class="col-sm-8">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email"required>
+                        <input type="email" name="owner_email" class="form-control" id="email" placeholder="Enter email"required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="address" class="col-sm-4 col-form-label">ADDRESS</label>
                     <div class="col-sm-8">
-                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter address" required>
+                        <input type="text" name="owner_address" class="form-control" id="address" placeholder="Enter address" required>
                     </div>
                 </div>
               
             </div>
         </div>
-
-        <!-- Hidden field -->
-        <input type="hidden" name="appointment_for" value="offline booking">
 
         <!-- Error message -->
         <div class="row">
@@ -195,13 +195,13 @@ if(isset($_POST["submit"])) {
             </div>
         </div>
  <div class="container-fluid">
-    <!-- <h2 style="text-align: center;">Apointment History</h2> -->
+  
   <div class="card">
+
               <div class="card-header">
-                <!-- <h3 class="card-title">Appointment Details</h3> -->
-                <h5 class="m-0"> Admin Details </h5>
+                <h5 class="m-0">Manager Details (Admin)</h5>                                                                                  
               </div>
-              <!-- /.card-header -->
+              
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                 <thead style="background-color:rgb(51, 139, 139);">
@@ -254,17 +254,17 @@ $count = 0;
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $count++;
-         
         ?>
         <tr>
             <th scope='row'><?php echo $count; ?></th>
-            <td><?php echo $row['branch_name']; ?></td>
-      <td><?php echo $row['admin_name']; ?></td>
-            <td><?php echo $row['mobile']; ?></td>
+          
+             <td><?php echo $row['admin_name']; ?></td>
+  <td><?php echo $row['branch_name']; ?></td>
+               <td><?php echo $row['mobile']; ?></td>
             <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-              <td><?php echo $row['password']; ?></td>
-             
+             <td><?php echo $row['address']; ?></td>
+                <td><?php echo $row['password']; ?></td>
+          
             <td>
     <div style="display: inline-block; margin-right: 20px;">
         <a href='edit_admin_details?id=<?php echo $row["admin_id"]; ?>'>
@@ -297,10 +297,6 @@ if (mysqli_num_rows($result) > 0) {
       </div>
 
     </div>
-
-
-
-
     <script>
 function validateMobile() {
     var mobile = document.getElementById("mobile").value;
@@ -315,43 +311,7 @@ function validateMobile() {
     return true;
 }
 </script>
-    <script>
-        $(document).ready(function() {
-            // Trigger AJAX when the user types in the mobile number
-            $("#mobile").on("keyup", function() {
-                var mobile = $("#mobile").val(); // Get the mobile number entered
 
-                if (mobile.length >= 8) { // Start searching after 3 characters (adjust as needed)
-                    $.ajax({
-                        url: "fetch_customer.php", // PHP file to fetch customer data
-                        method: "POST",
-                        data: { mobile: mobile },
-                        success: function(response) {
-                            // Handle the response from fetch_customer.php
-                            var data = JSON.parse(response); // Parse the JSON response
-                            if (data.success) {
-                                // Populate the fields with data
-                                $("#name").val(data.name);
-                                $("#email").val(data.email);
-                                $("#address").val(data.address);
-                                $("#error-message").hide();
-                            } else {
-                                // If customer not found
-                                $("#name").val("");
-                                $("#email").val("");
-                                $("#address").val("");
-                               // alert("Customer not found!");
-                               $("#error-message").text("No Record Found Please Fill Up The Details").show();
-                            }
-                        },
-                        error: function() {
-                            alert("An error occurred while fetching the data.");
-                        }
-                    });
-                }
-            });
-        });
-    </script>
     <script>
     // Set today's date as min value
     document.addEventListener('DOMContentLoaded', function () {
