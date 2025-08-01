@@ -46,12 +46,12 @@ include('includes/sidebar.php');
       <div class="modal-body">
           <form id="manager_details">
             <div class="form-group">
-               <p><strong>Branch Name : </strong> <span id="modalPackageName"></span></p>
-              <p><strong> Branch Manager Name (Admin) :</strong> <span id="modalPackageName"></span></p>
-        <p><strong>Mobile : </strong> <span id="modalDescription"></span></p>
-        <p><strong> Email :</strong> <span id="modalServices"></span></p>
+               <!-- <p><strong>Branch Name : </strong> <span id="modalManagerName"></span></p> -->
+              <p><strong> Branch Manager Name (Admin) :</strong> <span id="modalManagerName"></span></p>
+        <p><strong>Mobile : </strong> <span id="modalMobile"></span></p>
+        <p><strong> Email :</strong> <span id="modalEmail"></span></p>
         <!-- <p><strong>Price Rs:</strong> <span id="modalPrice"></span></p> -->
-        <p><strong> Address : </strong> <span id="modalTotalPrice"></span></p>
+        <p><strong> Address : </strong> <span id="modalAddress"></span></p>
 
 
                 </form>
@@ -118,6 +118,7 @@ include('includes/sidebar.php');
 $sql = "
 SELECT 
     bd.id,
+    bd.branch_manager_id, 
     bd.branch_name,
     bd.email,
     bd.city,
@@ -150,10 +151,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                   <td>Rs " . number_format($row['total_revenue'], 2) . "</td>     
                  <td>
     <a href='#' 
-       class='btn' 
+    class='view-btn'
        data-toggle='modal' 
        data-target='#modal-default' 
-       data-branch-id='{$row['id']}' 
+       data-manager_id='{$row['branch_manager_id']}' 
        style='background-color: rgb(51, 139, 139); color: white; border: none; cursor: pointer; padding: 7px 12px; text-decoration: none;'>
       Details
     </a>
@@ -178,7 +179,32 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- /.content -->
   </div>
 
-
+<script>
+$(document).on('click', '.view-btn', function () {
+    const admin_details = $(this).data('manager_id');
+  console.log("Clicked branch-manager id :", admin_details ); // Check if ID is correct
+    $.ajax({
+        url: 'get_revenue_details.php',
+        type: 'POST',
+        data: { admin_details: admin_details },
+        dataType: 'json',
+        success: function (data) {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                 $('#modalManagerName').text(data.name);
+        $('#modalMobile').text(data.mobile);
+        $('#modalEmail').text(data.email);
+        $('#modalAddress').text(data.address);
+     
+            }
+        },
+        error: function () {
+            alert('branch_manager_id not found');
+        }
+    });
+});
+</script>
 </body>
 
 </html>

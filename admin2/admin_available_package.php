@@ -147,6 +147,7 @@ if (mysqli_num_rows($result) > 0) {
     echo "No package found.";
 }
 ?>
+
 <script>
 $(document).on('click', '.view-btn', function () {
     const package_number = $(this).data('package_number');

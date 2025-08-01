@@ -18,7 +18,7 @@ include('includes/sidebar.php');
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
     <style type="text/css">
-.admin_enquiry_message{
+.admin_pending_enquiry{
   /* background : #157daf !important; */
   background :rgb(33, 70, 77) !important;
 }
@@ -141,7 +141,7 @@ JOIN
     branch_details bd 
 ON 
     ta.branch_details_id = bd.id
-    where status ='pending'
+    where ta.status ='pending'
 ORDER BY 
     ta.id DESC
 ";

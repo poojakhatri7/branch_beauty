@@ -104,7 +104,7 @@ if(isset($_POST["submit"])) {
                     <!-- Branch Dropdown -->
         <div class="form-group row">
             <?php 
-                $staff_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+                $staff_result = mysqli_query($conn, "SELECT * FROM branch_details WHERE status='active'"); 
             ?>
             <label for="id" class="col-sm-4 col-form-label">SELECT BRANCH</label>
             <div class="col-sm-8">

@@ -16,6 +16,7 @@ $owner_email = mysqli_real_escape_string($conn, $_POST["owner_email"]);
 $owner_address = mysqli_real_escape_string($conn, $_POST["owner_address"]);
 $role = 1;
 $password =1234;
+$branch_status = "Active";
 // Step 1: Insert manager into admin_login_details
 $sql1 = "INSERT INTO admin_login_details (name, branch_details_id, mobile, email, address, password , role) 
          VALUES ('$manager_name', 1 ,'$owner_mobile ','$owner_email','$owner_address','$password', $role )";
@@ -24,7 +25,7 @@ mysqli_query($conn, $sql1);
 // Get the last inserted manager ID
 $manager_id = mysqli_insert_id($conn);
 
-    $query1 = "INSERT INTO branch_details values ('','$manager_id', '$branch_name','$branch_city','$branch_email','$branch_address','$branch_mobile')";
+    $query1 = "INSERT INTO branch_details values ('','$branch_status','$manager_id', '$branch_name','$branch_city','$branch_email','$branch_address','$branch_mobile')";
      mysqli_query($conn, $query1);
 
 // Step 3: Get new branch ID
@@ -57,7 +58,7 @@ $sql3 = "UPDATE admin_login_details SET branch_details_id = $branch_id WHERE id 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
-        .add_cutomer{
+        .add_new_branch{
             /* background: #157daf !important; */
             background :rgb(33, 70, 77) !important;
         }
