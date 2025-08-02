@@ -16,7 +16,7 @@ $owner_email = mysqli_real_escape_string($conn, $_POST["owner_email"]);
 $owner_address = mysqli_real_escape_string($conn, $_POST["owner_address"]);
 $role = 1;
 $password =1234;
-$branch_status = "Active";
+$branch_status = "active";
 // Step 1: Insert manager into admin_login_details
 $sql1 = "INSERT INTO admin_login_details (name, branch_details_id, mobile, email, address, password , role) 
          VALUES ('$manager_name', 1 ,'$owner_mobile ','$owner_email','$owner_address','$password', $role )";

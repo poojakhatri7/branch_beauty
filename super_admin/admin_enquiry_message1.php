@@ -83,73 +83,7 @@ $result = mysqli_query($conn, $sql);
       </div>
   </div>
 
-  <script>
-        $(document).ready(function() {
-            // Trigger AJAX when the user types in the mobile number
-            $("#mobile").on("keyup", function() {
-                var mobile = $("#mobile").val(); // Get the mobile number entered
-                if (mobile.length >= 8) { // Start searching after 3 characters (adjust as needed)
-                    $.ajax({
-                        url: "fetch_customer.php", // PHP file to fetch customer data
-                        method: "POST",
-                        data: { mobile: mobile },
-                        success: function(response) {
-                            // Handle the response from fetch_customer.php
-                            var data = JSON.parse(response); // Parse the JSON response
-                            if (data.success) {
-                                // Populate the fields with data
-                                $("#name").val(data.name);
-                                $("#email").val(data.email);
-                                $("#address").val(data.address);
-                                $("#error-message").hide();
-                            } else {
-                                // If customer not found
-                                $("#name").val("");
-                                $("#email").val("");
-                                $("#address").val("");
-                               // alert("Customer not found!");
-                               $("#error-message").text("No Record Found Please Fill Up The Details").show();
-                            }
-                        },
-                        error: function() {
-                            alert("An error occurred while fetching the data.");
-                        }
-                    });
-                }
-            });
-        });
-  
-        $(document).ready(function () {
-            $("#submitBtn1").click(function (e) {
-                e.preventDefault(); // Prevent form submission
-                var mobile = $("#mobile").val();
-                var name = $("#name").val();
-                var email = $("#email").val();
-                var address = $("#address").val();
-                var date = $("#date").val();
-                var time = $("#time").val();
-                console.log("Mobile:", mobile, "Name:", name, "Email:", email, "Address:", address, "Date:", date, "Time:", time);
-                $.ajax({
-                    type: "POST",
-                    url: "add_appointment.php", // PHP file that will handle the request
-                    data: {
-                       mobile: mobile,
-                      name: name,
-                      email: email,
-                      address: address,
-                      date : date,
-                      time : time
-                      },
-                    success: function (response) {
-                        $("#message").html(response); // Display response message
-                       $("#appointment_form")[0].reset(); // Reset form fields
-                     $("#appointment_form").trigger("reset");
-                     $("#error-message").hide();
-                    }
-                });
-            });
-        });
-    </script>
+
 
     <!-- <script>
   document.getElementById("branchSelect").addEventListener("change", function () {
@@ -173,6 +107,7 @@ $result = mysqli_query($conn, $sql);
       });
   });
 </script> -->
+
 <script>
 document.getElementById("branchSelect").addEventListener("change", function () {
   const branchId = this.value;

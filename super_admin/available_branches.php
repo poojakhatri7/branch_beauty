@@ -16,9 +16,7 @@ include('includes/sidebar.php');
 .admin_available_branches {
   background :rgb(33, 70, 77) !important;
 }
-   .btn.active {
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
-  }
+ 
 </style>
 
 
@@ -102,10 +100,14 @@ if (mysqli_num_rows($result) > 0) {
                 
 
 <div class="d-flex justify-content-center">
-  <button class="btn btn-success" id="statusBtn" onclick="toggleStatus(<?= $row['branch_id'] ?>, '<?= $row['status'] ?>')">
+  <button 
+    class="<?= $row['status'] === 'active' ? 'btn btn-danger' : 'btn btn-success' ?>" 
+    id="statusBtn<?= $row['branch_id'] ?>" 
+    onclick="toggleStatus(<?= $row['branch_id'] ?>, '<?= $row['status'] ?>')">
     <?= $row['status'] === 'active' ? 'Deactivate' : 'Activate' ?>
   </button>
 </div>
+
 
 </td>
 
@@ -184,7 +186,7 @@ function toggleStatus(branchId, newStatus) {
   });
 }
 </script> -->
-<script>
+<!-- <script>
 function toggleStatus(branchId, currentStatus) {
    
   const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
@@ -217,8 +219,40 @@ function toggleStatus(branchId, currentStatus) {
     }
   });
 }
-</script>
+</script> -->
+<script>
+function toggleStatus(branchId, currentStatus) {
+  const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
 
+  const confirmed = confirm(`Are you sure you want to ${newStatus === 'active' ? 'activate' : 'deactivate'} this branch?`);
+  if (!confirmed) return;
+
+  fetch('get_status_update.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `action=toggle_status&branch_id=${branchId}&new_status=${newStatus}`
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      // ✅ Update button text and style
+      const btn = document.getElementById('statusBtn' + branchId);
+      btn.textContent = newStatus === 'active' ? 'Deactivate' : 'Activate';
+      btn.setAttribute("onclick", `toggleStatus(${branchId}, '${newStatus}')`);
+      btn.classList.toggle('btn-danger');
+      btn.classList.toggle('btn-success');
+
+      // ✅ Update the status column dynamically
+      const statusTd = document.getElementById('statusText' + branchId);
+      if (statusTd) {
+        statusTd.textContent = newStatus;
+      }
+    } else {
+      console.error("Update failed:", data.error);
+    }
+  });
+}
+</script>
 
 
 </body>

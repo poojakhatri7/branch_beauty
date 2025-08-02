@@ -36,6 +36,7 @@ if (isset($_SESSION["name"])) {
     exit();
 }
 
+
 if (isset($_POST["submit"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -44,7 +45,28 @@ if (isset($_POST["submit"])) {
     $admin_result = mysqli_query($conn, "SELECT * FROM `admin_login_details` WHERE email = '$email'");
     if (mysqli_num_rows($admin_result) > 0) {
         $admin = mysqli_fetch_assoc($admin_result);
+
         if ($password == $admin["password"]) {
+            $role = (int)$admin["role"];
+            
+            // Only check branch status if not super admin
+            if ($role != 3) {
+                $branchId = $admin["branch_details_id"];
+                $branch_query = mysqli_query($conn, "SELECT status FROM branch_details WHERE id = $branchId");
+
+                if ($branch_query && mysqli_num_rows($branch_query) > 0) {
+                    $branch = mysqli_fetch_assoc($branch_query);
+                    if ($branch["status"] !== 'active') {
+                        echo "<script>alert('Branch is deactivated. Contact administrator.'); window.location.href = 'login_page';</script>";
+                        exit();
+                    }
+                } else {
+                    echo "<script>alert('Invalid branch details.'); window.location.href = 'login_page';</script>";
+                    exit();
+                }
+            }
+
+            // Set session and redirect
             $_SESSION["login"] = true;
             $_SESSION["id"] = $admin["id"];
             $_SESSION["name"] = $admin["name"];
@@ -52,10 +74,10 @@ if (isset($_POST["submit"])) {
             $_SESSION["email"] = $admin["email"];
             $_SESSION["address"] = $admin["address"];
             $_SESSION["gst_number"] = $admin["gst_number"];
-            $_SESSION["user_role"] = (int)$admin["role"];
+            $_SESSION["user_role"] = $role;
             $_SESSION["branch_details_id"] = $admin["branch_details_id"];
-      
-                     if ($_SESSION["user_role"] == 3) {
+
+            if ($role == 3) {
                 echo "<script> window.location.href = 'super_admin/'; </script>";
             } else {
                 echo "<script> window.location.href = 'admin2/'; </script>";
@@ -91,6 +113,7 @@ if (isset($_POST["submit"])) {
     echo "<script> alert('User not registered');  window.location.href = 'login_page'; </script>";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -4,7 +4,6 @@ include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
 
-
 $id = $_GET ['id'];
 if (isset($_POST["submit"])) {
 
