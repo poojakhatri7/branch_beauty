@@ -10,8 +10,19 @@ include('includes/sidebar.php');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BEAUTY PARLOUR MANAGEMENT SYSTEM</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+ 
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS (if needed) -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Toggle -->
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
    <style type="text/css">
 .admin_available_branches {
   background :rgb(33, 70, 77) !important;
@@ -54,6 +65,7 @@ include('includes/sidebar.php');
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
+                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Own Branch</th>
                       <th style="color: rgb(238, 230, 217); font-weight: 500;">Status</th>
                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Toggle</th>
                   
@@ -66,6 +78,7 @@ include('includes/sidebar.php');
 $sql ="SELECT 
     bd.id AS branch_id,
     bd.branch_name,
+      bd.own_branch,
      bd.status,
     bd.city,
     bd.email,
@@ -93,12 +106,23 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $row['city']; ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['address']; ?></td>
-            
-               <td><?php echo $row['mobile']; ?></td>
-             <td id="statusText<?= $row['branch_id'] ?>"> <?= $row['status']; ?> </td>
-                <td>
-                
+             <td><?php echo $row['mobile']; ?></td>
+<td>
+  <input type="checkbox"
+         class="toggle-own-branch"
+         data-id="5"
+         data-toggle="toggle"
+         data-on="Yes"
+         data-off="No"
+         data-onstyle="success"
+         data-offstyle="danger"
+         <?= $row['own_branch'] === 'Yes' ? 'checked' : '' ?> />
+</td>
 
+<td id="statusText<?= $row['branch_id'] ?>"> <?= $row['status']; ?> </td>
+
+<td>
+                
 <div class="d-flex justify-content-center">
   <button 
     class="<?= $row['status'] === 'active' ? 'btn btn-danger' : 'btn btn-success' ?>" 
@@ -107,7 +131,6 @@ if (mysqli_num_rows($result) > 0) {
     <?= $row['status'] === 'active' ? 'Deactivate' : 'Activate' ?>
   </button>
 </div>
-
 
 </td>
 
@@ -135,91 +158,7 @@ if (mysqli_num_rows($result) > 0) {
     <!-- /.content -->
   </div>
 
-<!-- <script>
-let currentStatus = 'Activate';
 
-function toggleStatus() {
-  const btn = document.getElementById('statusBtn');
-  if (currentStatus === 'Activate') {
-    currentStatus = 'deactive';
-    btn.textContent = 'Deactivate';
-    btn.classList.remove('btn-success');
-    btn.classList.add('btn-danger');
-  } else {
-    currentStatus = 'Activate';
-    btn.textContent = 'Activate';
-    btn.classList.remove('btn-danger');
-    btn.classList.add('btn-success');
-  }
-}
-</script> -->
-<!-- <script>
-function toggleStatus(branchId, newStatus) {
-  
-   console.log("Branch ID:", branchId, "New Status:", newStatus); 
-  fetch('get_status_update.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `action=toggle_status&branch_id=${branchId}&new_status=${newStatus}`
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      console.log("Status updated!");
-
-      // Get the button element
-      const btn = document.getElementById('statusBtn');
-
-      // Update text based on new status
-      const updatedStatus = newStatus === 'active' ? 'Deactivate' : 'Activate';
-      btn.textContent = updatedStatus;
-
-      // Update the onclick with toggled status
-      btn.setAttribute("onclick", `toggleStatus(${branchId}, '${newStatus === 'active' ? 'inactive' : 'active'}')`);
-
-      // Toggle button color
-      btn.classList.toggle('btn-success');
-      btn.classList.toggle('btn-danger');
-    } else {
-      console.error("Update failed:", data.error);
-    }
-  });
-}
-</script> -->
-<!-- <script>
-function toggleStatus(branchId, currentStatus) {
-   
-  const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-
-  const confirmed = confirm(`Are you sure you want to ${newStatus === 'active' ? 'activate' : 'deactivate'} this branch?`);
-  if (!confirmed) return;
- console.log("Branch ID:", branchId, "New Status:", newStatus); 
-  fetch('get_status_update.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `action=toggle_status&branch_id=${branchId}&new_status=${newStatus}`
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-       console.log("Status updated!");
-      const btn = document.getElementById('statusBtn');
-      btn.textContent = newStatus === 'active' ? 'Deactivate' : 'Activate';
-      btn.setAttribute("onclick", `toggleStatus(${branchId}, '${newStatus}')`);
-      btn.classList.toggle('btn-danger');
-      btn.classList.toggle('btn-success');
-    }
-       // ✅ Update the <td> status text dynamically
-      const statusTd = document.getElementById('statusText' + branchId);
-      if (statusTd) {
-        statusTd.textContent = newStatus;
-      }
-    else {
-      console.error("Update failed:", data.error);
-    }
-  });
-}
-</script> -->
 <script>
 function toggleStatus(branchId, currentStatus) {
   const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
@@ -253,6 +192,48 @@ function toggleStatus(branchId, currentStatus) {
   });
 }
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("Page loaded");
+ 
+    
+  const checkboxes = document.querySelectorAll(".toggle-own-branch");
+
+   console.log("Found", checkboxes.length, "checkboxes"); // is this printing a number > 0?
+
+  checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
+      const id = this.dataset.id;
+      const status = this.checked ? "Yes" : "No";
+
+      console.log("Branch ID:", id);
+      console.log("Own Branch Status:", status);
+      console.log("hello");
+      fetch("update_own_branch.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `id=${encodeURIComponent(id)}&own_branch=${encodeURIComponent(status)}`
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log("Server response:", data);
+        if (data.trim() === "success") {
+          alert("Updated successfully");
+        } else {
+          alert("Server returned: " + data);
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("AJAX request failed");
+      });
+    });
+  });
+});
+</script>
+
 
 
 </body>

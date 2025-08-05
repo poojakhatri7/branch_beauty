@@ -117,6 +117,12 @@
                   <p>Available Branches</p>
                 </a>
               </li>
+               <li class="nav-item">
+                <a href="available_branches" class="nav-link staff">
+                <i class="fa fa-list"></i>
+                  <p>Own Branch List</p>
+                </a>
+              </li>
             </ul>
           </li>
       <li class="nav-item">

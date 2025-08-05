@@ -51,6 +51,7 @@ if (isset($_GET['branch_details_id'])) {
         }
 
         echo '      </tbody>
+        
                 </table>
               </div>
             </div>
