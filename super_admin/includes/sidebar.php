@@ -118,7 +118,7 @@
                 </a>
               </li>
                <li class="nav-item">
-                <a href="available_branches" class="nav-link staff">
+                <a href="own_branch_list" class="nav-link staff">
                 <i class="fa fa-list"></i>
                   <p>Own Branch List</p>
                 </a>

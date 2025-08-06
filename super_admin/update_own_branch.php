@@ -1,5 +1,5 @@
 <?php
-include 'db_connection.php'; // Your DB connection file
+include 'session.php';
 
 if (isset($_POST['id']) && isset($_POST['own_branch'])) {
     $id = $_POST['id'];

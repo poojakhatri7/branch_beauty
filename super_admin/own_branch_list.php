@@ -123,7 +123,8 @@ $sql ="SELECT
     ald.name AS admin_name
 FROM branch_details bd
 LEFT JOIN admin_login_details ald
-    ON bd.id = ald.branch_details_id AND ald.role = 1; ";
+    ON bd.id = ald.branch_details_id AND ald.role = 1
+     WHERE bd.own_branch = 'Yes'";
 
 $result = mysqli_query($conn, $sql);
 $count = 0;
@@ -158,6 +159,7 @@ if (mysqli_num_rows($result) > 0) {
     </label>
   </div>
 </td>
+
 
 <td id="statusText<?= $row['branch_id'] ?>"> <?= $row['status']; ?> </td>
 
@@ -296,6 +298,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const id = checkbox.data("id");
       const own_branch = checkbox.is(":checked") ? "Yes" : "No";
 
+       console.log("Branch ID:", id);
+      console.log("Own Branch Status:", own_branch); 
       // Show confirmation dialog
       const confirmChange = confirm(`Are you sure you want to set "Own Branch" to ${own_branch}?`);
 
