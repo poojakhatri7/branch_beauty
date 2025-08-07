@@ -6,7 +6,6 @@ include('includes/sidebar.php');
 $branch_details_id = $_SESSION['branch_details_id'];
 ?>
 
-
 <main class="app-main">
 <!doctype html>
 <html lang="en">
@@ -20,7 +19,7 @@ $branch_details_id = $_SESSION['branch_details_id'];
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
     <style type="text/css">
-.admin_enquiry_message{
+.admin_complete_enquiry{
   /* background : #157daf !important; */
   background :rgb(33, 70, 77) !important;
 }
@@ -38,16 +37,16 @@ $branch_details_id = $_SESSION['branch_details_id'];
           </div><!-- /.col -->
           <div class="col-sm-6">
            
-           <ol>
-            <ol class="breadcrumb float-sm-right">
-  <button class="btn" style="background-color: rgb(51, 139, 139);;border: none; cursor: pointer;  padding: 7px 7px;">
-    <i class="fa fa-user-plus fa-lg" style="margin-right: 2px; color: black; font-size: 14px;"></i>
+           <!--<ol>-->
+           <!-- <ol class="breadcrumb float-sm-right">-->
+  <!--<button class="btn" style="background-color: rgb(51, 139, 139);;border: none; cursor: pointer;  padding: 7px 7px;">-->
+  <!--  <i class="fa fa-user-plus fa-lg" style="margin-right: 2px; color: black; font-size: 14px;"></i>-->
     <!-- <a href="/beauty_parlour_management_system/admin2/admin_add_customer2.php"  -->
-    <a href="#" class="text-white mx-1" data-toggle="modal" data-target="#modal-default" 
-       style="text-decoration: none; color:  rgb(238, 230, 217) !important; font-size: 14px; font-weight: 700;  margin: 4px 2px;">
-      Add Appointment
-    </a>
-  </button>
+  <!--  <a href="#" class="text-white mx-1" data-toggle="modal" data-target="#modal-default" -->
+  <!--     style="text-decoration: none; color:  rgb(238, 230, 217) !important; font-size: 14px; font-weight: 700;  margin: 4px 2px;">-->
+  <!--    Add Appointment-->
+  <!--  </a>-->
+  <!--</button>-->
   <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -107,27 +106,36 @@ $branch_details_id = $_SESSION['branch_details_id'];
     <div class="container-fluid">
 <div class="card">
               <div class="card-header">
-                <h5 class="m-0"> Enquiry Messages </h5>
+                <h5 class="m-0"> Rejected Enquires </h5>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                 <thead style="background-color: rgb(51, 139, 139) ">
-                   <tr>
+                  <tr>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">S no.</th>
+                    
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Name</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Mobile</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Message</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Date and Time</th>
                       <th style="color: rgb(238, 230, 217); font-weight: 500;">Status</th>
-                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Select Enquiry Status</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Actions</th>
                     <!-- <th>Actions</th> -->
                   </tr>
                   </thead>
                   <tbody>
+
+
                   <?php
-$sql = "SELECT * FROM enquiry_message WHERE branch_details_id = '$branch_details_id' order BY id DESC";
+// $sql = "SELECT * FROM enquiry_message where status ='complete' order BY id DESC ";
+
+
+$sql = "SELECT * FROM enquiry_message 
+        WHERE branch_details_id = '$branch_details_id' 
+          AND status = 'Rejected' 
+        ORDER BY id DESC";
 $result = mysqli_query($conn, $sql);
 $count = 0;
 if (mysqli_num_rows($result) > 0) {
@@ -136,14 +144,15 @@ if (mysqli_num_rows($result) > 0) {
         ?>
         <tr>
             <th scope='row'><?php echo $count; ?></th>
-             <td><?php echo $row['branch_name']; ?></td>
+        
             <td><?php echo $row['name']; ?></td>
             <td><?php echo $row['email']; ?></td>
             <td><?php echo $row['mobile']; ?></td>
             <td><?php echo $row['message']; ?></td>
           
             <td><?php echo date("d-m-Y h:i", strtotime($row['created_at'])); ?></td>
-<td id="status-text-<?php echo $row['id']; ?>"><?php echo $row['status']; ?></td>
+           
+  <td><?php echo $row['status']; ?></td>
             <!-- <td> 
   <a href='/beauty_parlour_management_system/admin2/admin_edit_customer.php?id=<?php echo $row["id"]; ?>'>
 
@@ -162,6 +171,7 @@ if (mysqli_num_rows($result) > 0) {
     <div style="display: inline-block;">
         <a href='delete_data?id=<?php echo $row["id"]; ?>&table=enquiry_message'
          onclick="return confirm('Are you sure you want to delete this?')">
+            
             <i class='fa fa-trash' style='color: red;'></i> <!-- Trash icon -->
         </a>
     </div>
@@ -190,73 +200,6 @@ if (mysqli_num_rows($result) > 0) {
     <!-- /.content -->
   </div>
 
-  <script>
-        $(document).ready(function() {
-            // Trigger AJAX when the user types in the mobile number
-            $("#mobile").on("keyup", function() {
-                var mobile = $("#mobile").val(); // Get the mobile number entered
-                if (mobile.length >= 8) { // Start searching after 3 characters (adjust as needed)
-                    $.ajax({
-                        url: "fetch_customer.php", // PHP file to fetch customer data
-                        method: "POST",
-                        data: { mobile: mobile },
-                        success: function(response) {
-                            // Handle the response from fetch_customer.php
-                            var data = JSON.parse(response); // Parse the JSON response
-                            if (data.success) {
-                                // Populate the fields with data
-                                $("#name").val(data.name);
-                                $("#email").val(data.email);
-                                $("#address").val(data.address);
-                                $("#error-message").hide();
-                            } else {
-                                // If customer not found
-                                $("#name").val("");
-                                $("#email").val("");
-                                $("#address").val("");
-                               // alert("Customer not found!");
-                               $("#error-message").text("No Record Found Please Fill Up The Details").show();
-                            }
-                        },
-                        error: function() {
-                            alert("An error occurred while fetching the data.");
-                        }
-                    });
-                }
-            });
-        });
-  
-        $(document).ready(function () {
-            $("#submitBtn1").click(function (e) {
-                e.preventDefault(); // Prevent form submission
-                var mobile = $("#mobile").val();
-                var name = $("#name").val();
-                var email = $("#email").val();
-                var address = $("#address").val();
-                var date = $("#date").val();
-                var time = $("#time").val();
-                console.log("Mobile:", mobile, "Name:", name, "Email:", email, "Address:", address, "Date:", date, "Time:", time);
-                $.ajax({
-                    type: "POST",
-                    url: "add_appointment.php", // PHP file that will handle the request
-                    data: {
-                       mobile: mobile,
-                      name: name,
-                      email: email,
-                      address: address,
-                      date : date,
-                      time : time
-                      },
-                    success: function (response) {
-                        $("#message").html(response); // Display response message
-                       $("#appointment_form")[0].reset(); // Reset form fields
-                     $("#appointment_form").trigger("reset");
-                     $("#error-message").hide();
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
 </main>

@@ -61,7 +61,7 @@ include('includes/sidebar.php');
 <label> Search By Branch </label>
 
 <?php
-$sql = "SELECT * FROM branch_details"; 
+$sql = "SELECT * FROM branch_details WHERE status='active'"; 
 $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
             // echo '<li aria-haspopup="true"><a href="pprice.php?c_id=' . $row['c_id'] . '">' . htmlspecialchars($row['c_service']) . '</a></li>';

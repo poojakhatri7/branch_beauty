@@ -316,7 +316,7 @@ $invoice=mysqli_num_rows($query5);?>
     // Area Chart
     const areaChartCanvas = $('#areaChart').get(0).getContext('2d');
     const areaChartData = {
-      labels: ['', 'Total Services', '', 'All Appointments', '', 'Total Registration', '', 'Total Invoice'],
+      labels: ['', 'Total Branches', '', 'All Appointments', '', 'Total Registration', '', 'Total Invoice'],
       datasets: [
         { 
           label: 'Dashboard Data',
@@ -357,7 +357,7 @@ $invoice=mysqli_num_rows($query5);?>
     // Bar Chart
     const barChartCanvas = $('#barChart').get(0).getContext('2d');
     const barChartData = {
-      labels: ['', 'Total Services', '', 'All Appointments', '', 'Total Registration', '', 'Total Invoice'],
+      labels: ['', 'Total Branches', '', 'All Appointments', '', 'Total Registration', '', 'Total Invoice'],
       datasets: [
         {
           label: 'Dashboard Data',

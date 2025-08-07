@@ -159,7 +159,10 @@ if (mysqli_num_rows($result) > 0) {
   </div>
 </td>
 
-<td id="statusText<?= $row['branch_id'] ?>"> <?= $row['status']; ?> </td>
+<td id="statusText<?= $row['branch_id'] ?>" 
+    style="color: <?= $row['status'] === 'active' ? 'green' : 'red'; ?>; font-weight: bold;">
+    <?= ucfirst($row['status']); ?>
+</td>
 
 <td>
                 
@@ -222,10 +225,25 @@ function toggleStatus(branchId, currentStatus) {
       btn.classList.toggle('btn-success');
 
       // ✅ Update the status column dynamically
-      const statusTd = document.getElementById('statusText' + branchId);
-      if (statusTd) {
-        statusTd.textContent = newStatus;
-      }
+    const statusTd = document.getElementById('statusText' + branchId);
+if (statusTd) {
+  statusTd.textContent = newStatus;
+
+  // Optional: Capitalize first letter if needed
+  statusTd.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).toLowerCase();
+
+  // Update the color based on new status
+  if (newStatus.toLowerCase() === 'active') {
+    statusTd.style.color = 'green';
+    statusTd.style.fontWeight = 'bold';
+  } else if (newStatus.toLowerCase() === 'inactive') {
+    statusTd.style.color = 'red';
+    statusTd.style.fontWeight = 'bold';
+  } else {
+    statusTd.style.color = '';
+    statusTd.style.fontWeight = '';
+  }
+}
     } else {
       console.error("Update failed:", data.error);
     }

@@ -57,7 +57,7 @@ if (mysqli_num_rows($duplicate_admin) > 0 || mysqli_num_rows($duplicate_user) > 
         echo"<script> alert('updated successfully') </script>";
        }
     } else {
-        $query2 = "INSERT INTO admin_login_details (branch_details_id, branch_name , name , mobile , email, address , password , role , file )  values ('$branch_details_id','$branch_name','$name','$mobile','$email','$address','$password','$role','$uploadPath')";
+        $query2 = "INSERT INTO admin_login_details (branch_details_id,  name , mobile , email, address , password , role , file )  values ('$branch_details_id','$name','$mobile','$email','$address','$password','$role','$uploadPath')";
         if ( mysqli_query($conn, $query2))
         {
              echo"<script> alert('New Staff added Successfully') 

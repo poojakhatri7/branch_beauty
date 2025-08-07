@@ -17,6 +17,7 @@ $owner_address = mysqli_real_escape_string($conn, $_POST["owner_address"]);
 $role = 1;
 $password =1234;
 $branch_status = "active";
+$own_branch = "No";
 // Step 1: Insert manager into admin_login_details
 $sql1 = "INSERT INTO admin_login_details (name, branch_details_id, mobile, email, address, password , role) 
          VALUES ('$manager_name', 1 ,'$owner_mobile ','$owner_email','$owner_address','$password', $role )";
@@ -25,7 +26,7 @@ mysqli_query($conn, $sql1);
 // Get the last inserted manager ID
 $manager_id = mysqli_insert_id($conn);
 
-    $query1 = "INSERT INTO branch_details values ('','$branch_status','$manager_id', '$branch_name','$branch_city','$branch_email','$branch_address','$branch_mobile')";
+    $query1 = "INSERT INTO branch_details values ('','$branch_status','$manager_id', '$branch_name','$branch_city','$branch_email','$branch_address','$branch_mobile','$own_branch')";
      mysqli_query($conn, $query1);
 
 // Step 3: Get new branch ID
@@ -214,6 +215,7 @@ $sql3 = "UPDATE admin_login_details SET branch_details_id = $branch_id WHERE id 
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Email</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Address</th>
                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Password</th>
+                    <th style="color: rgb(238, 230, 217); font-weight: 500;">Branch Status</th>
                     <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                   </tr>
                   </thead>
@@ -242,6 +244,7 @@ SELECT
      ald.password,
     bd.branch_name,
     bd.city,
+     bd.status,
     bd.id AS branch_id
 FROM admin_login_details ald
 JOIN branch_details bd 
@@ -265,7 +268,11 @@ if (mysqli_num_rows($result) > 0) {
             <td><?php echo $row['email']; ?></td>
              <td><?php echo $row['address']; ?></td>
                 <td><?php echo $row['password']; ?></td>
-          
+                 <td> <?php
+echo "<span style='color: " . ($row['status'] === 'active' ? 'green' : 'red') . "; font-weight: bold;'>
+        " . ucfirst($row['status']) . "
+      </span>"; ?>
+                 </td>
             <td>
     <div style="display: inline-block; margin-right: 20px;">
         <a href='edit_admin_details?id=<?php echo $row["admin_id"]; ?>'>

@@ -152,7 +152,7 @@ if (mysqli_num_rows($duplicate) > 0) {
              <div class="form-group">
                  <label for="branch_id">Select Branch:</label>
                  <?php 
-                $branch_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+                $branch_result = mysqli_query($conn, "SELECT * FROM branch_details WHERE status='active'"); 
             ?>
                 <select name="branch_id"  class="form-control" required>
                     <option value="" selected disabled>Select Branch</option>

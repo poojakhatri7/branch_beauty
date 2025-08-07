@@ -87,6 +87,7 @@ include('includes/sidebar.php');
                       <th style="color: rgb(238, 230, 217); font-weight: 500;"> Location </th>
                         <th style="color: rgb(238, 230, 217); font-weight: 500;"> Invoice </th>
                        <th style="color: rgb(238, 230, 217); font-weight: 500;">Revenue (Rs)</th>
+                         <th style="color: rgb(238, 230, 217); font-weight: 500;"> Branch Status</th>
                      <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th>
                     <!-- <th style="color: rgb(238, 230, 217); font-weight: 500;">Action</th> -->
                   </tr>
@@ -118,6 +119,7 @@ include('includes/sidebar.php');
 $sql = "
 SELECT 
     bd.id,
+      bd.status,
     bd.branch_manager_id, 
     bd.branch_name,
     bd.email,
@@ -148,7 +150,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                <td>{$row['email']}</td>
                  <td>{$row['address']}</td>
                   <td>{$row['total_invoices']}</td>
-                  <td>Rs " . number_format($row['total_revenue'], 2) . "</td>     
+                  <td>Rs " . number_format($row['total_revenue'], 2) . "</td>   
+ <td>
+    <span style='color: " . ($row['status'] === 'active' ? 'green' : 'red') . "; font-weight: bold;'>
+        " . strtoupper($row['status']) . "
+    </span>
+</td>
+
                  <td>
     <a href='#' 
     class='view-btn'

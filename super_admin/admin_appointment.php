@@ -4,7 +4,6 @@ include('includes/header.php');
 include('includes/top_navbar.php');
 include('includes/sidebar.php');
 ?>
-
 <main class="app-main">
 <!doctype html>
 <html lang="en">
@@ -25,7 +24,7 @@ include('includes/sidebar.php');
 </style>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -69,7 +68,7 @@ include('includes/sidebar.php');
                <div class="form-group">
                  <label for="branch_id" style="color:rgb(51, 139, 139);">Select Branch:</label>
                  <?php 
-                $branch_result = mysqli_query($conn, "SELECT * FROM branch_details"); 
+                $branch_result = mysqli_query($conn, "SELECT * FROM branch_details  WHERE status='active'"); 
             ?>
                 <select name="branch_id" id="branch_id"  class="form-control" required>
                     <option value="" selected disabled>Select Branch</option>
@@ -197,6 +196,7 @@ JOIN
     branch_details bd 
 ON 
     ta.branch_details_id = bd.id
+   
 ORDER BY 
     ta.id DESC
 ";
